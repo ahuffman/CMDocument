@@ -1,0 +1,19 @@
+<html> 
+    <body> 
+        <form action="add_object_note.php" method="post"> 
+	    Select an Object: <select name="object">
+	    <?php
+            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+            $result = pg_query($db, "SELECT * FROM cmd_object"); 
+            while ($row = pg_fetch_assoc($result)) {
+                echo '  <option value="' . $row['obj_id'] . '">' . $row['obj_name'] . '</option>' . "\r\n            ";
+            }
+            echo '</select><br />' . "\r\n";    
+            pg_close($db);
+            ?>
+            Notes: <input type="text" name="note" size="40" length="40" value=""><br />
+            <input type="submit" name="submit" value="Submit"> 
+            <input type="reset" name="reset" value="Clear"> 
+        </form> 
+    </body> 
+</html>

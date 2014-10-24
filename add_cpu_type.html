@@ -1,0 +1,33 @@
+<html> 
+    <body> 
+        <form action="add_cpu_type.php" method="post"> 
+            CPU Model Number: <input type="text" name="cpumodel" size="40" length="40" value=""><br /> 
+            CPU Name: <input type="text" name="cputypedescription" size="40" length="40" value=""><br /> 
+	    CPU Cores: <select name="cpucores">
+	      <option value="1">1</option>
+	      <option value="2">2</option>
+	      <option value="3">3</option>
+	      <option value="4">4</option>
+	      <option value="5">5</option>
+	      <option value="6">6</option>
+	      <option value="7">7</option>
+	      <option value="8">8</option>
+	      <option value="9">9</option>
+	      <option value="10">10</option>
+	    </select><br />
+	    CPU Vendor: <select name="cpuvendor">
+	      <option value="">Choose a vendor</option>
+	    <?php
+            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+            $result = pg_query($db, "SELECT * FROM cmd_vendors"); 
+            while ($row = pg_fetch_assoc($result)) {
+                echo '  <option value="' . $row['vend_id'] . '">' . $row['vend'] . '</option>' . "\r\n            ";
+            }
+            echo '</select><br />' . "\r\n";    
+            pg_close($db);
+            ?>
+            <input type="submit" name="submit" value="Submit"> 
+            <input type="reset" name="reset" value="Clear"> 
+        </form> 
+    </body> 
+</html>

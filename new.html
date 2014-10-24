@@ -1,0 +1,98 @@
+<html>
+    <body>
+        <script type="text/javascript">
+          function OnSubmitForm() {
+             if(document.pressed == 'status') {
+                  document.objectform.action = "add_status.html";
+             }
+             else
+             if(document.pressed == 'priority') {
+                  document.objectform.action = "add_priority.html";
+             }
+             else
+             if(document.pressed == 'object') {
+                  document.objectform.action = "add_object.php";
+             }
+             else
+             if(document.pressed == 'os') {
+                  document.objectform.action = "add_os.html";
+             }
+             return true;
+          }
+          </script>
+        <?php
+             if (isset($_POST['objectname'])){$objectname = pg_escape_string($_POST['objectname']);}
+             if (isset($_POST['serial'])){$serial = pg_escape_string($_POST['serial']);}
+             if (isset($_POST['installdate'])){$installdate = pg_escape_string($_POST['installdate']);}
+             if (isset($_POST['decomissiondate'])){$decomissiondate = pg_escape_string($_POST['decomissiondate']);}
+             if (isset($_POST['ru_size'])){$ru_size = pg_escape_string($_POST['ru_size']);}
+             if (isset($_POST['priority'])){$priority = pg_escape_string($_POST['priority']);}
+             if (isset($_POST['purpose'])){$purpose = pg_escape_string($_POST['purpose']);}
+             if (isset($_POST['referer'])){$ref = pg_escape_string($_POST['referer']);}
+             if (isset($_POST['os'])){$os = pg_escape_string($_POST['os']);}
+             if (isset($_POST['os_ver'])){$os_ver = pg_escape_string($_POST['os_ver']);}
+             if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
+function buildPage() {
+echo 'Page Built';
+echo '<br />';
+}
+             if( $ref == "status" ) {
+               echo 'Referer is Status.';
+               echo $status;
+               $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+               pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
+buildPage();
+             echo '<form name="objectform" onsubmit="return OnSubmitForm();" method="post">';
+             echo '<input type="hidden" name="referer" value="object">';
+             echo 'Object(FQDN)/label: <input type="text" name="objectname" size="40" length="40" value="' . $objectname . '">';
+             echo 'Equipment Status: ' . '<select name="status">';
+             $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+             $resultstatus = pg_query($db, "SELECT * from cmd_status");
+             pg_close($db);
+             while ($statusrow = pg_fetch_assoc($resultstatus)) {
+                 if (isset($status)){echo '<!--Row value:' . $statusrow['status'] . 'PHP Value:' . $status . '-->';}
+                 if( $statusrow['status'] == $status ) {
+                    echo '<option value="' . $statusrow['status_id'] . '"' .'selected>' . $statusrow['status'] . '</option>' . "\r\n            ";
+                 }
+                 else {
+                    echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . '</option>' . "\r\n            ";
+                 }
+             }
+             echo '</select>' . "   " . '<input type="submit" name="status" onclick="document.pressed=this.name" value="New Status" />' . '<br />' .  "\r\n";
+             echo '</form>';
+
+             }
+             else 
+             if ( $ref == "os" ){
+                 echo 'Referer is OS: ';
+                 $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+                 pg_query($db, "INSERT INTO cmd_os(os, os_ver) VALUES('$os', '$os_ver')");
+                 echo $os . " " . $os_ver;
+                 buildPage();
+
+             }
+             else {
+             echo 'No Referer.';
+buildPage();
+             echo '<form name="objectform" onsubmit="return OnSubmitForm();" method="post">';
+             echo '<input type="hidden" name="referer" value="object">';
+             echo 'Object(FQDN)/label: <input type="text" name="objectname" size="40" length="40" value="">' . '<br />' .  "\r\n";
+             echo 'Equipment Status: ' . '<select name="status">';
+             $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+             $result_status = pg_query($db, "SELECT * from cmd_status");
+             while ($statusrow = pg_fetch_assoc($result_status)) {
+                echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . '</option>' . "\r\n            ";  
+             }
+             echo '</select>' . "   " . '<input type="submit" name="status" onclick="document.pressed=this.name" value="New Status" />' . '<br />' .  "\r\n";
+             $result_os = pg_query($db, "SELECT * from cmd_os");
+             pg_close($db);
+             echo 'Operating System: ' . '<select name="os">';
+             while ($osrow = pg_fetch_assoc($result_os)) {
+                 echo '<option value="' . $osrow['os_id'] . '">' . $osrow['os'] . ' ' . $osrow['os_ver'] . '</option>' . "\r\n            ";
+             }
+             echo '</select>' . '<input type="submit" name="os" onclick="document.pressed=this.name" value="New OS" />';
+             echo '</form>';
+             }
+        ?>
+    </body>
+</html>
