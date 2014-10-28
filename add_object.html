@@ -1,92 +1,126 @@
-<html> 
-    <body> 
+<html>
+    <body>
         <script type="text/javascript">
           function OnSubmitForm() {
-            if(document.pressed == 'status') {
-                 document.objectform.action = "add_status.html";
-            }
-            else
-            if(document.pressed == 'priority') {
-                 document.objectform.action = "add_priority.html";
-            }
-            else
-            if(document.pressed == 'object') {
-                 document.objectform.action = "add_object.php"
-            }
-            return true;
-           }
-          </script> 
-        <?php
-          $objectname = pg_escape_string($_POST['objectname']);
-          $serial = pg_escape_string($_POST['serial']);
-          $installdate = pg_escape_string($_POST['installdate']);
-          $decomissiondate = pg_escape_string($_POST['decomissiondate']);
-          $ru_size = pg_escape_string($_POST['ru_size']);
-          $priority = pg_escape_string($_POST['priority']);
-          $purpose = pg_escape_string($_POST['purpose']);
-          $ref = pg_escape_string($_POST['referrer']);
-          $status = pg_escape_string($_POST['status']);
-          if($ref == "status") {
-            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-            pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
-//              while(sleep(30)) {
-//                echo '<div id="message">';
-//                echo 'The Status was added successfully with values: <br />' . 'Status: ' . $status . '<br />' . "\r\n";
-//                echo '</div>' . "\r\n";
-//              }
-//echo '        <form name="objectform" onsubmit="return OnSubmitForm();" method="post">';
-echo '            <input type="hidden" name="referrer" value="object">';
-//echo '            Object(FQDN)/label: <input type="text" name="objectname" size="40" length="40" value="' . $objectname . '"><br />';
-//echo '            Serial/Tag: <input type="text" name="serial" size="40" length="40" value="' . $serial . '"><br />';
-//echo '            Install Date: <input type="date" name="installdate" size="40" length="40" value="' . $installdate . '"><br />';
-//echo '            Decomission Date: <input type="date" name="decomissiondate" size="40" length="40" value="' . $decomissiondate . '"><br />';
-//echo '            Equipment Size (Rack Units): <select name="ru_size" value="' . $ru_size . '>';
-//              $count = 0;
-//              while($count < 10) {
-//                $count++;
-//                echo '              <option value="' . $count . '">' . $count . '</option>' . "\r\n            ";
-//              }
-//              echo '</select><br />' . "\r\n";
-//              echo 'Equipment Status: ' . '<select name="status">';
-              $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-              $status = pg_query($db, "SELECT * from cmd_status");
-//              pg_close($db);
-              while ($statusrow = pg_fetch_assoc($status)) {
-                if($statusrow['status'] == "$status") {
-                  echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . ' selected="selected"' . '</option>' . "\r\n            ";
-                }
-                else {
-                  echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . '</option>' . "\r\n            ";
-                }
-              }
-              echo '</select>' . "\r\n" . '   ' . '<input type="submit" name="status" onclick="document.pressed=this.name" value="Add Status" />';
+             if(document.pressed == 'status') {
+                  document.objectform.action = "add_status.html";
+             }
+             else
+             if(document.pressed == 'priority') {
+                  document.objectform.action = "add_priority.html";
+             }
+             else
+             if(document.pressed == 'object') {
+                  document.objectform.action = "add_object.php";
+             }
+             else
+             if(document.pressed == 'os') {
+                  document.objectform.action = "add_os.html";
+             }
+             return true;
           }
-//          else {
-//echo '        <form name="objectform" onsubmit="return OnSubmitForm();" method="post">';
-//echo '            <input type="hidden" name="referrer" value="object">';
-//echo '            Object(FQDN)/label: <input type="text" name="objectname" size="40" length="40" value=".insideidc.com"><br />';
-//echo '            Serial/Tag: <input type="text" name="serial" size="40" length="40" value="serial/tag"><br />';
-//echo '            Install Date: <input type="date" name="installdate" size="40" length="40" value="<?php echo date('Y-m-d'); ?>"><br />';
-//echo '            Decomission Date: <input type="date" name="decomissiondate" size="40" length="40" value=""><br />';
-//echo '            Equipment Size (Rack Units): <select name="ru_size">';
-//            $count = 0;
-//            while($count < 10) {
-//              $count++;
-//              echo '              <option value="' . $count . '">' . $count . '</option>' . "\r\n            ";
-//            }
-//            echo '</select><br />' . "\r\n";
-//            echo 'Equipment Status: ' . '<select name="status">';
-//            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect'); 
-//            $status = pg_query($db, "SELECT * from cmd_status");
-//            pg_close($db);
-//            while ($statusrow = pg_fetch_assoc($status)) {
-//            echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . '</option>' . "\r\n            ";
-//            }
-//            echo '</select>' . "\r\n" . "   " . '<input type="submit" name="status" onclick="document.pressed=this.name" value="Add Status" />'; 
-//          } 
+          </script>
+        <?php
+
+             if (isset($_POST['objectname'])){$objectname = pg_escape_string($_POST['objectname']);}else {$objectname = "";}
+             if (isset($_POST['serial'])){$serial = pg_escape_string($_POST['serial']);}else {$serial = "";}
+             if (isset($_POST['installdate'])){$installdate = pg_escape_string($_POST['installdate']);}else {$installdate = "";}
+             if (isset($_POST['decomissiondate'])){$decomissiondate = pg_escape_string($_POST['decomissiondate']);}else {$decomissiondate = "";}
+             if (isset($_POST['ru_size'])){$ru_size = pg_escape_string($_POST['ru_size']);}else {$ru_size = "";}
+             if (isset($_POST['priority'])){$priority = pg_escape_string($_POST['priority']);}else {$priority = "";}
+             if (isset($_POST['purpose'])){$purpose = pg_escape_string($_POST['purpose']);}else {$purpose = "";}
+             if (isset($_POST['referer'])){$ref = pg_escape_string($_POST['referer']);}else {$ref = "";}
+             if (isset($_POST['os'])){$os = pg_escape_string($_POST['os']);}else {$os = "";}
+             if (isset($_POST['os_ver'])){$os_ver = pg_escape_string($_POST['os_ver']);}else {$os_ver = "";}
+             if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}else {$status = "";}
+
+function buildPage() {
+//builds the page based on a variety of conditions
+    //grab global variables
+    global $objectname;
+    global $serial;
+    global $installdate;
+    global $decomissiondate;
+    global $ru_size;
+    global $priority;
+    global $purpose;
+    global $ref;
+    global $os;
+    global $os_ver;
+    global $status;
+    echo 'Page Built';
+    echo '<br />';
+    echo '<form name="objectform" onsubmit="return OnSubmitForm();" method="post">';
+    echo '<input type="hidden" name="referer" value="object">';
+    echo 'Object(FQDN)/label: <input type="text" name="objectname" size="40" length="40" value="' . $objectname . '">' . '<br />' .  "\r\n";
+    echo '            Serial/Tag: <input type="text" name="serial" size="40" length="40" value="' . $serial . '"><br />';
+    echo '            Install Date: <input type="date" name="installdate" size="40" length="40" value="' . $installdate . '"><br />';
+    echo '            Decomission Date: <input type="date" name="decomissiondate" size="40" length="40" value="' . $decomissiondate . '"><br />';
+    echo '            Equipment Size (Rack Units):';
+    echo "\r\n" . '           <select name="ru_size" value="' . $ru_size . '">' . "\r\n";
+    $count = 1;
+    while ( $count < 10 ) {
+        if ( $ru_size == $count ) {
+            echo '              <option value="' . $count . '" selected="selected">' . $count . '</option>' . "\r\n";
+        }
+        else {
+            echo '              <option value="' . $count . '">' . $count . '</option>' . "\r\n";
+        }
+        ++$count;
+    }
+    echo '           </select><br />' . "\r\n";
+    echo 'Equipment Status: ' . '<select name="status">';
+    $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+    $result_status = pg_query($db, "SELECT * from cmd_status");
+    while ($statusrow = pg_fetch_assoc($result_status)) {
+        if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
+        if ( $statusrow['status'] == "$status" ) {
+            echo '<option value="' . $statusrow['status_id'] . '" selected="selected">' . $statusrow['status'] . '</option>' . "\r\n            "; 
+        }
+        else {
+            echo '<option value="' . $statusrow['status_id'] . '">' . $statusrow['status'] . '</option>' . "\r\n            ";
+        }
+    }
+    echo '</select>' . "   " . '<input type="submit" name="status" onclick="document.pressed=this.name" value="New Status" />' . '<br />' .  "\r\n";
+    $result_os = pg_query($db, "SELECT * from cmd_os");
+    pg_close($db);
+    echo 'Operating System: ' . '<select name="os">';
+    while ($osrow = pg_fetch_assoc($result_os)) {
+        if ( $osrow['os'] == "$os" ) {
+            echo '<option value="' . $osrow['os_id'] . '" selected="selected">' . $osrow['os'] . ' ' . $osrow['os_ver']  . '</option>' . "\r\n            ";
+        }
+        else {
+            echo '<option value="' . $osrow['os_id'] . '">' . $osrow['os'] . ' ' . $osrow['os_ver'] . '</option>' . "\r\n            ";
+        }
+    }
+    echo '</select>' . '<input type="submit" name="os" onclick="document.pressed=this.name" value="New OS" />';
+    echo '</br>';
+    echo '<input type="submit" name="object" onclick="document.pressed=this.name" value="Submit">';
+    echo '<input type="reset" name="reset" value="Clear">';
+    echo '</form>';
+}
+             if( $ref == "status" ) {
+                 echo 'Referer is Status.';
+                 echo $status;
+                 //since we have a Refererence value from the add_status.html page we will want to insert that value now
+                 $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+                 pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
+                 //we've inserted the value(s) so we will now build the page
+                 buildPage();
+                 }
+                 else 
+                     if ( $ref == "os" ){
+                         echo 'Referer is OS: ';
+                         $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+                         pg_query($db, "INSERT INTO cmd_os(os, os_ver) VALUES('$os', '$os_ver')");
+                         echo $os . " " . $os_ver;
+                         buildPage();
+                     }
+                     else {
+                         echo 'No Referer.';
+                         buildPage();
+                     }
+             
         ?>
-            <input type="submit" name="object" onclick="document.pressed=this.name" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+    </body>
 </html>

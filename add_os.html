@@ -12,7 +12,7 @@
              if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
         if (isset($ref)){
             if($ref == "object") {
-              echo '        <form action="new.html" method="post">';
+              echo '        <form action="add_object.html" method="post">';
               if (isset($objectname)){echo '        <input type="hidden" name="objectname" value="' . $objectname . '">' . "\r\n";}
               if (isset($serial)){echo '        <input type="hidden" name="serial" value="' . $serial . '">' . "\r\n";}
               if (isset($installdate)){echo '        <input type="hidden" name="installdate" value="' . $installdate . '">' . "\r\n";}
