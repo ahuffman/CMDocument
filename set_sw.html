@@ -1,0 +1,66 @@
+<html>
+<body>
+<?php
+$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+$qry_os = pg_query($db, "SELECT * from cmd_os");
+$qry_sw = pg_query($db, "SELECT * from cmd_software");
+$qry_pri = pg_query($db, "SELECT * from cmd_priority");
+$qry_stat = pg_query($db, "SELECT * from cmd_status");
+$qry_purp = pg_query($db, "SELECT * from cmd_purpose");
+
+?>
+<table>
+  <tr>
+    <td><b>Settings</b></td>
+  </tr>
+  <table>
+    <tr>
+      <td><b><a href="set_hw.html">Hardware</a></b></td>
+      <td><b><i><a href="set_sw.html">Software</a></i></b></td>
+      <td><b><a href="set_loc.html">Locations</a></b></td>
+      <td><b><a href="set_cont.html">Users/Contacts</a></b></td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Operating Systems</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($osrow = pg_fetch_assoc($qry_os)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $osrow['os'] . ' ' . $osrow['os_ver'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Software</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($swrow = pg_fetch_assoc($qry_sw)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $swrow['software'] . ' ' . $swrow['sw_ver'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+  </table>
+</table>
+</body>
+</html>
