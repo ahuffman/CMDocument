@@ -1,4 +1,18 @@
 
+CREATE SEQUENCE public.cmd_software_sw_id_seq;
+
+CREATE TABLE public.cmd_software (
+                sw_id INTEGER NOT NULL DEFAULT nextval('public.cmd_software_sw_id_seq'),
+                software VARCHAR NOT NULL,
+                arch_id INTEGER NOT NULL,
+                sw_ver VARCHAR NOT NULL,
+                vend_id INTEGER NOT NULL,
+                CONSTRAINT sw_id PRIMARY KEY (sw_id)
+);
+
+
+ALTER SEQUENCE public.cmd_software_sw_id_seq OWNED BY public.cmd_software.sw_id;
+
 CREATE SEQUENCE public.cmd_disk_raid_type_disk_raid_type_id_seq;
 
 CREATE TABLE public.cmd_disk_raid_type (
@@ -41,19 +55,27 @@ CREATE TABLE public.cmd_depends (
 );
 
 
+CREATE SEQUENCE public.cmd_priority_priority_id_seq;
+
 CREATE TABLE public.cmd_priority (
-                priority_id INTEGER NOT NULL,
+                priority_id INTEGER NOT NULL DEFAULT nextval('public.cmd_priority_priority_id_seq'),
                 priority VARCHAR NOT NULL,
                 CONSTRAINT priority_id PRIMARY KEY (priority_id)
 );
 
 
+ALTER SEQUENCE public.cmd_priority_priority_id_seq OWNED BY public.cmd_priority.priority_id;
+
+CREATE SEQUENCE public.cmd_purpose_purpose_id_seq;
+
 CREATE TABLE public.cmd_purpose (
-                purpose_id INTEGER NOT NULL,
+                purpose_id INTEGER NOT NULL DEFAULT nextval('public.cmd_purpose_purpose_id_seq'),
                 purpose VARCHAR NOT NULL,
                 CONSTRAINT purpose_id PRIMARY KEY (purpose_id)
 );
 
+
+ALTER SEQUENCE public.cmd_purpose_purpose_id_seq OWNED BY public.cmd_purpose.purpose_id;
 
 CREATE TABLE public.cmd_owner (
                 owner_id INTEGER NOT NULL,
