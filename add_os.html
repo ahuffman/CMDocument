@@ -31,6 +31,15 @@
         <form action="add_os.php" method="post"> 
             Operating System Name: <input type="text" name="os" size="40" length="40" value=""><br /> 
             Operating System Version: <input type="text" name="os_ver" size="40" length="40" value=""><br />
+            Operating System Architecture: <select name="arch">
+            <?php
+              $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+              $qry_arch = pg_query($db, "SELECT * from cmd_architecture ORDER BY arch");
+              while( $archrow = pg_fetch_assoc($qry_arch)) {
+                 echo '<option value="' . $archrow['arch_id'] . '">' . $archrow['arch'] . '</option>' . "\r\n            ";
+              }
+            ?>
+            </select><br />
             <input type="submit" name="submit" value="Submit"> 
             <input type="reset" name="reset" value="Clear"> 
         </form> 

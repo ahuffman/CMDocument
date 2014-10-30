@@ -1,0 +1,85 @@
+<html>
+<body>
+<?php
+$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+$qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
+$qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
+$qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
+?>
+<table>
+  <tr>
+    <td><b>Settings</b></td>
+  </tr>
+  <table>
+    <tr>
+      <td><b><i><a href="set_gen.html">General</a></i></b></td>
+      <td><b><a href="set_hw.html">Hardware</a></b></td>
+      <td><b><a href="set_sw.html">Software</a></b></td>
+      <td><b><a href="set_loc.html">Locations</a></b></td>
+      <td><b><a href="set_ent.html">Entities</a></b></td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Priority Ratings</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($prirow = pg_fetch_assoc($qry_pri)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $prirow['priority'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Purpose/System</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($purprow = pg_fetch_assoc($qry_purp)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $purprow['purpose'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Statuses</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($statrow = pg_fetch_assoc($qry_stat)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $statrow['status'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</table>
+</body>
+</html>

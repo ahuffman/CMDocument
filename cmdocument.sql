@@ -41,6 +41,7 @@ CREATE TABLE public.cmd_object (
                 obj_install DATE NOT NULL,
                 obj_decom DATE NOT NULL,
                 obj_ru_size INTEGER NOT NULL,
+                obj_type_id INTEGER NOT NULL,
                 CONSTRAINT obj_id PRIMARY KEY (obj_id)
 );
 
@@ -51,7 +52,7 @@ CREATE TABLE public.cmd_depends (
                 depend_id INTEGER NOT NULL,
                 obj_id INTEGER DEFAULT 1 NOT NULL,
                 obj_id_1 INTEGER NOT NULL,
-                CONSTRAINT depend_id PRIMARY KEY (depend_id, obj_id)
+                CONSTRAINT depend_id PRIMARY KEY (depend_id)
 );
 
 
@@ -133,10 +134,10 @@ ALTER SEQUENCE public.cmd_vendors_vend_id_seq OWNED BY public.cmd_vendors.vend_i
 
 CREATE TABLE public.cmd_cab_cont (
                 cab_cont_id INTEGER NOT NULL,
-                cab_id INTEGER NOT NULL,
                 obj_id INTEGER DEFAULT 1 NOT NULL,
+                cab_id INTEGER NOT NULL,
                 cab_ru_no INTEGER NOT NULL,
-                CONSTRAINT cab_cont_id PRIMARY KEY (cab_cont_id, cab_id, obj_id)
+                CONSTRAINT cab_cont_id PRIMARY KEY (cab_cont_id)
 );
 
 
@@ -188,10 +189,10 @@ ALTER SEQUENCE public.cmd_contacts_contact_id_seq OWNED BY public.cmd_contacts.c
 
 CREATE TABLE public.cmd_warranty (
                 warr_id INTEGER NOT NULL,
-                obj_id INTEGER DEFAULT 1 NOT NULL,
+                obj_id INTEGER NOT NULL,
                 warr_start DATE NOT NULL,
                 warr_end DATE NOT NULL,
-                CONSTRAINT warr_id PRIMARY KEY (warr_id, obj_id)
+                CONSTRAINT warr_id PRIMARY KEY (warr_id)
 );
 
 
@@ -244,19 +245,19 @@ CREATE TABLE public.cmd_cpu_type (
 ALTER SEQUENCE public.cmd_cpu_type_cpu_type_id_seq OWNED BY public.cmd_cpu_type.cpu_type_id;
 
 CREATE TABLE public.cmd_cpu (
-                cpu_id INTEGER NOT NULL,
                 cpu_type_id INTEGER NOT NULL,
+                cpu_id INTEGER NOT NULL,
                 obj_id INTEGER NOT NULL,
                 cpu_slot INTEGER NOT NULL,
-                CONSTRAINT cpu_id PRIMARY KEY (cpu_id, cpu_type_id)
+                CONSTRAINT cpu_id PRIMARY KEY (cpu_type_id)
 );
 
 
 CREATE TABLE public.cmd_connections (
                 conn_id INTEGER NOT NULL,
-                int_id INTEGER NOT NULL,
                 int_id_1 INTEGER NOT NULL,
-                CONSTRAINT conn_id PRIMARY KEY (conn_id, int_id)
+                int_id2 INTEGER NOT NULL,
+                CONSTRAINT conn_id PRIMARY KEY (conn_id)
 );
 
 

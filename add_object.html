@@ -71,7 +71,7 @@ function buildPage() {
     echo '           </select><br />' . "\r\n";
     echo 'Equipment Status: ' . '<select name="status">';
     $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-    $result_status = pg_query($db, "SELECT * from cmd_status");
+    $result_status = pg_query($db, "SELECT * from cmd_status ORDER BY status ASC");
     while ($statusrow = pg_fetch_assoc($result_status)) {
         if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
         if ( $statusrow['status'] == "$status" ) {
@@ -82,15 +82,15 @@ function buildPage() {
         }
     }
     echo '</select>' . "   " . '<input type="submit" name="status" onclick="document.pressed=this.name" value="New Status" />' . '<br />' .  "\r\n";
-    $result_os = pg_query($db, "SELECT * from cmd_os");
+    $result_os = pg_query($db, "SELECT cmd_os.os_id,cmd_os.os,cmd_os.os_ver,cmd_architecture.arch FROM cmd_os JOIN cmd_architecture ON cmd_os.arch_id = cmd_architecture.arch_id ORDER BY cmd_os.os ASC, cmd_os.os_ver ASC, cmd_architecture.arch ASC");
     pg_close($db);
     echo 'Operating System: ' . '<select name="os">';
     while ($osrow = pg_fetch_assoc($result_os)) {
         if ( $osrow['os'] == "$os" ) {
-            echo '<option value="' . $osrow['os_id'] . '" selected="selected">' . $osrow['os'] . ' ' . $osrow['os_ver']  . '</option>' . "\r\n            ";
+            echo '<option value="' . $osrow['os_id'] . '" selected="selected">' . $osrow['os'] . ' ' . $osrow['os_ver'] . ' ' . $osrow['arch'] . '</option>' . "\r\n            ";
         }
         else {
-            echo '<option value="' . $osrow['os_id'] . '">' . $osrow['os'] . ' ' . $osrow['os_ver'] . '</option>' . "\r\n            ";
+            echo '<option value="' . $osrow['os_id'] . '">' . $osrow['os'] . ' ' . $osrow['os_ver'] . ' ' . $osrow['arch'] . '</option>' . "\r\n            ";
         }
     }
     echo '</select>' . '<input type="submit" name="os" onclick="document.pressed=this.name" value="New OS" />';

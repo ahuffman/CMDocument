@@ -3,11 +3,14 @@
 <?php
 $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
 $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
-$qry_vend = pg_query($db, "SELECT * from cmd_vendors");
 $qry_pri = pg_query($db, "SELECT * from cmd_priority");
 $qry_stat = pg_query($db, "SELECT * from cmd_status");
 $qry_purp = pg_query($db, "SELECT * from cmd_purpose");
-
+$qry_disk = pg_query($db, "SELECT * from cmd_disk_type");
+$qry_cpu = pg_query($db, "SELECT cmd_cpu_type.cpu_type_id,cmd_vendors.vend,cmd_cpu_type.cpu_type_model,cmd_cpu_type.cpu_type_cores FROM cmd_cpu_type JOIN cmd_vendors ON cmd_cpu_type.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC");
+$qry_int = pg_query($db, "SELECT * from cmd_interface_type");
+$qry_obj = pg_query($db, "SELECT * from cmd_object_type");
+$qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.model FROM cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
 ?>
 <table>
   <tr>
@@ -15,13 +18,109 @@ $qry_purp = pg_query($db, "SELECT * from cmd_purpose");
   </tr>
   <table>
     <tr>
+      <td><b><a href="set_gen.html">General</a></b></td>
       <td><b><i><a href="set_hw.html">Hardware</a></i></b></td>
       <td><b><a href="set_sw.html">Software</a></b></td>
       <td><b><a href="set_loc.html">Locations</a></b></td>
-      <td><b><a href="set_cont.html">Users/Contacts</a></b></td>
+      <td><b><a href="set_ent.html">Entities</a></b></td>
     </tr>
   </table>
   <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Disk Types</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($diskrow = pg_fetch_assoc($qry_disk)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $diskrow['disk_type'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>CPU Types</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($cpurow = pg_fetch_assoc($qry_cpu)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $cpurow['vend'] . ' ' . $cpurow['cpu_type_model'] . ' - ' . $cpurow['cpu_type_cores'] . ' Core(s)' . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Interface Types</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($introw = pg_fetch_assoc($qry_int)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $introw['int_type'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Object Types</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($objrow = pg_fetch_assoc($qry_obj)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $objrow['obj_type'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><b>Object Models</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+          </tr>
+          <?php
+            while ($modrow = pg_fetch_assoc($qry_mod)) {
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $modrow['vend'] . ' ' .$modrow['model'] . '</td>' . "\r\n";
+                echo '            <td>' . "E" . '</td>' . "\r\n";
+                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+            }
+            echo "\r\n";
+          ?>
+        </table>
+      </td>
+    </tr>
     <tr>
       <td>
         <table>
@@ -38,84 +137,6 @@ $qry_purp = pg_query($db, "SELECT * from cmd_purpose");
             }
             echo "\r\n";
           ?>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table>
-          <tr>
-            <td><b>Vendors</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-          </tr>
-          <?php
-            while ($vendrow = pg_fetch_assoc($qry_vend)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $vendrow['vend'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table>
-          <tr>
-            <td><b>Priority Ratings</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-          </tr>
-          <?php
-            while ($prirow = pg_fetch_assoc($qry_pri)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $prirow['priority'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
-
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table>
-          <tr>
-            <td><b>Purpose/System</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-          </tr>
-          <?php
-            while ($purprow = pg_fetch_assoc($qry_purp)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $purprow['purpose'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table>
-          <tr>
-            <td><b>Statuses</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-          </tr>
-          <?php
-            while ($statrow = pg_fetch_assoc($qry_stat)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $statrow['status'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
-
         </table>
       </td>
     </tr>
