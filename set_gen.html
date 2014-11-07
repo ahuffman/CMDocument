@@ -1,11 +1,22 @@
 <html>
 <body>
+
 <?php
-$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-$qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
-$qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
-$qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
+  $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+  if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
+  if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
+  if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+  if (isset($ref)) {
+    if ($ref=="edt_priority.html") {
+      pg_query($db, "UPDATE cmd_priority SET priority='$priority' WHERE priority_id=$priority_id");
+      echo 'Edited priority id: ' . $priority_id . ' with value: ' . $priority . '<br />';
+    }
+  }
+  $qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
+  $qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
+  $qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
 ?>
+
 <table>
   <tr>
     <td><b>Settings</b></td>
@@ -27,14 +38,17 @@ $qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
             <td><b>Priority Ratings</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td><b><a href="add_priority.html">Add</a></b></td>
           </tr>
           <?php
             while ($prirow = pg_fetch_assoc($qry_pri)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $prirow['priority'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          <form id="priority' . $prirow['priority_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
+                echo "\r\n" . '            <tr>' . "\r\n" . '              <td>' . $prirow['priority'] . '</td>' . "\r\n" . '                <input type="hidden" name="priority_id" value="' . $prirow['priority_id'] . '">' . "\r\n" . '                <input type="hidden" name="priority" value="' . $prirow['priority'] . '">' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'edt_priority.html\';"' . '>' . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'del_priority.php\';"' . '>' . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          </form>';
             }
-            echo "\r\n";
+          
           ?>
 
         </table>

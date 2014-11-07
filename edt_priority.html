@@ -1,0 +1,12 @@
+<html> 
+    <body>
+      <?php
+        if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
+        if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
+        if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);} 
+
+        echo '        <form action="' . $ref . '" method="post">' . '<br />' . 'Priority:' . '<input type="text" name="priority" size="40" length="40" value="' . $priority . '">' . '<br />' . '<input type="hidden" name="referer" value="edt_priority.html">' . '<input type="hidden" name="priority_id" value="' . $priority_id . '">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">';
+      ?>
+        </form> 
+    </body> 
+</html>
