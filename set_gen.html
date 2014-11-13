@@ -5,11 +5,24 @@
   $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
   if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
   if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
+  if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
+  if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
+  if (isset($_POST['status_id'])) {$status_id = pg_escape_string($_POST['status_id']);}
+  if (isset($_POST['status'])) {$status = pg_escape_string($_POST['status']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+//edit handler
   if (isset($ref)) {
     if ($ref=="edt_priority.html") {
       pg_query($db, "UPDATE cmd_priority SET priority='$priority' WHERE priority_id=$priority_id");
-      echo 'Edited priority id: ' . $priority_id . ' with value: ' . $priority . '<br />';
+      echo 'Edited Priority value: ' . $priority . '<br />';
+    }
+    else if ($ref=="edt_purpose.html") {
+      pg_query($db, "UPDATE cmd_purpose SET purpose='$purpose' WHERE purpose_id=$purpose_id");
+      echo 'Edited Purpose value: ' . $purpose . '<br />';
+    }
+    else if ($ref=="edt_status.html") {
+      pg_query($db, "UPDATE cmd_status SET status='$status' WHERE status_id=$status_id");
+      echo 'Edited Status value: ' . $status . '<br />';
     }
   }
   $qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
@@ -61,12 +74,15 @@
             <td><b>Purpose/System</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td><b><a href="add_purpose.html">Add</a></b></td>
           </tr>
           <?php
             while ($purprow = pg_fetch_assoc($qry_purp)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $purprow['purpose'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          <form id="purpose' . $purprow['purpose_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $purprow['purpose'] . '</td>' . "\r\n" . '                <input type="hidden" name="purpose_id" value="' . $purprow['purpose_id'] . '">' . "\r\n" . '                <input type="hidden" name="purpose" value="' . $purprow['purpose'] . '">' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'edt_purpose.html\';"' . '>' . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'del_purpose.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          </form>';
             }
             echo "\r\n";
           ?>
@@ -80,12 +96,15 @@
             <td><b>Statuses</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td><b><a href="add_status.html">Add</a></b></td>
           </tr>
           <?php
             while ($statrow = pg_fetch_assoc($qry_stat)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $statrow['status'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          <form id="status' . $statrow['status_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
+                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $statrow['status'] . '</td>' . "\r\n" . '                <input type="hidden" name="status_id" value="' . $statrow['status_id'] . '">' . "\r\n" . '                <input type="hidden" name="status" value="' . $statrow['status'] . '">' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'edt_status.html\';"' . '>'  . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'del_status.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
+                echo "\r\n" . '          </form>';
             }
             echo "\r\n";
           ?>

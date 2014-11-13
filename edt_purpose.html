@@ -1,0 +1,12 @@
+<html> 
+    <body>
+      <?php
+        if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
+        if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
+        if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);} 
+
+        echo '        <form action="' . $ref . '" method="post">' . '<br />' . 'Purpose:' . '<input type="text" name="purpose" size="40" length="40" value="' . $purpose . '">' . '<br />' . '<input type="hidden" name="referer" value="edt_purpose.html">' . '<input type="hidden" name="purpose_id" value="' . $purpose_id . '">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">';
+      ?>
+        </form> 
+    </body> 
+</html>

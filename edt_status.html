@@ -1,0 +1,12 @@
+<html> 
+    <body>
+      <?php
+        if (isset($_POST['status_id'])) {$status_id = pg_escape_string($_POST['status_id']);}
+        if (isset($_POST['status'])) {$status = pg_escape_string($_POST['status']);}
+        if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);} 
+
+        echo '        <form action="' . $ref . '" method="post">' . '<br />' . 'Status:' . '<input type="text" name="status" size="40" length="40" value="' . $status . '">' . '<br />' . '<input type="hidden" name="referer" value="edt_status.html">' . '<input type="hidden" name="status_id" value="' . $status_id . '">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">';
+      ?>
+        </form> 
+    </body> 
+</html>
