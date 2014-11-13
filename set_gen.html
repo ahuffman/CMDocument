@@ -70,8 +70,8 @@
             while ($prirow = pg_fetch_assoc($qry_pri)) {
                 echo "\r\n" . '          <form id="priority' . $prirow['priority_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
                 echo "\r\n" . '            <tr>' . "\r\n" . '              <td>' . $prirow['priority'] . '</td>' . "\r\n" . '                <input type="hidden" name="priority_id" value="' . $prirow['priority_id'] . '">' . "\r\n" . '                <input type="hidden" name="priority" value="' . $prirow['priority'] . '">' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'edt_priority.html\';"' . '>' . '</td>' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'del_priority.php\';"' . '>' . '</td>' . "\r\n" .  '          </tr>' ;
+                echo '            <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'edt_priority.html\';"' . '>' . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'priority' . $prirow['priority_id'] . '\').action =\'del_priority.php\';"' . '>' . '</td>' . "\r\n" .  '          </tr>' ;
                 echo "\r\n" . '          </form>';
             }
           
@@ -93,8 +93,8 @@
             while ($purprow = pg_fetch_assoc($qry_purp)) {
                 echo "\r\n" . '          <form id="purpose' . $purprow['purpose_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
                 echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $purprow['purpose'] . '</td>' . "\r\n" . '                <input type="hidden" name="purpose_id" value="' . $purprow['purpose_id'] . '">' . "\r\n" . '                <input type="hidden" name="purpose" value="' . $purprow['purpose'] . '">' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'edt_purpose.html\';"' . '>' . '</td>' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'del_purpose.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
+                echo '            <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'edt_purpose.html\';"' . '>' . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'purpose' . $purprow['purpose_id'] . '\').action =\'del_purpose.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
                 echo "\r\n" . '          </form>';
             }
             echo "\r\n";
@@ -115,8 +115,8 @@
             while ($statrow = pg_fetch_assoc($qry_stat)) {
                 echo "\r\n" . '          <form id="status' . $statrow['status_id'] . '" method="post">' . "\r\n" . '            <input type="hidden" name="referer" value="set_gen.html">';
                 echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $statrow['status'] . '</td>' . "\r\n" . '                <input type="hidden" name="status_id" value="' . $statrow['status_id'] . '">' . "\r\n" . '                <input type="hidden" name="status" value="' . $statrow['status'] . '">' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/edit.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'edt_status.html\';"' . '>'  . '</td>' . "\r\n";
-                echo '            <td>' . '<input type="image" src="/cmdocument/img/delete.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'del_status.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
+                echo '            <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'edt_status.html\';"' . '>'  . '</td>' . "\r\n";
+                echo '            <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'del_status.php\';"' . '>'  . '</td>' . "\r\n" .  '          </tr>' ;
                 echo "\r\n" . '          </form>';
             }
             echo "\r\n";
