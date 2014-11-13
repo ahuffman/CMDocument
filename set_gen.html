@@ -10,7 +10,7 @@
   if (isset($_POST['status_id'])) {$status_id = pg_escape_string($_POST['status_id']);}
   if (isset($_POST['status'])) {$status = pg_escape_string($_POST['status']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
-//edit handler
+//edit-add handler
   if (isset($ref)) {
     if ($ref=="edt_priority.html") {
       pg_query($db, "UPDATE cmd_priority SET priority='$priority' WHERE priority_id=$priority_id");
@@ -23,6 +23,19 @@
     else if ($ref=="edt_status.html") {
       pg_query($db, "UPDATE cmd_status SET status='$status' WHERE status_id=$status_id");
       echo 'Edited Status value: ' . $status . '<br />';
+    }
+    else if ($ref=="add_priority.html") {
+      pg_query($db, "INSERT INTO cmd_priority(priority) VALUES('$priority')");
+      echo 'The Priority was added successfully with value: ' . $priority . '<br />';
+    }
+    else if ($ref=="add_purpose.html") {
+      pg_query($db, "INSERT INTO cmd_purpose(purpose) VALUES('$purpose')");
+      echo 'The Purpose was added successfully with value: ' . $purpose . '<br />';
+    }
+    else if ($ref=="add_status.html") {
+      pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
+      echo 'The Status was added successfully with value: ' . $status . '<br />';
+    
     }
   }
   $qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
@@ -51,7 +64,7 @@
             <td><b>Priority Ratings</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
-            <td><b><a href="add_priority.html">Add</a></b></td>
+            <td><form id="add_priority" method="post"><input type="hidden" name="referer" value="set_gen.html"><input type="image" src="img/add.png" value="" onclick="document.getElementById('add_priority').action='add_priority.html';"></form></td>
           </tr>
           <?php
             while ($prirow = pg_fetch_assoc($qry_pri)) {
@@ -74,7 +87,7 @@
             <td><b>Purpose/System</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
-            <td><b><a href="add_purpose.html">Add</a></b></td>
+            <td><form id="add_purpose" method="post"><input type="hidden" name="referer" value="set_gen.html"><input type="image" src="img/add.png" value="" onclick="document.getElementById('add_purpose').action = 'add_purpose.html';"></form></td>
           </tr>
           <?php
             while ($purprow = pg_fetch_assoc($qry_purp)) {
@@ -96,7 +109,7 @@
             <td><b>Statuses</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
-            <td><b><a href="add_status.html">Add</a></b></td>
+            <td><form id="add_status" method="post"><input type="hidden" name="referer" value="set_gen.html"><input type="image" src="img/add.png" value="" onclick="document.getElementById('add_status').action = 'add_status.html';"></form></td>
           </tr>
           <?php
             while ($statrow = pg_fetch_assoc($qry_stat)) {
