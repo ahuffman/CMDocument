@@ -1,47 +1,64 @@
 <html>
 <body>
 <?php
-$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-$qry_arch = pg_query($db, "SELECT * from cmd_architecture");
-$qry_pri = pg_query($db, "SELECT * from cmd_priority");
-$qry_stat = pg_query($db, "SELECT * from cmd_status");
-$qry_purp = pg_query($db, "SELECT * from cmd_purpose");
-$qry_disk = pg_query($db, "SELECT * from cmd_disk_type");
-$qry_cpu = pg_query($db, "SELECT cmd_cpu_type.cpu_type_id,cmd_vendors.vend,cmd_cpu_type.cpu_type_model,cmd_cpu_type.cpu_type_cores FROM cmd_cpu_type JOIN cmd_vendors ON cmd_cpu_type.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC");
-$qry_int = pg_query($db, "SELECT * from cmd_interface_type");
-$qry_obj = pg_query($db, "SELECT * from cmd_object_type");
-$qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.model FROM cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
+  $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+  if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
+  if (isset($_POST['arch'])) {$arch = pg_escape_string($_POST['arch']);}
+  if (isset($_POST['disk_type_id'])) {$disk_type_id = pg_escape_string($_POST['disk_type_id']);}
+  if (isset($_POST['disk_type'])) {$disk_type = pg_escape_string($_POST['disk_type']);}
+  if (isset($_POST['cpu_type_id'])) {$cpu_type_id = pg_escape_string($_POST['cpu_type_id']);}
+  if (isset($_POST['cpu_type_model'])) {$cpu_type_model = pg_escape_string($_POST['cpu_type_model']);}
+  if (isset($_POST['cpu_type_vend_id'])) {$cpu_type_vend_id = pg_escape_string($_POST['cpu_type_vend_id']);}
+  if (isset($_POST['cpu_type_cores'])) {$cpu_type_cores = pg_escape_string($_POST['cpu_type_cores']);}
+  if (isset($_POST['cpu_type_description'])) {$cpu_type_description = pg_escape_string($_POST['cpu_type_description']);}
+  if (isset($_POST['int_type_id'])) {$int_type_id = pg_escape_string($_POST['int_type_id']);}
+  if (isset($_POST['int_type'])) {$int_type = pg_escape_string($_POST['int_type']);}
+  if (isset($_POST['obj_type_id'])) {$obj_type_id = pg_escape_string($_POST['obj_type_id']);}
+  if (isset($_POST['obj_type'])) {$obj_type = pg_escape_string($_POST['obj_type']);}
+  if (isset($_POST['model_id'])) {$model_id = pg_escape_string($_POST['model_id']);}
+  if (isset($_POST['model'])) {$model = pg_escape_string($_POST['model']);}
+  if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+  $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
+  $qry_disk_type = pg_query($db, "SELECT * from cmd_disk_type");
+  $qry_cpu_type = pg_query($db, "SELECT cmd_cpu_type.cpu_type_id,cmd_vendors.vend,cmd_cpu_type.cpu_type_model,cmd_cpu_type.cpu_type_cores FROM cmd_cpu_type JOIN cmd_vendors ON cmd_cpu_type.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC");
+  $qry_int_type = pg_query($db, "SELECT * from cmd_interface_type");
+  $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
+  $qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.model FROM cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
 ?>
-<table>
-  <tr>
-    <td><b>Settings</b></td>
-  </tr>
   <table>
     <tr>
-      <td><b><a href="set_gen.html">General</a></b></td>
-      <td><b><i><a href="set_hw.html">Hardware</a></i></b></td>
-      <td><b><a href="set_sw.html">Software</a></b></td>
-      <td><b><a href="set_loc.html">Locations</a></b></td>
-      <td><b><a href="set_ent.html">Entities</a></b></td>
+      <td><b>Settings</b></td>
     </tr>
-  </table>
-  <table>
-    <tr>
-      <td>
-        <table>
-          <tr>
-            <td><b>Disk Types</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-          </tr>
-          <?php
-            while ($diskrow = pg_fetch_assoc($qry_disk)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $diskrow['disk_type'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+    <table>
+      <tr>
+        <td><b><a href="set_gen.html">General</a></b></td>
+        <td><b><i><a href="set_hw.html">Hardware</a></i></b></td>
+        <td><b><a href="set_sw.html">Software</a></b></td>
+        <td><b><a href="set_loc.html">Locations</a></b></td>
+        <td><b><a href="set_ent.html">Entities</a></b></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td><b>Disk Types</b></td>
+              <td><b>Edit</b></td>
+              <td><b>Delete</b></td>
+              <td>
+                <form id="add_disk_type" method="post">
+                  <input type="hidden" name="referer" value="set_hw.html">
+                  <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_disk_type').action='add_disk_type.html';">
+                </form>
+              </td>
+            </tr>
+            <?php
+              echo "\r\n";
+              while ($disktyperow = pg_fetch_assoc($qry_disk_type)) {
+                echo '            <tr>' . "\r\n" . '              <form id="disk_type' . $disktyperow['disk_type_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '                <input type="hidden" name="disk_type_id" value="' . $disktyperow['disk_type_id'] . '">' . "\r\n" . '                <input type="hidden" name="disk_type" value="' . $disktyperow['disk_type'] . '">' . "\r\n" . '                <td>' . $disktyperow['disk_type'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'disk_type' . $disktyperow['disk_type_id'] . '\').action =\'edt_disk_type.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'disk_type' . $disktyperow['disk_type_id'] . '\').action =\'del_disk_type.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
@@ -52,14 +69,18 @@ $qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.m
             <td><b>CPU Types</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_cpu_type" method="post">
+                <input type="hidden" name="referer" value="set_hw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_cpu_type').action='add_cpu_type.html';">
+              </form>
+            </td>
           </tr>
           <?php
-            while ($cpurow = pg_fetch_assoc($qry_cpu)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $cpurow['vend'] . ' ' . $cpurow['cpu_type_model'] . ' - ' . $cpurow['cpu_type_cores'] . ' Core(s)' . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
+              echo "\r\n";
+              while ($cputyperow = pg_fetch_assoc($qry_cpu_type)) {
+                echo '          <tr>' . "\r\n" . '            <form id="cpu_type' . $cputyperow['cpu_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="cpu_type_id" value="' . $cputyperow['cpu_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_model" value="' . $cputyperow['cpu_type_model'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_vend_id" value="' . $cputyperow['vend_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_cores" value="' . $cputyperow['cpu_type_cores'] . '">' . "\r\n" . '              <td>' . $cputyperow['vend'] . ' ' . $cputyperow['cpu_type_model'] . ' - ' . $cputyperow['cpu_type_cores'] . ' Core(s)' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'edt_cpu_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'del_cpu_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+              }
           ?>
         </table>
       </td>
@@ -71,14 +92,18 @@ $qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.m
             <td><b>Interface Types</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_interface_type" method="post">
+                <input type="hidden" name="referer" value="set_hw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_interface_type').action='add_interface_type.html';">
+              </form>
+            </td>
           </tr>
           <?php
-            while ($introw = pg_fetch_assoc($qry_int)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $introw['int_type'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
+              echo "\r\n";
+              while ($inttyperow = pg_fetch_assoc($qry_int_type)) {
+                echo '          <tr>' . "\r\n" . '            <form id="int_type' . $inttyperow['int_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="int_type_id" value="' . $inttyperow['int_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="int_type" value="' . $inttyperow['int_type'] . '">' . "\r\n" . '              <td>' . $inttyperow['int_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'edt_int_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'del_int_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+              }
           ?>
         </table>
       </td>
@@ -90,14 +115,18 @@ $qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.m
             <td><b>Object Types</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_obj_type" method="post">
+                <input type="hidden" name="referer" value="set_hw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_obj_type').action='add_obj_type.html';">
+              </form>
+            </td>
           </tr>
           <?php
-            while ($objrow = pg_fetch_assoc($qry_obj)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $objrow['obj_type'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
+              echo "\r\n";
+              while ($objtyperow = pg_fetch_assoc($qry_obj_type)) {
+                echo '          <tr>' . "\r\n" . '            <form id="obj_type' . $objtyperow['obj_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="obj_type_id" value="' . $objtyperow['obj_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="obj_type" value="' . $objtyperow['obj_type'] . '">' . "\r\n" . '              <td>' . $objtyperow['obj_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'edt_obj_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'del_obj_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+              }
           ?>
         </table>
       </td>
