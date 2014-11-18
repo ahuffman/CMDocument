@@ -138,14 +138,18 @@
             <td><b>Object Models</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_model" method="post">
+                <input type="hidden" name="referer" value="set_hw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_model').action='add_model.html';">
+              </form>
+            </td>
           </tr>
           <?php
-            while ($modrow = pg_fetch_assoc($qry_mod)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $modrow['vend'] . ' ' .$modrow['model'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
+              echo "\r\n";
+              while ($modrow = pg_fetch_assoc($qry_mod)) {
+                echo '          <tr>' . "\r\n" . '            <form id="model' . $modrow['model_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="model_id" value="' . $modrow['model_id'] . '">' . "\r\n" . '              <input type="hidden" name="model" value="' . $modrow['model'] . '">' . "\r\n" . '              <input type="hidden" name="vend_id" value="' . $modrow['vend_id'] . '">' . "\r\n" . '              <td>' . $modrow['vend'] . ' ' . $modrow['model'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'edt_architecture.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'del_architecture.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+              }
           ?>
         </table>
       </td>
@@ -157,14 +161,18 @@
             <td><b>Architecture</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_architecture" method="post">
+                <input type="hidden" name="referer" value="set_hw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_architecture').action='add_architecture.html';">
+              </form>
+            </td>
           </tr>
           <?php
-            while ($archrow = pg_fetch_assoc($qry_arch)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $archrow['arch'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
+              echo "\r\n";
+              while ($archrow = pg_fetch_assoc($qry_arch)) {
+                echo '          <tr>' . "\r\n" . '            <form id="arch' . $archrow['arch_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="arch_id" value="' . $archrow['arch_id'] . '">' . "\r\n" . '              <input type="hidden" name="arch" value="' . $archrow['arch'] . '">' . "\r\n" . '              <td>' . $archrow['arch'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'edt_architecture.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'del_architecture.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+              }
           ?>
         </table>
       </td>
