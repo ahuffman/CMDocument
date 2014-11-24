@@ -1,11 +1,17 @@
 <html>
 <body>
-<?php
-$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-$qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
-$qry_cab = pg_query($db, "SELECT cmd_cabinets.cab_name, cmd_locations.location_name from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
-
-?>
+  <?php
+    $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+    if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}
+    if (isset($_POST['location_name'])) {$location_name = pg_escape_string($_POST['location_name']);}
+    if (isset($_POST['location_address'])) {$location_address = pg_escape_string($_POST['location_address']);}
+    if (isset($_POST['cab_id'])) {$cab_id = pg_escape_string($_POST['cab_id']);}
+    if (isset($_POST['cab_name'])) {$cab_name = pg_escape_string($_POST['cab_name']);}
+    if (isset($_POST['cab_location_id'])) {$cab_location_id = pg_escape_string($_POST['cab_location_id']);}
+    if (isset($_POST['referer'])) {$referer = pg_escape_string($_POST['referer']);}
+    $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
+    $qry_cab = pg_query($db, "SELECT cmd_cabinets.cab_id, cmd_cabinets.cab_name, cmd_locations.location_name, cmd_cabinets.location_id from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
+  ?>
 <table>
   <tr>
     <td><b>Settings</b></td>
@@ -27,15 +33,19 @@ $qry_cab = pg_query($db, "SELECT cmd_cabinets.cab_name, cmd_locations.location_n
             <td><b>Locations</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_location" method="post">
+                <input type="hidden" name="referer" value="set_loc.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_location').action='add_location.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($locrow = pg_fetch_assoc($qry_loc)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $locrow['location_name'] . ' - ' . $locrow['location_address'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+            <?php
+              echo "\r\n";
+              while ($locrow = pg_fetch_assoc($qry_loc)) {
+                echo '            <tr>' . "\r\n" . '              <form id="location' . $locrow['location_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_loc.html">' . "\r\n" . '                <input type="hidden" name="location_id" value="' . $locrow['location_id'] . '">' . "\r\n" . '                <input type="hidden" name="location_name" value="' . $locrow['location_name'] . '">' . "\r\n" . '                <input type="hidden" name="location_address" value="' . $locrow['location_address'] . '">' . "\r\n" . '                <td>' . $locrow['location_name'] . ' - ' . $locrow['location_address'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'location' . $locrow['location_id'] . '\').action =\'edt_location.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'location' . $locrow['location_id'] . '\').action =\'del_location.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
@@ -46,16 +56,19 @@ $qry_cab = pg_query($db, "SELECT cmd_cabinets.cab_name, cmd_locations.location_n
             <td><b>Cabinets</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_cabinet" method="post">
+                <input type="hidden" name="referer" value="set_loc.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_cabinet').action='add_cabinet.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($cabrow = pg_fetch_assoc($qry_cab)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $cabrow['location_name'] . ' - ' . $cabrow['cab_name'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
-
+            <?php
+              echo "\r\n";
+              while ($cabrow = pg_fetch_assoc($qry_cab)) {
+                echo '            <tr>' . "\r\n" . '              <form id="cabinet' . $cabrow['cab_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_loc.html">' . "\r\n" . '                <input type="hidden" name="cab_id" value="' . $cabrow['cab_id'] . '">' . "\r\n" . '                <input type="hidden" name="cab_name" value="' . $cabrow['cab_name'] . '">' . "\r\n" . '                <input type="hidden" name="cab_location_id" value="' . $cabrow['location_id'] . '">' . "\r\n" . '                <td>' . $cabrow['location_name'] . ' - ' . $cabrow['cab_name'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'edt_cabinet.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'del_cabinet.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
