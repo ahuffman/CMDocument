@@ -17,7 +17,7 @@
   if (isset($_POST['contact_notes'])) {$contact_notes = pg_escape_string($_POST['contact_notes']);}
   if (isset($_POST['referer'])) {$referer = pg_escape_string($_POST['referer']);}
   $qry_vendor = pg_query($db, "SELECT * FROM cmd_vendors ORDER BY vend ASC");
-  $qry_contact = pg_query($db, "SELECT contact_company,contact_lastname,contact_firstname FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
+  $qry_contact = pg_query($db, "SELECT contact_id,contact_company,contact_lastname,contact_firstname FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
 ?>
 <table>
   <tr>
