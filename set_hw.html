@@ -8,7 +8,7 @@
   if (isset($_POST['disk_type'])) {$disk_type = pg_escape_string($_POST['disk_type']);}
   if (isset($_POST['cpu_type_id'])) {$cpu_type_id = pg_escape_string($_POST['cpu_type_id']);}
   if (isset($_POST['cpu_type_model'])) {$cpu_type_model = pg_escape_string($_POST['cpu_type_model']);}
-  if (isset($_POST['cpu_type_vend_id'])) {$cpu_type_vend_id = pg_escape_string($_POST['cpu_type_vend_id']);}
+  if (isset($_POST['vend_id'])) {$cpu_type_vend_id = pg_escape_string($_POST['cpu_type_vend_id']);}
   if (isset($_POST['cpu_type_cores'])) {$cpu_type_cores = pg_escape_string($_POST['cpu_type_cores']);}
   if (isset($_POST['cpu_type_description'])) {$cpu_type_description = pg_escape_string($_POST['cpu_type_description']);}
   if (isset($_POST['int_type_id'])) {$int_type_id = pg_escape_string($_POST['int_type_id']);}
@@ -17,11 +17,10 @@
   if (isset($_POST['obj_type'])) {$obj_type = pg_escape_string($_POST['obj_type']);}
   if (isset($_POST['model_id'])) {$model_id = pg_escape_string($_POST['model_id']);}
   if (isset($_POST['model'])) {$model = pg_escape_string($_POST['model']);}
-  if (isset($_POST['model_vend_id'])) {$model_vend_id = pg_escape_string($_POST['model_vend_id']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
   $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
   $qry_disk_type = pg_query($db, "SELECT * from cmd_disk_type");
-  $qry_cpu_type = pg_query($db, "SELECT cmd_cpu_type.cpu_type_id,cmd_vendors.vend,cmd_cpu_type.cpu_type_model,cmd_cpu_type.cpu_type_cores FROM cmd_cpu_type JOIN cmd_vendors ON cmd_cpu_type.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC");
+  $qry_cpu_type = pg_query($db, "SELECT cmd_cpu_type.cpu_type_id,cmd_vendors.vend,cmd_vendors.vend_id,cmd_cpu_type.cpu_type_model,cmd_cpu_type.cpu_type_cores FROM cmd_cpu_type JOIN cmd_vendors ON cmd_cpu_type.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC");
   $qry_int_type = pg_query($db, "SELECT * from cmd_interface_type");
   $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
   $qry_mod = pg_query($db, "SELECT cmd_model.model_id,cmd_vendors.vend,cmd_model.model,cmd_model.vend_id FROM cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
@@ -80,7 +79,7 @@
           <?php
               echo "\r\n";
               while ($cputyperow = pg_fetch_assoc($qry_cpu_type)) {
-                echo '          <tr>' . "\r\n" . '            <form id="cpu_type' . $cputyperow['cpu_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="cpu_type_id" value="' . $cputyperow['cpu_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_model" value="' . $cputyperow['cpu_type_model'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_vend_id" value="' . $cputyperow['vend_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_cores" value="' . $cputyperow['cpu_type_cores'] . '">' . "\r\n" . '              <td>' . $cputyperow['vend'] . ' ' . $cputyperow['cpu_type_model'] . ' - ' . $cputyperow['cpu_type_cores'] . ' Core(s)' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'edt_cpu_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'del_cpu_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+                echo '          <tr>' . "\r\n" . '            <form id="cpu_type' . $cputyperow['cpu_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="cpu_type_id" value="' . $cputyperow['cpu_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_model" value="' . $cputyperow['cpu_type_model'] . '">' . "\r\n" . '              <input type="hidden" name="vend_id" value="' . $cputyperow['vend_id'] . '">' . "\r\n" . '              <input type="hidden" name="cpu_type_cores" value="' . $cputyperow['cpu_type_cores'] . '">' . "\r\n" . '              <td>' . $cputyperow['vend'] . ' ' . $cputyperow['cpu_type_model'] . ' - ' . $cputyperow['cpu_type_cores'] . ' Core(s)' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'edt_cpu_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cpu_type' . $cputyperow['cpu_type_id'] . '\').action =\'del_cpu_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
               }
           ?>
         </table>
@@ -149,7 +148,7 @@
           <?php
               echo "\r\n";
               while ($modrow = pg_fetch_assoc($qry_mod)) {
-                echo '          <tr>' . "\r\n" . '            <form id="model' . $modrow['model_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="model_id" value="' . $modrow['model_id'] . '">' . "\r\n" . '              <input type="hidden" name="model" value="' . $modrow['model'] . '">' . "\r\n" . '              <input type="hidden" name="vend_id" value="' . $modrow['vend_id'] . '">' . "\r\n" . '              <td>' . $modrow['vend'] . ' ' . $modrow['model'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'edt_architecture.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'arch' . $archrow['arch_id'] . '\').action =\'del_architecture.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+                echo '          <tr>' . "\r\n" . '            <form id="model' . $modrow['model_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="model_id" value="' . $modrow['model_id'] . '">' . "\r\n" . '              <input type="hidden" name="model" value="' . $modrow['model'] . '">' . "\r\n" . '              <input type="hidden" name="vend_id" value="' . $modrow['vend_id'] . '">' . "\r\n" . '              <td>' . $modrow['vend'] . ' ' . $modrow['model'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'model' . $modrow['model_id'] . '\').action =\'edt_model.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'model' . $modrow['model_id'] . '\').action =\'del_model.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
               }
           ?>
         </table>
