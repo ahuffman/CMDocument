@@ -1,11 +1,23 @@
 <html>
 <body>
 <?php
-$db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-$qry_os = pg_query($db, "SELECT cmd_os.os_id,cmd_os.os,cmd_os.os_ver,cmd_architecture.arch FROM cmd_os JOIN cmd_architecture ON cmd_os.arch_id = cmd_architecture.arch_id ORDER BY cmd_os.os ASC, cmd_os.os_ver ASC,cmd_architecture.arch ASC");
-$qry_sw = pg_query($db, "SELECT cmd_software.sw_id,cmd_vendors.vend,cmd_software.software,cmd_software.sw_ver,cmd_architecture.arch FROM cmd_software JOIN cmd_vendors ON cmd_software.vend_id = cmd_vendors.vend_id JOIN cmd_architecture ON cmd_software.arch_id = cmd_architecture.arch_id ORDER BY cmd_vendors.vend ASC,cmd_software.software ASC, cmd_software.sw_ver ASC,cmd_architecture.arch ASC");
-$qry_raid = pg_query($db, "SELECT * FROM cmd_disk_raid_type ORDER BY disk_raid_type ASC");
-$qry_int = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_proto");
+  $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+  if (isset($_POST['os_id'])) {$os_id = pg_escape_string($_POST['os_id']);}
+  if (isset($_POST['os'])) {$os = pg_escape_string($_POST['os']);}
+  if (isset($_POST['os_ver'])) {$os_ver = pg_escape_string($_POST['os_ver']);}
+  if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
+  if (isset($_POST['sw_id'])) {$sw_id = pg_escape_string($_POST['sw_id']);}
+  if (isset($_POST['software'])) {$software = pg_escape_string($_POST['sofrware']);}
+  if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
+  if (isset($_POST['sw_ver'])) {$sw_ver = pg_escape_string($_POST['sw_ver']);}
+  if (isset($_POST['disk_raid_type_id'])) {$disk_raid_type_id = pg_escape_string($_POST['disk_raid_type_id']);}
+  if (isset($_POST['disk_raid_type'])) {$disk_raid_type = pg_escape_string($_POST['disk_raid_type']);}
+  if (isset($_POST['int_proto_id'])) {$int_proto_id = pg_escape_string($_POST['int_proto_id']);}
+  if (isset($_POST['int_proto'])) {$int_proto = pg_escape_string($_POST['int_proto']);}
+  $qry_os = pg_query($db, "SELECT cmd_os.os_id,cmd_os.os,cmd_os.os_ver,cmd_os.arch_id,cmd_architecture.arch FROM cmd_os JOIN cmd_architecture ON cmd_os.arch_id = cmd_architecture.arch_id ORDER BY cmd_os.os ASC, cmd_os.os_ver ASC,cmd_architecture.arch ASC");
+  $qry_sw = pg_query($db, "SELECT cmd_software.sw_id,cmd_vendors.vend,cmd_software.software,cmd_software.sw_ver,cmd_architecture.arch FROM cmd_software JOIN cmd_vendors ON cmd_software.vend_id = cmd_vendors.vend_id JOIN cmd_architecture ON cmd_software.arch_id = cmd_architecture.arch_id ORDER BY cmd_vendors.vend ASC,cmd_software.software ASC, cmd_software.sw_ver ASC,cmd_architecture.arch ASC");
+  $qry_disk_raid_type = pg_query($db, "SELECT * FROM cmd_disk_raid_type ORDER BY disk_raid_type ASC");
+  $qry_int_proto = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_proto");
 
 ?>
 <table>
@@ -29,15 +41,19 @@ $qry_int = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_prot
             <td><b>Operating Systems</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_os" method="post">
+                <input type="hidden" name="referer" value="set_sw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_os').action='add_os.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($osrow = pg_fetch_assoc($qry_os)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $osrow['os'] . ' ' . $osrow['os_ver'] . ' ' . $osrow['arch'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+            <?php
+              echo "\r\n";
+              while ($osrow = pg_fetch_assoc($qry_os)) {
+                echo '            <tr>' . "\r\n" . '              <form id="os' . $osrow['os_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="os_id" value="' . $osrow['os_id'] . '">' . "\r\n" . '                <input type="hidden" name="os_ver" value="' . $osrow['os_ver'] . '">' . "\r\n" . '                <input type="hidden" name="arch_id" value="' . $osrow['arch_id'] . '">' . "\r\n" . '                <td>' . $osrow['os'] . ' ' . $osrow['os_ver'] . ' ' . $osrow['arch'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'os' . $osrow['os_id'] . '\').action =\'edt_os.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'os' . $osrow['os_id'] . '\').action =\'del_os.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
@@ -48,15 +64,19 @@ $qry_int = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_prot
             <td><b>Software</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_sw" method="post">
+                <input type="hidden" name="referer" value="set_sw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_sw').action='add_sw.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($swrow = pg_fetch_assoc($qry_sw)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $swrow['vend'] . ' ' . $swrow['software'] . ' ' . $swrow['sw_ver'] . ' ' . $swrow['arch'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+            <?php
+              echo "\r\n";
+              while ($swrow = pg_fetch_assoc($qry_sw)) {
+                echo '            <tr>' . "\r\n" . '              <form id="sw' . $swrow['sw_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="sw_id" value="' . $swrow['sw_id'] . '">' . "\r\n" . '                <input type="hidden" name="software" value="' . $swrow['software'] . '">' . "\r\n" . '                <input type="hidden" name="arch_id" value="' . $swrow['arch_id'] . '">' . "\r\n" . '                <input type="hidden" name="sw_ver" value="' . $swrow['sw_ver'] . '">' . "\r\n" . '                <input type="hidden" name="vend_id" value="' . $swrow['vend_id'] . '">' . "\r\n" . '                <td>' . $swrow['vend'] . ' ' . $swrow['software'] . ' ' . $swrow['sw_ver'] . ' ' . $swrow['arch'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'edt_sw.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'del_sw.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
@@ -67,15 +87,19 @@ $qry_int = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_prot
             <td><b>RAID Types</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_disk_raid_type" method="post">
+                <input type="hidden" name="referer" value="set_sw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_disk_raid_type').action='add_raid_type.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($raidrow = pg_fetch_assoc($qry_raid)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $raidrow['disk_raid_type'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+            <?php
+              echo "\r\n";
+              while ($raidrow = pg_fetch_assoc($qry_disk_raid_type)) {
+                echo '            <tr>' . "\r\n" . '              <form id="raid' . $raidrow['disk_raid_type_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="disk_raid_type_id" value="' . $raidrow['disk_raid_type_id'] . '">' . "\r\n" . '                <input type="hidden" name="disk_raid_type" value="' . $raidrow['disk_raid_type'] . '">' . "\r\n" . '                <td>' . $raidrow['disk_raid_type'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'raid' . $raidrow['disk_raid_type_id'] . '\').action =\'edt_raid_type.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'raid' . $raidrow['disk_raid_type_id'] . '\').action =\'del_raid_type.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
@@ -86,15 +110,19 @@ $qry_int = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_prot
             <td><b>Interface Protocols</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
+            <td>
+              <form id="add_int_proto" method="post">
+                <input type="hidden" name="referer" value="set_sw.html">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_int_proto').action='add_interface_protocol.html';">
+              </form>
+            </td>
           </tr>
-          <?php
-            while ($introw = pg_fetch_assoc($qry_int)) {
-                echo "\r\n" . '          <tr>' . "\r\n" . '            <td>' . $introw['int_proto'] . '</td>' . "\r\n";
-                echo '            <td>' . "E" . '</td>' . "\r\n";
-                echo '            <td>' . "D" . '</td>' . "\r\n" .  '          </tr>' ;
-            }
-            echo "\r\n";
-          ?>
+            <?php
+              echo "\r\n";
+              while ($introw = pg_fetch_assoc($qry_int_proto)) {
+                echo '            <tr>' . "\r\n" . '              <form id="int_proto' . $introw['int_proto_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="int_proto_id" value="' . $introw['int_proto_id'] . '">' . "\r\n" . '                <input type="hidden" name="int_proto" value="' . $introw['int_proto'] . '">' . "\r\n" . '                <td>' . $introw['int_proto'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'int_proto' . $introw['int_proto_id'] . '\').action =\'edt_interface_protocol.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'int_proto' . $introw['int_proto_id'] . '\').action =\'del_interface_protocol.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
