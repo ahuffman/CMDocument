@@ -4,6 +4,7 @@
       if (isset($_POST['cpu_type_id'])) {$cpu_type_id = pg_escape_string($_POST['cpu_type_id']);}
       if (isset($_POST['cpu_type_model'])) {$cpu_type_model = pg_escape_string($_POST['cpu_type_model']);}
       if (isset($_POST['cpu_type_cores'])) {$cpu_type_cores = pg_escape_string($_POST['cpu_type_cores']);}
+      if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);}
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
       echo '  <head>' . '<META HTTP-EQUIV=Refresh CONTENT="3;URL=' . $ref . '">' . '</head>' . '<body>';
       if (isset($ref)) {
@@ -12,7 +13,7 @@
         echo 'Delete Failed.';
         }
         else {
-        echo 'Deleted ' . $cpu_type_model . ' - ' . $cpu_type_cores . ' Core(s) from the database.' . '<br />';
+        echo 'Deleted ' . $vend . ' ' . $cpu_type_model . ' - ' . $cpu_type_cores . ' Core(s) from the database.' . '<br />';
         }
       }
     ?>
