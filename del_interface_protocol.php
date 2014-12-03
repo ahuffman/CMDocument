@@ -6,7 +6,7 @@
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
       echo '  <head>' . '<META HTTP-EQUIV=Refresh CONTENT="3;URL=' . $ref . '">' . '</head>' . '<body>';
       if (isset($ref)) {
-        $delete = pg_query($db, "DELETE FROM cmd_priority WHERE int_proto_id=$int_proto_id");
+        $delete = pg_query($db, "DELETE FROM cmd_interface_protocol WHERE int_proto_id=$int_proto_id");
         if (!$delete) {
         echo 'Delete Failed.';
         }
