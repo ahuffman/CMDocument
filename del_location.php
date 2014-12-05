@@ -9,7 +9,8 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_locations WHERE location_id=$location_id");
         if (!$delete) {
-        echo 'Delete Failed.';
+          echo 'Delete Failed:' . '<br />' . "\r\n";
+          echo pg_last_error($db);
         }
         else {
         echo 'Deleted ' . $location_name . ' - ' . $location_address . ' from the database.' . '<br />';
