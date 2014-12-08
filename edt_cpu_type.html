@@ -1,0 +1,45 @@
+<html> 
+  <body>
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $qry_vendors = pg_query($db, "SELECT * FROM cmd_vendors");
+      if (isset($_POST['cpu_type_id'])) {$cpu_type_id = pg_escape_string($_POST['cpu_type_id']);}
+      if (isset($_POST['cpu_type_model'])) {$cpu_type_model = pg_escape_string($_POST['cpu_type_model']);}
+      if (isset($_POST['cpu_type_cores'])) {$cpu_type_cores = pg_escape_string($_POST['cpu_type_cores']);}
+      if (isset($_POST['cpu_type_description'])) {$cpu_type_description = pg_escape_string($_POST['cpu_type_description']);}
+      if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_cpu_type.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" .
+           '      CPU Model Number: <input type="text" name="cpu_type_model" size="40" length="40" value="' . $cpu_type_model . '"><br />' . "\r\n" .
+           '      CPU Name: <input type="text" name="cpu_type_description" size="40" length="40" value="' . $cpu_type_description . '"><br />' . "\r\n" . 
+           '      CPU Cores: ' . "\r\n" . '      <select name="cpu_type_cores">' . "\r\n";
+           //build selection drop down
+           $count = 0;
+           while ($count <= 10) {
+             if ($cpu_type_cores == $count) {
+               echo '        <option value="' . $count . '" selected="selected">' . $count . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $count . '">' . $count . '</option>' . "\r\n";
+             }
+           $count++;
+           }
+           echo '      </select><br />' . "\r\n" . '      CPU Vendor: ' . "\r\n" . '      <select name="vend_id">' . "\r\n" . '        <option value="">Choose a vendor</option>' . "\r\n"; 
+           while ($vendrow = pg_fetch_assoc($qry_vendors)) {
+             if ($vend_id == $vendrow['vend_id']) {
+               echo '        <option value="' . $vendrow['vend_id'] . '" selected="selected">' . $vendrow['vend'] . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $vendrow['vend_id'] . '">' . $vendrow['vend'] . '</option>' . "\r\n";
+             }
+           }
+           echo '      </select><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_cpu_type.html">' . "\r\n" . '      <input type="hidden" name="cpu_type_id" value="' . $cpu_type_id . '">' . "\r\n" .  '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
