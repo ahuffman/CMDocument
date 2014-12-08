@@ -25,7 +25,8 @@
       echo 'Edited Architecture value: ' . $arch . '<br />';
     }
     else if ($ref=="edt_disk_type.html") {
-      echo 'Edited Disk Type value: ' . $disk_type . '<br />';
+      pg_query($db, "UPDATE cmd_disk_type SET disk_type='$disk_type', disk_type_desc='$disk_type_desc' WHERE disk_type_id=$disk_type_id");
+      echo 'Edited Disk Type with: ' . $disk_type . ' and ' . $disk_type_desc . '<br />';
     }
     else if ($ref=="edt_cpu_type.html") {
       echo 'Edited CPU Type value: ' . $cpu_type_model . '<br />';

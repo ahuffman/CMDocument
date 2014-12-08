@@ -11,7 +11,7 @@
         $ref = 'edt_disk_type.html';
       }
       //build the form
-      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '      Disk Type: <input type="text" name="disk_type" size="40" length="40" value="' . $disk_type . '"><br />' . "\r\n" . '      Disk Type Description: <input type="text" name="disk_type_desc" size="40" length="40" value="' . $disk_type_desc . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_disk_type.html">' . "\r\n" .  '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '      Disk Type: <input type="text" name="disk_type" size="40" length="40" value="' . $disk_type . '"><br />' . "\r\n" . '      Disk Type Description: <input type="text" name="disk_type_desc" size="40" length="40" value="' . $disk_type_desc . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_disk_type.html">' . "\r\n" .  '      <input type="hidden" name="disk_type_id" value="' . $disk_type_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
     ?>
   </body> 
 </html>
