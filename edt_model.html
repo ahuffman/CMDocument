@@ -1,0 +1,45 @@
+<html> 
+  <body>
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $qry_vendor = pg_query($db, "SELECT * FROM cmd_vendors");
+      $qry_obj_type = pg_query($db, "SELECT * FROM cmd_object_type");
+      if (isset($_POST['obj_type_id'])) {$obj_type_id = pg_escape_string($_POST['obj_type_id']);}
+      if (isset($_POST['model_id'])) {$model_id = pg_escape_string($_POST['model_id']);}
+      if (isset($_POST['model'])) {$model = pg_escape_string($_POST['model']);}
+      if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_model.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n";
+           echo '      Model Vendor: ' . "\r\n" . '      <select name="vend_id">' . "\r\n" . '        <option value="">Choose a vendor</option>' . "\r\n";
+           while ($vendrow = pg_fetch_assoc($qry_vendor)) {
+             if ($vend_id == $vendrow['vend_id']) {
+               echo '        <option value="' . $vendrow['vend_id'] . '" selected="selected">' . $vendrow['vend'] . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $vendrow['vend_id'] . '">' . $vendrow['vend'] . '</option>' . "\r\n";
+             }
+           }
+           echo '      </select><br />' . "\r\n";
+           echo '      Model Name: <input type="text" name="model" size="40" length="40" value="' . $model . '"><br />' . "\r\n" .
+           '      Object Type: ' . "\r\n";
+           //build vendor select
+           echo '      <select name="obj_type_id">' . "\r\n";
+           while ($objtyperow = pg_fetch_assoc($qry_obj_type)) {
+             if ($obj_type_id == $objtyperow['obj_type_id']) {
+               echo '        <option value="' . $objtyperow['obj_type_id'] . '" selected="selected">' . $objtyperow['obj_type'] . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $objtyperow['obj_type_id'] . '">' . $objtyperow['obj_type'] . '</option>' . "\r\n";
+             }
+           }
+           echo '      </select><br />' . "\r\n";
+echo '      <input type="hidden" name="referer" value="edt_model.html">' . "\r\n" . '      <input type="hidden" name="model_id" value="' . $model_id . '">' . "\r\n" .  '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

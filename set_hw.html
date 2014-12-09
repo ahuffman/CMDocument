@@ -40,7 +40,8 @@
       echo 'Edited Object Type.' . '<br />';
     }
     else if ($ref=="edt_model.html") {
-      echo 'Edited Object Model value: ' . $model . '<br />';
+      pg_query($db, "UPDATE cmd_model SET vend_id='$vend_id',model='$model',obj_type_id='$obj_type_id' WHERE model_id=$model_id");
+      echo 'Edited Object Model.' . '<br />';
     }
     else if ($ref=="add_disk_type.html") {
       echo 'The Disk Type was added successfully with value: ' . $disk_type . '<br />';
