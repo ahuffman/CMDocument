@@ -1,0 +1,17 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['obj_type_id'])) {$obj_type_id = pg_escape_string($_POST['obj_type_id']);}
+      if (isset($_POST['obj_type'])) {$obj_type = pg_escape_string($_POST['obj_type']);}
+      if (isset($_POST['obj_type_desc'])) {$obj_type_desc = pg_escape_string($_POST['obj_type_desc']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_object_type.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '      Object Type: <input type="text" name="obj_type" size="40" length="40" value="' . $obj_type . '"><br />' . "\r\n" . '      Object Type Description: <input type="text" name="obj_type_desc" size="40" length="40" value="' . $obj_type_desc . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_object_type.html">' . "\r\n" .  '      <input type="hidden" name="obj_type_id" value="' . $obj_type_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

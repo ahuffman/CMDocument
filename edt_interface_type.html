@@ -1,0 +1,17 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['int_type_id'])) {$int_type_id = pg_escape_string($_POST['int_type_id']);}
+      if (isset($_POST['int_type'])) {$int_type = pg_escape_string($_POST['int_type']);}
+      if (isset($_POST['int_type_desc'])) {$int_type_desc = pg_escape_string($_POST['int_type_desc']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_interface_type.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '      Interface Type: <input type="text" name="int_type" size="40" length="40" value="' . $int_type . '"><br />' . "\r\n" . '      Interface Type Description: <input type="text" name="int_type_desc" size="40" length="40" value="' . $int_type_desc . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_interface_type.html">' . "\r\n" .  '      <input type="hidden" name="int_type_id" value="' . $int_type_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

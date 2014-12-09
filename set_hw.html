@@ -14,8 +14,10 @@
   if (isset($_POST['cpu_type_description'])) {$cpu_type_description = pg_escape_string($_POST['cpu_type_description']);}
   if (isset($_POST['int_type_id'])) {$int_type_id = pg_escape_string($_POST['int_type_id']);}
   if (isset($_POST['int_type'])) {$int_type = pg_escape_string($_POST['int_type']);}
+  if (isset($_POST['int_type_desc'])) {$int_type_desc = pg_escape_string($_POST['int_type_desc']);}
   if (isset($_POST['obj_type_id'])) {$obj_type_id = pg_escape_string($_POST['obj_type_id']);}
   if (isset($_POST['obj_type'])) {$obj_type = pg_escape_string($_POST['obj_type']);}
+  if (isset($_POST['obj_type_desc'])) {$obj_type_desc = pg_escape_string($_POST['obj_type_desc']);}
   if (isset($_POST['model_id'])) {$model_id = pg_escape_string($_POST['model_id']);}
   if (isset($_POST['model'])) {$model = pg_escape_string($_POST['model']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
@@ -30,16 +32,15 @@
       echo 'Edited CPU Type.' . '<br />';
     }
     else if ($ref=="edt_interface_type.html") {
-      echo 'Edited Interface Type value: ' . $int_type . '<br />';
+      pg_query($db, "UPDATE cmd_interface_type SET int_type='$int_type', int_type_desc='$int_type_desc' WHERE int_type_id=$int_type_id");
+      echo 'Edited Interface Type.' . '<br />';
     }
     else if ($ref=="edt_object_type.html") {
-      echo 'Edited Object Type value: ' . $obj_type . '<br />';
+      pg_query($db, "UPDATE cmd_object_type SET obj_type='$obj_type', obj_type_desc='$obj_type_desc' WHERE obj_type_id=$obj_type_id");
+      echo 'Edited Object Type.' . '<br />';
     }
     else if ($ref=="edt_model.html") {
       echo 'Edited Object Model value: ' . $model . '<br />';
-    }
-    else if ($ref=="add_architecture.html") {
-      echo 'The Architecture was added successfully with value: ' . $arch . '<br />';
     }
     else if ($ref=="add_disk_type.html") {
       echo 'The Disk Type was added successfully with value: ' . $disk_type . '<br />';
@@ -141,7 +142,7 @@
           <?php
               echo "\r\n";
               while ($inttyperow = pg_fetch_assoc($qry_int_type)) {
-                echo '          <tr>' . "\r\n" . '            <form id="int_type' . $inttyperow['int_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="int_type_id" value="' . $inttyperow['int_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="int_type" value="' . $inttyperow['int_type'] . '">' . "\r\n" . '              <td>' . $inttyperow['int_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'edt_int_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'del_interface_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+                echo '          <tr>' . "\r\n" . '            <form id="int_type' . $inttyperow['int_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="int_type_id" value="' . $inttyperow['int_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="int_type" value="' . $inttyperow['int_type'] . '">' . "\r\n" . '              <input type="hidden" name="int_type_desc" value="' . $inttyperow['int_type_desc'] . '">' . "\r\n" . '              <td>' . $inttyperow['int_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'edt_interface_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'int_type' . $inttyperow['int_type_id'] . '\').action =\'del_interface_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
               }
           ?>
         </table>
@@ -164,7 +165,7 @@
           <?php
               echo "\r\n";
               while ($objtyperow = pg_fetch_assoc($qry_obj_type)) {
-                echo '          <tr>' . "\r\n" . '            <form id="obj_type' . $objtyperow['obj_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="obj_type_id" value="' . $objtyperow['obj_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="obj_type" value="' . $objtyperow['obj_type'] . '">' . "\r\n" . '              <td>' . $objtyperow['obj_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'edt_obj_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'del_object_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
+                echo '          <tr>' . "\r\n" . '            <form id="obj_type' . $objtyperow['obj_type_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_hw.html">' . "\r\n" . '              <input type="hidden" name="obj_type_id" value="' . $objtyperow['obj_type_id'] . '">' . "\r\n" . '              <input type="hidden" name="obj_type" value="' . $objtyperow['obj_type'] . '">' . "\r\n" . '              <input type="hidden" name="obj_type_desc" value="' . $objtyperow['obj_type_desc'] . '">' . "\r\n" . '              <td>' . $objtyperow['obj_type'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'edt_object_type.html\';"'  . '>' . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'obj_type' . $objtyperow['obj_type_id'] . '\').action =\'del_object_type.php\';"' . '>' . '</td>' . "\r\n" . '            </form>' . "\r\n"  . '          </tr>' . "\r\n";
               }
           ?>
         </table>
