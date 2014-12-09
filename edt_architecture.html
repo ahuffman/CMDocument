@@ -1,0 +1,16 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
+      if (isset($_POST['arch'])) {$arch = pg_escape_string($_POST['arch']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_architecture.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '      Architecture: <input type="text" name="arch" size="40" length="40" value="' . $arch . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_architecture.html">' . "\r\n" .  '      <input type="hidden" name="arch_id" value="' . $arch_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
