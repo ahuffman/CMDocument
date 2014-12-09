@@ -31,7 +31,7 @@
       echo 'Edited RAID Type.' . '<br />';
     }
     else if ($ref=="edt_interface_protocol.html") {
-      pg_query($db, "UPDATE cmd_cpu_type SET vend_id='$vend_id',cpu_type_model='$cpu_type_model',cpu_type_description='$cpu_type_description',cpu_type_cores='$cpu_type_cores' WHERE cpu_type_id=$cpu_type_id");
+      pg_query($db, "UPDATE cmd_interface_protocol SET int_proto='$int_proto' WHERE int_proto_id=$int_proto_id");
       echo 'Edited Interface Protocol.' . '<br />';
     }
   }

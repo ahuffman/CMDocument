@@ -1,0 +1,16 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['int_proto_id'])) {$int_proto_id = pg_escape_string($_POST['int_proto_id']);}
+      if (isset($_POST['int_proto'])) {$int_proto = pg_escape_string($_POST['int_proto']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_interface_protocol.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '     Interface Protocol: <input type="text" name="int_proto" size="40" length="40" value="' . $int_proto . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_interface_protocol.html">' . "\r\n" .  '      <input type="hidden" name="int_proto_id" value="' . $int_proto_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
