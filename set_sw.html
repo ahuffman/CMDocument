@@ -27,7 +27,7 @@
       echo 'Edited Software.' . '<br />';
     }
     else if ($ref=="edt_raid_type.html") {
-      pg_query($db, "UPDATE cmd_cpu_type SET vend_id='$vend_id',cpu_type_model='$cpu_type_model',cpu_type_description='$cpu_type_description',cpu_type_cores='$cpu_type_cores' WHERE cpu_type_id=$cpu_type_id");
+      pg_query($db, "UPDATE cmd_disk_raid_type SET disk_raid_type='$disk_raid_type' WHERE disk_raid_type_id=$disk_raid_type_id");
       echo 'Edited RAID Type.' . '<br />';
     }
     else if ($ref=="edt_interface_protocol.html") {

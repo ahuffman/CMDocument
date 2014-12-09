@@ -1,0 +1,16 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['disk_raid_type_id'])) {$raid_type_id = pg_escape_string($_POST['disk_raid_type_id']);}
+      if (isset($_POST['disk_raid_type'])) {$raid_type = pg_escape_string($_POST['disk_raid_type']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_raid_type.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '     RAID Type: <input type="text" name="disk_raid_type" size="40" length="40" value="' . $raid_type . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_raid_type.html">' . "\r\n" .  '      <input type="hidden" name="disk_raid_type_id" value="' . $raid_type_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
