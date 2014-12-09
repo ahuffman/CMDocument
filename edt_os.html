@@ -1,0 +1,33 @@
+<html> 
+  <body>
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $qry_arch= pg_query($db, "SELECT * FROM cmd_architecture");
+      if (isset($_POST['os_id'])) {$os_id = pg_escape_string($_POST['os_id']);}
+      if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
+      if (isset($_POST['os'])) {$os = pg_escape_string($_POST['os']);}
+      if (isset($_POST['os_ver'])) {$os_ver = pg_escape_string($_POST['os_ver']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_os.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n";
+           echo '      Operating System Architecture: ' . "\r\n" . '      <select name="arch_id">' . "\r\n" . '        <option value="">Choose an architecture</option>' . "\r\n";
+           while ($archrow = pg_fetch_assoc($qry_arch)) {
+             if ($arch_id == $archrow['arch_id']) {
+               echo '        <option value="' . $archrow['arch_id'] . '" selected="selected">' . $archrow['arch'] . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $archrow['arch_id'] . '">' . $archrow['arch'] . '</option>' . "\r\n";
+             }
+           }
+           echo '      </select><br />' . "\r\n";
+           echo '      Operating System Name: <input type="text" name="os" size="40" length="40" value="' . $os . '"><br />' . "\r\n" .
+           '      Operating System Version: <input type="text" name="os_ver" size="40" length="40" value="' . $os_ver . '"><br />' . "\r\n";
+echo '      <input type="hidden" name="referer" value="edt_os.html">' . "\r\n" . '      <input type="hidden" name="os_id" value="' . $os_id . '">' . "\r\n" .  '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
