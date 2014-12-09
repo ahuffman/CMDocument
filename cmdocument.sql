@@ -39,19 +39,6 @@ CREATE TABLE public.cmd_owner (
 );
 
 
-CREATE SEQUENCE public.cmd_model_model_id_seq;
-
-CREATE TABLE public.cmd_model (
-                model_id INTEGER NOT NULL DEFAULT nextval('public.cmd_model_model_id_seq'),
-                model VARCHAR NOT NULL,
-                vend_id INTEGER NOT NULL,
-                obj_type_id INTEGER NOT NULL,
-                CONSTRAINT model_id PRIMARY KEY (model_id)
-);
-
-
-ALTER SEQUENCE public.cmd_model_model_id_seq OWNED BY public.cmd_model.model_id;
-
 CREATE SEQUENCE public.cmd_status_status_id_seq;
 
 CREATE TABLE public.cmd_status (
@@ -219,6 +206,19 @@ CREATE TABLE public.cmd_object_type (
 
 ALTER SEQUENCE public.cmd_object_type_obj_type_id_seq OWNED BY public.cmd_object_type.obj_type_id;
 
+CREATE SEQUENCE public.cmd_model_model_id_seq;
+
+CREATE TABLE public.cmd_model (
+                model_id INTEGER NOT NULL DEFAULT nextval('public.cmd_model_model_id_seq'),
+                model VARCHAR NOT NULL,
+                vend_id INTEGER NOT NULL,
+                obj_type_id INTEGER NOT NULL,
+                CONSTRAINT model_id PRIMARY KEY (model_id)
+);
+
+
+ALTER SEQUENCE public.cmd_model_model_id_seq OWNED BY public.cmd_model.model_id;
+
 CREATE SEQUENCE public.cmd_object_obj_id_seq_1;
 
 CREATE TABLE public.cmd_object (
@@ -381,13 +381,6 @@ ON DELETE RESTRICT
 ON UPDATE CASCADE
 NOT DEFERRABLE;
 
-ALTER TABLE public.cmd_object ADD CONSTRAINT cmd_model_cmd_object_fk
-FOREIGN KEY (model_id)
-REFERENCES public.cmd_model (model_id)
-ON DELETE RESTRICT
-ON UPDATE CASCADE
-NOT DEFERRABLE;
-
 ALTER TABLE public.cmd_object ADD CONSTRAINT cmd_status_cmd_object_fk
 FOREIGN KEY (status_id)
 REFERENCES public.cmd_status (status_id)
@@ -444,6 +437,13 @@ ON DELETE RESTRICT
 ON UPDATE CASCADE
 NOT DEFERRABLE;
 
+ALTER TABLE public.cmd_os ADD CONSTRAINT cmd_architecture_cmd_os_fk
+FOREIGN KEY (arch_id)
+REFERENCES public.cmd_architecture (arch_id)
+ON DELETE RESTRICT
+ON UPDATE CASCADE
+NOT DEFERRABLE;
+
 ALTER TABLE public.cmd_object ADD CONSTRAINT cmd_software_cmd_object_fk
 FOREIGN KEY (sw_id)
 REFERENCES public.cmd_software (sw_id)
@@ -489,6 +489,20 @@ NOT DEFERRABLE;
 ALTER TABLE public.cmd_object ADD CONSTRAINT cmd_object_type_cmd_object_fk
 FOREIGN KEY (obj_type_id)
 REFERENCES public.cmd_object_type (obj_type_id)
+ON DELETE RESTRICT
+ON UPDATE CASCADE
+NOT DEFERRABLE;
+
+ALTER TABLE public.cmd_model ADD CONSTRAINT cmd_object_type_cmd_model_fk
+FOREIGN KEY (obj_type_id)
+REFERENCES public.cmd_object_type (obj_type_id)
+ON DELETE RESTRICT
+ON UPDATE CASCADE
+NOT DEFERRABLE;
+
+ALTER TABLE public.cmd_object ADD CONSTRAINT cmd_model_cmd_object_fk
+FOREIGN KEY (model_id)
+REFERENCES public.cmd_model (model_id)
 ON DELETE RESTRICT
 ON UPDATE CASCADE
 NOT DEFERRABLE;
