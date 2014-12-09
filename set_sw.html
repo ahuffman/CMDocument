@@ -7,7 +7,7 @@
   if (isset($_POST['os_ver'])) {$os_ver = pg_escape_string($_POST['os_ver']);}
   if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
   if (isset($_POST['sw_id'])) {$sw_id = pg_escape_string($_POST['sw_id']);}
-  if (isset($_POST['software'])) {$software = pg_escape_string($_POST['sofrware']);}
+  if (isset($_POST['software'])) {$software = pg_escape_string($_POST['software']);}
   if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
   if (isset($_POST['sw_ver'])) {$sw_ver = pg_escape_string($_POST['sw_ver']);}
   if (isset($_POST['disk_raid_type_id'])) {$disk_raid_type_id = pg_escape_string($_POST['disk_raid_type_id']);}
@@ -23,7 +23,7 @@
       echo 'Edited Operating System.' . '<br />';
     }
     else if ($ref=="edt_sw.html") {
-      pg_query($db, "UPDATE cmd_cpu_type SET vend_id='$vend_id',cpu_type_model='$cpu_type_model',cpu_type_description='$cpu_type_description',cpu_type_cores='$cpu_type_cores' WHERE cpu_type_id=$cpu_type_id");
+      pg_query($db, "UPDATE cmd_software SET vend_id='$vend_id',arch_id='$arch_id',software='$software',sw_ver='$sw_ver' WHERE sw_id=$sw_id");
       echo 'Edited Software.' . '<br />';
     }
     else if ($ref=="edt_raid_type.html") {
@@ -95,7 +95,7 @@
             <?php
               echo "\r\n";
               while ($swrow = pg_fetch_assoc($qry_sw)) {
-                echo '            <tr>' . "\r\n" . '              <form id="sw' . $swrow['sw_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="sw_id" value="' . $swrow['sw_id'] . '">' . "\r\n" . '                <input type="hidden" name="software" value="' . $swrow['software'] . '">' . "\r\n" . '                <input type="hidden" name="arch_id" value="' . $swrow['arch_id'] . '">' . "\r\n" . '                <input type="hidden" name="arch" value="' . $swrow['arch'] . '">' . "\r\n" . '                <input type="hidden" name="sw_ver" value="' . $swrow['sw_ver'] . '">' . "\r\n" . '                <input type="hidden" name="vend_id" value="' . $swrow['vend_id'] . '">' . "\r\n" . '                <input type="hidden" name="vend" value="' . $swrow['vend'] . '">' . "\r\n" . '                <td>' . $swrow['vend'] . ' ' . $swrow['software'] . ' ' . $swrow['sw_ver'] . ' ' . $swrow['arch'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'edt_sw.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'del_sw.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+                echo '            <tr>' . "\r\n" . '              <form id="sw' . $swrow['sw_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_sw.html">' . "\r\n" . '                <input type="hidden" name="sw_id" value="' . $swrow['sw_id'] . '">' . "\r\n" . '                <input type="hidden" name="software" value="' . $swrow['software'] . '">' . "\r\n" . '                <input type="hidden" name="arch_id" value="' . $swrow['arch_id'] . '">' . "\r\n" . '                <input type="hidden" name="arch" value="' . $swrow['arch'] . '">' . "\r\n" . '                <input type="hidden" name="sw_ver" value="' . $swrow['sw_ver'] . '">' . "\r\n" . '                <input type="hidden" name="vend_id" value="' . $swrow['vend_id'] . '">' . "\r\n" . '                <td>' . $swrow['vend'] . ' ' . $swrow['software'] . ' ' . $swrow['sw_ver'] . ' ' . $swrow['arch'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'edt_sw.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'sw' . $swrow['sw_id'] . '\').action =\'del_sw.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
               }
             ?>
         </table>
