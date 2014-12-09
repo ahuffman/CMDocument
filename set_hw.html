@@ -43,6 +43,10 @@
       pg_query($db, "UPDATE cmd_model SET vend_id='$vend_id',model='$model',obj_type_id='$obj_type_id' WHERE model_id=$model_id");
       echo 'Edited Object Model.' . '<br />';
     }
+    else if ($ref=="edt_architecture.html") {
+      pg_query($db, "UPDATE cmd_architecture SET arch='$arch' WHERE arch_id=$arch_id");
+      echo 'Edited Architecture.' . '<br />';
+    }
     else if ($ref=="add_disk_type.html") {
       echo 'The Disk Type was added successfully with value: ' . $disk_type . '<br />';
     }
@@ -57,6 +61,9 @@
     }
     else if ($ref=="add_model.html") {
       echo 'The Object Model was added successfully with value: ' . $model . '<br />';
+    }
+    else if ($ref=="add_architecture.html") {
+      echo 'The Architecture was added successfully.' . '<br />';
     }
   }
   $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
