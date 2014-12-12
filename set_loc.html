@@ -9,9 +9,21 @@
     if (isset($_POST['cab_name'])) {$cab_name = pg_escape_string($_POST['cab_name']);}
     if (isset($_POST['cab_location_id'])) {$cab_location_id = pg_escape_string($_POST['cab_location_id']);}
     if (isset($_POST['cab_units_tot'])) {$cab_units_tot = pg_escape_string($_POST['cab_units_tot']);}
-    if (isset($_POST['referer'])) {$referer = pg_escape_string($_POST['referer']);}
+    if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+//edit-add handler
+  if (isset($ref)) {
+    if ($ref=="edt_location.html") {
+      pg_query($db, "UPDATE cmd_locations SET location_name='$location_name', location_address='$location_address' WHERE location_id=$location_id");
+      echo 'Edited Location.' . '<br />';
+    }
+    else if ($ref=="edt_cabinet.html") {
+      pg_query($db, "UPDATE cmd_cabinets SET location_id='$location_id',cab_name='$cab_name',cab_units_tot='$cab_units_tot',cab_image_path='$cab_image_path' WHERE cab_id=$cab_id");
+      echo 'Edited Cabinet.' . '<br />';
+    }
+  }
+
     $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
-    $qry_cab = pg_query($db, "SELECT cmd_cabinets.cab_id, cmd_cabinets.cab_name, cmd_locations.location_name, cmd_cabinets.location_id from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
+    $qry_cab = pg_query($db, "SELECT * from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
   ?>
 <table>
   <tr>
@@ -67,7 +79,7 @@
             <?php
               echo "\r\n";
               while ($cabrow = pg_fetch_assoc($qry_cab)) {
-                echo '            <tr>' . "\r\n" . '              <form id="cabinet' . $cabrow['cab_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_loc.html">' . "\r\n" . '                <input type="hidden" name="cab_id" value="' . $cabrow['cab_id'] . '">' . "\r\n" . '                <input type="hidden" name="cab_name" value="' . $cabrow['cab_name'] . '">' . "\r\n" . '                <input type="hidden" name="location_id" value="' . $cabrow['location_id'] . '">' . "\r\n" . '                <input type="hidden" name="location_name" value="' . $cabrow['location_name'] . '">' . "\r\n" . '                <td>' . $cabrow['location_name'] . ' - ' . $cabrow['cab_name'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'edt_cabinet.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'del_cabinet.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+                echo '            <tr>' . "\r\n" . '              <form id="cabinet' . $cabrow['cab_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_loc.html">' . "\r\n" . '                <input type="hidden" name="cab_id" value="' . $cabrow['cab_id'] . '">' . "\r\n" . '                <input type="hidden" name="cab_name" value="' . $cabrow['cab_name'] . '">' . "\r\n" . '                <input type="hidden" name="location_id" value="' . $cabrow['location_id'] . '">' . "\r\n" . '                <input type="hidden" name="cab_units_tot" value="' . $cabrow['cab_units_tot'] . '">' . "\r\n" . '                <input type="hidden" name="cab_image_path" value="' . $cabrow['cab_image_path'] . '">' . "\r\n" . '                <td>' . $cabrow['location_name'] . ' - ' . $cabrow['cab_name'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'edt_cabinet.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'cabinet' . $cabrow['cab_id'] . '\').action =\'del_cabinet.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
               }
             ?>
         </table>

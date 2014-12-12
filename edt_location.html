@@ -1,0 +1,17 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}
+      if (isset($_POST['location_name'])) {$location_name = pg_escape_string($_POST['location_name']);}
+      if (isset($_POST['location_address'])) {$location_address = pg_escape_string($_POST['location_address']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_location.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '     Location Name: <input type="text" name="location_name" size="40" length="40" value="' . $location_name . '"><br />' . "\r\n" . '     Location Address: <input type="text" name="location_address" size="40" length="40" value="' . $location_address . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_location.html">' . "\r\n" .  '      <input type="hidden" name="location_id" value="' . $location_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

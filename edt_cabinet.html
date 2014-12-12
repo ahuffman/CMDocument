@@ -1,0 +1,43 @@
+<html> 
+  <body>
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $qry_loc= pg_query($db, "SELECT * FROM cmd_locations");
+      if (isset($_POST['cab_id'])) {$cab_id = pg_escape_string($_POST['cab_id']);}
+      if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}
+      if (isset($_POST['cab_name'])) {$cab_name = pg_escape_string($_POST['cab_name']);}
+      if (isset($_POST['cab_units_tot'])) {$cab_units_tot = pg_escape_string($_POST['cab_units_tot']);}
+      if (isset($_POST['cab_image_path'])) {$cab_image_path = pg_escape_string($_POST['cab_image_path']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_cabinet.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n";
+
+//vendor
+           echo '      Cabinet Location: ' . "\r\n" . '      <select name="location_id">' . "\r\n" . '        <option value="">Choose a cabinet location</option>' . "\r\n";
+           while ($locrow = pg_fetch_assoc($qry_loc)) {
+             if ($location_id == $locrow['location_id']) {
+               echo '        <option value="' . $locrow['location_id'] . '" selected="selected">' . $locrow['location_name'] . '</option>' . "\r\n";
+             }
+             else {
+               echo '        <option value="' . $locrow['location_id'] . '">' . $locrow['location_name'] . '</option>' . "\r\n";
+             }
+           }
+           echo '      </select><br />' . "\r\n";
+//cabinet name
+           echo '      Cabinet Name: <input type="text" name="cab_name" size="40" length="40" value="' . $cab_name . '"><br />' . "\r\n";
+//cabinet total rack units
+           echo '      Cabinet Total Rack Units: <input type="text" name="cab_units_tot" size="40" length="40" value="' . $cab_units_tot . '"><br />' . "\r\n";
+//cabinet image path (text for now)
+           echo '      Cabinet Image Path: <input type="text" name="cab_image_path" size="40" length="40" value="' . $cab_image_path . '"><br />' . "\r\n";
+//hidden
+  echo '      <input type="hidden" name="referer" value="edt_cabinet.html">' . "\r\n" . '      <input type="hidden" name="cab_id" value="' . $cab_id . '">' . "\r\n";
+//buttons
+  echo '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>
