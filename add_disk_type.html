@@ -1,10 +1,13 @@
 <html> 
-    <body> 
-        <form action="add_disk_type.php" method="post"> 
-            Disk Type: <input type="text" name="disktype" size="40" length="40" value=""><br /> 
-            Disk Type Description: <input type="text" name="disktypedesc" size="40" length="40" value=""><br /> 
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body> 
+    <?php
+        if (isset($_POST['referer'])) {
+          $ref = pg_escape_string($_POST['referer']);
+        }
+        else {
+          $ref = 'add_disk_type.php';
+        }
+        echo '        <form action="' . $ref . '" method="post">' . '            Disk Type: <input type="text" name="disk_type" size="40" length="40" value=""><br />' . '            Disk Type Description: <input type="text" name="disk_type_desc" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_disk_type.html">' . '            <input type="submit" name="submit" value="Submit">' . '            <input type="reset" name="reset" value="Clear">' . '        </form>';
+    ?>
+  </body> 
 </html>

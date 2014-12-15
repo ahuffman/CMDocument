@@ -48,7 +48,8 @@
       echo 'Edited Architecture.' . '<br />';
     }
     else if ($ref=="add_disk_type.html") {
-      echo 'The Disk Type was added successfully with value: ' . $disk_type . '<br />';
+      pg_query($db, "INSERT INTO cmd_disk_type(disk_type, disk_type_desc) VALUES('$disk_type', '$disk_type_desc')");
+      echo 'The Disk Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_cpu_type.html") {
       echo 'The CPU Type was added successfully with value: ' . $cpu_type_model . '<br />';
