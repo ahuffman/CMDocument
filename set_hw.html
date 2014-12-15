@@ -52,7 +52,8 @@
       echo 'The Disk Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_cpu_type.html") {
-      echo 'The CPU Type was added successfully with value: ' . $cpu_type_model . '<br />';
+      pg_query($db, "INSERT INTO cmd_cpu_type(vend_id, cpu_type_model, cpu_type_description, cpu_type_cores) VALUES('$vend_id', '$cpu_type_model', '$cpu_type_description', '$cpu_type_cores')");
+      echo 'The CPU Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_interface_type.html") {
       echo 'The Interface Type was added successfully with value: ' . $int_type . '<br />';

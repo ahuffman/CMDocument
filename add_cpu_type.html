@@ -1,33 +1,28 @@
 <html> 
-    <body> 
-        <form action="add_cpu_type.php" method="post"> 
-            CPU Model Number: <input type="text" name="cpumodel" size="40" length="40" value=""><br /> 
-            CPU Name: <input type="text" name="cputypedescription" size="40" length="40" value=""><br /> 
-	    CPU Cores: <select name="cpucores">
-	      <option value="1">1</option>
-	      <option value="2">2</option>
-	      <option value="3">3</option>
-	      <option value="4">4</option>
-	      <option value="5">5</option>
-	      <option value="6">6</option>
-	      <option value="7">7</option>
-	      <option value="8">8</option>
-	      <option value="9">9</option>
-	      <option value="10">10</option>
-	    </select><br />
-	    CPU Vendor: <select name="cpuvendor">
-	      <option value="">Choose a vendor</option>
-	    <?php
-            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-            $result = pg_query($db, "SELECT * FROM cmd_vendors"); 
-            while ($row = pg_fetch_assoc($result)) {
-                echo '  <option value="' . $row['vend_id'] . '">' . $row['vend'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";    
-            pg_close($db);
-            ?>
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body> 
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_cpu_type.php';
+      }
+      $qry_vendors = pg_query($db, "SELECT * FROM cmd_vendors");
+//build form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '       CPU Model Number: <input type="text" name="cpu_type_model" size="40" length="40" value=""><br />' . "\r\n" . '       CPU Name: <input type="text" name="cpu_type_description" size="40" length="40" value=""><br />' . "\r\n";
+      $count_core = 0;
+      echo '       CPU Cores:' . "\r\n" . '        <select name="cpu_type_cores">' . "\r\n";
+      while($count_core < 11) {
+        echo '          <option value="' . $count_core . '">' . $count_core . '</option>' . "\r\n";
+        $count_core++;
+      }
+      echo '        </select><br />' .  "\r\n";
+      echo '        CPU Vendor: ' . "\r\n" . '        <select name="vend_id">' . '<br />' . "\r\n" . '	  <option value="">Choose a vendor</option>'. "\r\n";
+      while ($vendrow = pg_fetch_assoc($qry_vendors)) {
+        echo '          <option value="' . $vendrow['vend_id'] . '">' . $vendrow['vend'] . '</option>' . "\r\n";
+      }
+      echo '        </select><br />' . "\r\n" . '        <input type="hidden" name="referer" value="add_cpu_type.html">' . "\r\n" . '        <input type="submit" name="submit" value="Submit">' . '        <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>
