@@ -1,25 +1,31 @@
 <html> 
-    <body> 
-        <form action="add_model.php" method="post"> 
-            Model Name: <input type="text" name="model" size="40" length="40" value=""><br /> 
-            <?php
-            echo 'Model Vendor: ' . '<select name="vendor">' . "\r\n            ";
-            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-            $vendor = pg_query($db, "SELECT * from cmd_vendors");
-            while ($vendrow = pg_fetch_assoc($vendor)) {
-                echo '  <option value="' . $vendrow['vend_id'] . '">' . $vendrow['vend'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";
-            echo '            Model Type: ' . '<select name="type">' . "\r\n            ";
-            $type = pg_query($db, "SELECT * from cmd_object_type");
-            while ($typerow = pg_fetch_assoc($type)) {
-                echo '  <option value="' . $typerow['obj_type_id'] . '">' . $typerow['obj_type'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";
-            pg_close($db);
-            ?>
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body> 
+    <?php
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_model.php';
+      }
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $qry_vendor = pg_query($db, "SELECT * from cmd_vendors");
+      $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" .
+      '      Model Name: <input type="text" name="model" size="40" length="40" value=""><br />' . "\r\n" . 
+      '      Model Vendor:' . "\r\n" . 
+      '      <select name="vend_id">' . "\r\n";
+      while ($vendrow = pg_fetch_assoc($qry_vendor)) {
+        echo '        <option value="' . $vendrow['vend_id'] . '">' . $vendrow['vend'] . '</option>' . "\r\n";
+      }
+      echo '      </select><br />' . "\r\n";
+      echo '      Model Type: ' . "\r\n" . '      <select name="obj_type_id">' . "\r\n";
+      while ($typerow = pg_fetch_assoc($qry_obj_type)) {
+        echo '        <option value="' . $typerow['obj_type_id'] . '">' . $typerow['obj_type'] . '</option>' . "\r\n";
+      }
+      echo '      </select><br />' . "\r\n" .
+           '      <input type="hidden" name="referer" value="add_model.html">' . "\r\n" .
+           '      <input type="submit" name="submit" value="Submit">' . "\r\n" .
+           '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>

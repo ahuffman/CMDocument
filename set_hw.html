@@ -64,6 +64,7 @@
       echo 'The Object Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_model.html") {
+      pg_query($db, "INSERT INTO cmd_model(model, vend_id, obj_type_id) VALUES('$model', '$vend_id', '$obj_type_id')");
       echo 'The Object Model was added successfully with value: ' . $model . '<br />';
     }
     else if ($ref=="add_architecture.html") {
