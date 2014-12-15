@@ -60,7 +60,8 @@
       echo 'The Interface Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_object_type.html") {
-      echo 'The Object Type was added successfully with value: ' . $obj_type . '<br />';
+      pg_query($db, "INSERT INTO cmd_object_type(obj_type, obj_type_desc) VALUES('$obj_type', '$obj_type_desc')");
+      echo 'The Object Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_model.html") {
       echo 'The Object Model was added successfully with value: ' . $model . '<br />';
