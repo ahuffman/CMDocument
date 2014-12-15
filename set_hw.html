@@ -56,7 +56,8 @@
       echo 'The CPU Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_interface_type.html") {
-      echo 'The Interface Type was added successfully with value: ' . $int_type . '<br />';
+      pg_query($db, "INSERT INTO cmd_interface_type(int_type, int_type_desc) VALUES('$int_type', '$int_type_desc')");
+      echo 'The Interface Type was added successfully.' . '<br />';
     }
     else if ($ref=="add_object_type.html") {
       echo 'The Object Type was added successfully with value: ' . $obj_type . '<br />';
