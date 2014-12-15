@@ -68,6 +68,7 @@
       echo 'The Object Model was added successfully with value: ' . $model . '<br />';
     }
     else if ($ref=="add_architecture.html") {
+      pg_query($db, "INSERT INTO cmd_architecture(arch) VALUES('$arch')");
       echo 'The Architecture was added successfully.' . '<br />';
     }
   }
