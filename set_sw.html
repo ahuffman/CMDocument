@@ -39,6 +39,7 @@
       echo 'Added Operating System.' . '<br />';
     }
     else if ($ref=="add_sw.html") {
+      pg_query($db, "INSERT INTO cmd_software(software,arch_id,sw_ver,vend_id) VALUES('$software', '$arch_id', '$sw_ver', '$vend_id')");
       echo 'Added Software.' . '<br />';
     }
     else if ($ref=="add_raid_type.html") {
