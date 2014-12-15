@@ -1,47 +1,36 @@
 <html> 
-    <body> 
-        <?php
-             if (isset($_POST['objectname'])){$objectname = pg_escape_string($_POST['objectname']);}
-             if (isset($_POST['serial'])){$serial = pg_escape_string($_POST['serial']);}
-             if (isset($_POST['installdate'])){$installdate = pg_escape_string($_POST['installdate']);}
-             if (isset($_POST['decomissiondate'])){$decomissiondate = pg_escape_string($_POST['decomissiondate']);}
-             if (isset($_POST['ru_size'])){$ru_size = pg_escape_string($_POST['ru_size']);}
-             if (isset($_POST['priority'])){$priority = pg_escape_string($_POST['priority']);}
-             if (isset($_POST['purpose'])){$purpose = pg_escape_string($_POST['purpose']);}
-             if (isset($_POST['referer'])){$ref = pg_escape_string($_POST['referer']);}
-             if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
-        if (isset($ref)){
-            if($ref == "object") {
-              echo '        <form action="add_object.html" method="post">';
-              if (isset($objectname)){echo '        <input type="hidden" name="objectname" value="' . $objectname . '">' . "\r\n";}
-              if (isset($serial)){echo '        <input type="hidden" name="serial" value="' . $serial . '">' . "\r\n";}
-              if (isset($installdate)){echo '        <input type="hidden" name="installdate" value="' . $installdate . '">' . "\r\n";}
-              if (isset($decomissiondate)){echo '        <input type="hidden" name="decomissiondate" value="' . $decomissiondate . '">' . "\r\n";}
-              if (isset($ru_size)){echo '        <input type="hidden" name="ru_size" value="' . $ru_size . '">' . "\r\n";}
-              if (isset($priority)){echo '        <input type="hidden" name="priority" value="' . $priority . '">' . "\r\n";}
-              if (isset($purpose)){echo '        <input type="hidden" name="purpose" value="' . $purpose . '">' . "\r\n";}
-              if (isset($status)){echo '        <input type="hidden" name="status" value="' . $status . '">' . "\r\n";}
-              echo '        <input type="hidden" name="referer" value="os">' . "\r\n";
-            }
-            else {
-               echo '        <form action="add_os.php" method="post">';
-            }
-        }
-       ?>
-        <form action="add_os.php" method="post"> 
-            Operating System Name: <input type="text" name="os" size="40" length="40" value=""><br /> 
-            Operating System Version: <input type="text" name="os_ver" size="40" length="40" value=""><br />
-            Operating System Architecture: <select name="arch">
-            <?php
-              $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-              $qry_arch = pg_query($db, "SELECT * from cmd_architecture ORDER BY arch");
+  <body> 
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      if (isset($_POST['objectname'])){$objectname = pg_escape_string($_POST['objectname']);}
+      if (isset($_POST['serial'])){$serial = pg_escape_string($_POST['serial']);}
+      if (isset($_POST['installdate'])){$installdate = pg_escape_string($_POST['installdate']);}
+      if (isset($_POST['decomissiondate'])){$decomissiondate = pg_escape_string($_POST['decomissiondate']);}
+      if (isset($_POST['ru_size'])){$ru_size = pg_escape_string($_POST['ru_size']);}
+      if (isset($_POST['priority'])){$priority = pg_escape_string($_POST['priority']);}
+      if (isset($_POST['purpose'])){$purpose = pg_escape_string($_POST['purpose']);}
+      if (isset($_POST['referer'])){$ref = pg_escape_string($_POST['referer']);}
+      if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
+      if (isset($_POST['referer'])){
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_os.php';
+      }
+      $qry_arch = pg_query($db, "SELECT * from cmd_architecture ORDER BY arch");
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . 
+      '      Operating System Name: <input type="text" name="os" size="40" length="40" value=""><br />' . "\r\n" . 
+      '      Operating System Version: <input type="text" name="os_ver" size="40" length="40" value=""><br />' . "\r\n" . 
+      '      Operating System Architecture:' . "\r\n" . 
+      '      <select name="arch_id">' . "\r\n";
               while( $archrow = pg_fetch_assoc($qry_arch)) {
-                 echo '<option value="' . $archrow['arch_id'] . '">' . $archrow['arch'] . '</option>' . "\r\n            ";
+                 echo '        <option value="' . $archrow['arch_id'] . '">' . $archrow['arch'] . '</option>' . "\r\n";
               }
-            ?>
-            </select><br />
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+      echo '      </select><br />' . "\r\n" . 
+      '      <input type="hidden" name="referer" value="add_os.html">' . "\r\n" . 
+      '      <input type="submit" name="submit" value="Submit">' . "\r\n" . 
+      '      <input type="reset" name="reset" value="Clear">' . "\r\n" . 
+      '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>

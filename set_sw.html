@@ -34,6 +34,19 @@
       pg_query($db, "UPDATE cmd_interface_protocol SET int_proto='$int_proto' WHERE int_proto_id=$int_proto_id");
       echo 'Edited Interface Protocol.' . '<br />';
     }
+    else if ($ref=="add_os.html") {
+      pg_query($db, "INSERT INTO cmd_os(os,os_ver,arch_id) VALUES('$os', '$os_ver', '$arch_id')");
+      echo 'Added Operating System.' . '<br />';
+    }
+    else if ($ref=="add_sw.html") {
+      echo 'Added Software.' . '<br />';
+    }
+    else if ($ref=="add_raid_type.html") {
+      echo 'Added RAID Type.' . '<br />';
+    }
+    else if ($ref=="add_interface_protocol.html") {
+      echo 'Added Interface Protocol.' . '<br />';
+    }
   }
   $qry_os = pg_query($db, "SELECT cmd_os.os_id,cmd_os.os,cmd_os.os_ver,cmd_os.arch_id,cmd_architecture.arch FROM cmd_os JOIN cmd_architecture ON cmd_os.arch_id = cmd_architecture.arch_id ORDER BY cmd_os.os ASC, cmd_os.os_ver ASC,cmd_architecture.arch ASC");
   $qry_sw = pg_query($db, "SELECT cmd_software.sw_id,cmd_software.vend_id,cmd_software.arch_id,cmd_vendors.vend,cmd_software.software,cmd_software.sw_ver,cmd_architecture.arch FROM cmd_software JOIN cmd_vendors ON cmd_software.vend_id = cmd_vendors.vend_id JOIN cmd_architecture ON cmd_software.arch_id = cmd_architecture.arch_id ORDER BY cmd_vendors.vend ASC,cmd_software.software ASC, cmd_software.sw_ver ASC,cmd_architecture.arch ASC");
