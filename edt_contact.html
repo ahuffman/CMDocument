@@ -1,0 +1,25 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['contact_id'])) {$contact_id = pg_escape_string($_POST['contact_id']);}
+      if (isset($_POST['contact_firstname'])) {$contact_firstname = pg_escape_string($_POST['contact_firstname']);}
+      if (isset($_POST['contact_lastname'])) {$contact_lastname = pg_escape_string($_POST['contact_lastname']);}
+      if (isset($_POST['contact_company'])) {$contact_company = pg_escape_string($_POST['contact_company']);}
+      if (isset($_POST['contact_phone'])) {$contact_phone = pg_escape_string($_POST['contact_phone']);}
+      if (isset($_POST['contact_website'])) {$contact_website = pg_escape_string($_POST['contact_website']);}
+      if (isset($_POST['contact_user'])) {$contact_user = pg_escape_string($_POST['contact_user']);}
+      if (isset($_POST['contact_pass'])) {$contact_pass = pg_escape_string($_POST['contact_pass']);}
+      if (isset($_POST['contact_email'])) {$contact_email = pg_escape_string($_POST['contact_email']);}
+      if (isset($_POST['contact_address'])) {$contact_address = pg_escape_string($_POST['contact_address']);}
+      if (isset($_POST['contact_notes'])) {$contact_notes = pg_escape_string($_POST['contact_notes']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_contact.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '     Contact Firstname: <input type="text" name="contact_firstname" size="40" length="40" value="' . $contact_firstname . '"><br />' . "\r\n" . '     Contact Lastname: <input type="text" name="contact_lastname" size="40" length="40" value="' . $contact_lastname . '"><br />' . "\r\n" . '     Contact Company: <input type="text" name="contact_company" size="40" length="40" value="' . $contact_company . '"><br />' . "\r\n" . '     Contact Phone: <input type="text" name="contact_phone" size="40" length="40" value="' . $contact_phone . '"><br />' . "\r\n" . '     Contact Website: <input type="text" name="contact_website" size="40" length="40" value="' . $contact_website . '"><br />' . "\r\n" . '     Contact Username: <input type="text" name="contact_user" size="40" length="40" value="' . $contact_user . '"><br />' . "\r\n" . '     Contact Password: <input type="text" name="contact_pass" size="40" length="40" value="' . $contact_pass . '"><br />' . "\r\n" . '     Contact Email: <input type="text" name="contact_email" size="40" length="40" value="' . $contact_email . '"><br />' . "\r\n" . '     Contact Address: <input type="text" name="contact_address" size="40" length="40" value="' . $contact_address . '"><br />' . "\r\n" . '     Contact Notes: <input type="text" name="contact_notes" size="40" length="40" value="' . $contact_notes . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_contact.html">' . "\r\n" .  '      <input type="hidden" name="contact_id" value="' . $contact_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

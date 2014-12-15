@@ -1,0 +1,16 @@
+<html> 
+  <body>
+    <?php
+      if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
+      if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'edt_vendor.html';
+      }
+      //build the form
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . '     Vendor: <input type="text" name="vend" size="40" length="40" value="' . $vend . '"><br />' . "\r\n" . '      <input type="hidden" name="referer" value="edt_vendor.html">' . "\r\n" .  '      <input type="hidden" name="vend_id" value="' . $vend_id  . '">' . "\r\n" . '      <input type="submit" name="submit" value="Submit">' . "\r\n" . '      <input type="reset" name="reset" value="Clear">' . "\r\n" . '    </form>' . "\r\n";
+    ?>
+  </body> 
+</html>

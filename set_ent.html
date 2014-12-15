@@ -15,9 +15,22 @@
   if (isset($_POST['contact_email'])) {$contact_email = pg_escape_string($_POST['contact_email']);}
   if (isset($_POST['contact_address'])) {$contact_address = pg_escape_string($_POST['contact_address']);}
   if (isset($_POST['contact_notes'])) {$contact_notes = pg_escape_string($_POST['contact_notes']);}
-  if (isset($_POST['referer'])) {$referer = pg_escape_string($_POST['referer']);}
+  if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+//edit-add handler
+  if (isset($ref)) {
+    if ($ref=="edt_vendor.html") {
+      pg_query($db, "UPDATE cmd_vendors SET vend='$vend' WHERE vend_id=$vend_id");
+      echo 'Edited Vendor.' . '<br />';
+    }
+    else if ($ref=="edt_contact.html") {
+      pg_query($db, "UPDATE cmd_contacts SET contact_firstname='$contact_firstname',contact_lastname='$contact_lastname',contact_company='$contact_company',contact_phone='$contact_phone',contact_website='$contact_website',contact_user='$contact_user',contact_pass='$contact_pass',contact_email='$contact_email',contact_address='$contact_address',contact_notes='$contact_notes' WHERE contact_id=$contact_id");
+      echo 'Edited Contact.' . '<br />';
+    }
+  }
+
+
   $qry_vendor = pg_query($db, "SELECT * FROM cmd_vendors ORDER BY vend ASC");
-  $qry_contact = pg_query($db, "SELECT contact_id,contact_company,contact_lastname,contact_firstname FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
+  $qry_contact = pg_query($db, "SELECT * FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
 ?>
 <table>
   <tr>
@@ -73,7 +86,7 @@
             <?php
               echo "\r\n";
               while ($contactrow = pg_fetch_assoc($qry_contact)) {
-                echo '            <tr>' . "\r\n" . '              <form id="contact' . $contactrow['contact_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_ent.html">' . "\r\n" . '                <input type="hidden" name="contact_id" value="' . $contactrow['contact_id'] . '">' . "\r\n" . '                <input type="hidden" name="contact_firstname" value="' . $contactrow['contact_firstname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_lastname" value="' . $contactrow['contact_lastname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_company" value="' . $contactrow['contact_company'] . '">' . "\r\n" . '                <td>' . $contactrow['contact_company'] . ' - ' . $contactrow['contact_lastname'] . ', ' . $contactrow['contact_firstname'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'edt_contact.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'del_contact.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+                echo '            <tr>' . "\r\n" . '              <form id="contact' . $contactrow['contact_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_ent.html">' . "\r\n" . '                <input type="hidden" name="contact_id" value="' . $contactrow['contact_id'] . '">' . "\r\n" . '                <input type="hidden" name="contact_firstname" value="' . $contactrow['contact_firstname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_lastname" value="' . $contactrow['contact_lastname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_company" value="' . $contactrow['contact_company'] . '">' . "\r\n" . '                <input type="hidden" name="contact_phone" value="' . $contactrow['contact_phone'] . '">' . "\r\n" . '                <input type="hidden" name="contact_website" value="' . $contactrow['contact_website'] . '">' . "\r\n" . '                <input type="hidden" name="contact_user" value="' . $contactrow['contact_user'] . '">' . "\r\n" . '                <input type="hidden" name="contact_pass" value="' . $contactrow['contact_pass'] . '">' . "\r\n" . '                <input type="hidden" name="contact_email" value="' . $contactrow['contact_email'] . '">' . "\r\n" . '                <input type="hidden" name="contact_address" value="' . $contactrow['contact_address'] . '">' . "\r\n" . '                <input type="hidden" name="contact_notes" value="' . $contactrow['contact_notes'] . '">' . "\r\n" . '                <td>' . $contactrow['contact_company'] . ' - ' . $contactrow['contact_lastname'] . ', ' . $contactrow['contact_firstname'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'edt_contact.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'del_contact.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
               }
             ?>
         </table>
