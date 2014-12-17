@@ -43,6 +43,7 @@
       echo 'Added Software.' . '<br />';
     }
     else if ($ref=="add_raid_type.html") {
+      pg_query($db, "INSERT INTO cmd_disk_raid_type(disk_raid_type) VALUES('$disk_raid_type')");
       echo 'Added RAID Type.' . '<br />';
     }
     else if ($ref=="add_interface_protocol.html") {
