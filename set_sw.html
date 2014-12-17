@@ -47,6 +47,7 @@
       echo 'Added RAID Type.' . '<br />';
     }
     else if ($ref=="add_interface_protocol.html") {
+      pg_query($db, "INSERT INTO cmd_interface_protocol(int_proto) VALUES('$int_proto')");
       echo 'Added Interface Protocol.' . '<br />';
     }
   }
