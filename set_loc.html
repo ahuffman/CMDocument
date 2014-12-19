@@ -7,7 +7,6 @@
     if (isset($_POST['location_address'])) {$location_address = pg_escape_string($_POST['location_address']);}
     if (isset($_POST['cab_id'])) {$cab_id = pg_escape_string($_POST['cab_id']);}
     if (isset($_POST['cab_name'])) {$cab_name = pg_escape_string($_POST['cab_name']);}
-    if (isset($_POST['cab_location_id'])) {$cab_location_id = pg_escape_string($_POST['cab_location_id']);}
     if (isset($_POST['cab_units_tot'])) {$cab_units_tot = pg_escape_string($_POST['cab_units_tot']);}
     if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
 //edit-add handler
@@ -19,6 +18,14 @@
     else if ($ref=="edt_cabinet.html") {
       pg_query($db, "UPDATE cmd_cabinets SET location_id='$location_id',cab_name='$cab_name',cab_units_tot='$cab_units_tot',cab_image_path='$cab_image_path' WHERE cab_id=$cab_id");
       echo 'Edited Cabinet.' . '<br />';
+    }
+    else if ($ref=="add_location.html") {
+      pg_query($db, "INSERT INTO cmd_locations(location_name, location_address) VALUES('$location_name', '$location_address')");
+      echo 'Added Location.' . '<br />';
+    }
+    else if ($ref=="add_cabinet.html") {
+      pg_query($db, "INSERT INTO cmd_cabinets(location_id, cab_name, cab_units_tot) VALUES('$location_id', '$cab_name', '$cab_units_tot')");
+      echo 'Added Cabinet.' . '<br />';
     }
   }
 
