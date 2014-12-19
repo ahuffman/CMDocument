@@ -26,6 +26,13 @@
       pg_query($db, "UPDATE cmd_contacts SET contact_firstname='$contact_firstname',contact_lastname='$contact_lastname',contact_company='$contact_company',contact_phone='$contact_phone',contact_website='$contact_website',contact_user='$contact_user',contact_pass='$contact_pass',contact_email='$contact_email',contact_address='$contact_address',contact_notes='$contact_notes' WHERE contact_id=$contact_id");
       echo 'Edited Contact.' . '<br />';
     }
+    else if ($ref=="add_vendor.html") {
+      pg_query($db, "INSERT INTO cmd_vendors(vend) VALUES('$vend')");
+      echo 'Added Vendor.' . '<br />';
+    }
+    else if ($ref=="add_contact.html") {
+      echo 'Added Contact.' . '<br />';
+    }
   }
 
 
@@ -92,8 +99,6 @@
         </table>
       </td>
     </tr>
-
-
   </table>
 </table>
 </body>

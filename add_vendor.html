@@ -1,9 +1,19 @@
 <html> 
-    <body> 
-        <form action="add_vendor.php" method="post"> 
-            Vendor Name: <input type="text" name="vendor" size="40" length="40" value=""><br /> 
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body>
+    <?php
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_vendor.php';
+      }
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" .
+      '       Vendor Name:' . "\r\n" . 
+      '       <input type="text" name="vend" size="40" length="40" value=""><br />' . "\r\n" .
+      '       <input type="hidden" name="referer" value="add_vendor.html">' . "\r\n" . 
+      '       <input type="submit" name="submit" value="Submit">' . "\r\n" .
+      '       <input type="reset" name="reset" value="Clear">' . "\r\n" .
+      '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>
