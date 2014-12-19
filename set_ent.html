@@ -31,6 +31,7 @@
       echo 'Added Vendor.' . '<br />';
     }
     else if ($ref=="add_contact.html") {
+      pg_query($db, "INSERT INTO cmd_contacts(contact_firstname, contact_lastname, contact_company, contact_phone, contact_website, contact_user, contact_pass, contact_email, contact_address, contact_notes) VALUES('$contact_firstname', '$contact_lastname', '$contact_company', '$contact_phone', '$contact_website', '$contact_user', '$contact_pass', '$contact_email', '$contact_address', '$contact_notes')");
       echo 'Added Contact.' . '<br />';
     }
   }

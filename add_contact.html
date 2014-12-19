@@ -1,18 +1,37 @@
 <html> 
-    <body> 
-        <form action="add_contact.php" method="post"> 
-            Contact First Name: <input type="text" name="first" size="40" length="40" value=""><br /> 
-	    Contact Last Name: <input type="text" name="last" size="40" length="40" value""><br />
-            Contact Company Name: <input type="text" name="company" size="40" length="40" value""><br />
-	    Contact Phone Number: <input type="text" name="phone" size="40" length="40" value""><br />
-	    Contact Website: <input type="text" name="site" size="40" length="40" value""><br />
-            Contact Website username: <input type="text" name="user" size="40" length="40" value""><br />
-            Contact Website password: <input type="text" name="pass" size="40" length="40" value""><br />
-            Contact Email Address: <input type="text" name="email" size="40" length="40" value""><br />
-	    Contact Address: <input type="text" name="address" size="40" length="40" value""><br />
-            Contact Notes: <input type="text" name="notes" size="40" length="40" value""><br />
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body> 
+    <?php
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_contact.php';
+      }
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" . 
+      '      Contact First Name: ' . "\r\n" . 
+      '      <input type="text" name="contact_firstname" size="40" length="40" value=""><br /> ' . "\r\n" .
+      '      Contact Last Name: ' . "\r\n" .
+      '      <input type="text" name="contact_lastname" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Company Name: ' . "\r\n" .
+      '      <input type="text" name="contact_company" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Phone Number: ' . "\r\n" .
+      '      <input type="text" name="contact_phone" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Website: ' . "\r\n" .
+      '      <input type="text" name="contact_website" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Website username: ' . "\r\n" .
+      '      <input type="text" name="contact_user" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Website password: ' . "\r\n" .
+      '      <input type="text" name="contact_pass" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Email Address: ' . "\r\n" .
+      '      <input type="text" name="contact_email" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Address: ' . "\r\n" .
+      '      <input type="text" name="contact_address" size="40" length="40" value""><br />' . "\r\n" .
+      '      Contact Notes: ' . "\r\n" .
+      '      <input type="text" name="contact_notes" size="40" length="40" value""><br />' . "\r\n" .
+      '      <input type="hidden" name="referer" value="add_contact.html">' . "\r\n" .
+      '      <input type="submit" name="submit" value="Submit">' . "\r\n" .
+      '      <input type="reset" name="reset" value="Clear"> ' . "\r\n" .
+      '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>
