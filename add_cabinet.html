@@ -1,26 +1,35 @@
 <html> 
-    <body> 
-        <form action="add_cabinet.php" method="post"> 
-            Cabinet Name: <input type="text" name="cabname" size="40" length="40" value=""><br /> 
-            Cabinet Total Rack Units: <select name="cabrus">
-	    <?php
-            $count = 0;
-            while ($count < 60) {
-              $count++;
-              echo '              <option value="' . $count . '">' . $count . '</option>' . "\r\n            ";
-              }
-            echo '</select><br />' . "\r\n";
-            echo "Location Name: " . '<select name="location">' . "\r\n";
-            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-            $result = pg_query($db, "SELECT * FROM cmd_locations");
-            while ($row = pg_fetch_assoc($result)) {
-                echo '  <option value="' . $row['location_id'] . '">' . $row['location_name'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";
-            pg_close($db);
-            ?>
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body>
+    <?php
+      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+      }
+      else {
+        $ref = 'add_cabinet.php';
+      }
+      $result = pg_query($db, "SELECT * FROM cmd_locations");
+      echo '<form action="' . $ref . '" method="post">' . "\r\n" .
+      '      Cabinet Name:' . "\r\n" .
+      '      <input type="text" name="cab_name" size="40" length="40" value=""><br />' . "\r\n" . 
+      '      Cabinet Total Rack Units:' . "\r\n" . 
+      '      <select name="cab_units_tot">' . "\r\n";
+      $count = 0;
+      while ($count < 60) {
+        $count++;
+        echo '        <option value="' . $count . '">' . $count . '</option>' . "\r\n";
+      }
+      echo '      </select><br />' . "\r\n" .
+      '      Location Name:' . "\r\n" . 
+      '      <select name="location_id">' . "\r\n";
+      while ($row = pg_fetch_assoc($result)) {
+        echo '        <option value="' . $row['location_id'] . '">' . $row['location_name'] . '</option>' . "\r\n";
+      }
+      echo '      </select><br />' . "\r\n" .
+      '      <input type="hidden" name="referer" value="add_cabinet.html">' . "\r\n" . 
+      '      <input type="submit" name="submit" value="Submit">' . "\r\n" . 
+      '      <input type="reset" name="reset" value="Clear">' . "\r\n" .
+      '    </form>' . "\r\n";
+    ?>
+  </body> 
 </html>
