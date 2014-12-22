@@ -10,7 +10,7 @@ url = "http://www.yourhostname.yourdomain.com/"
 
 
 [database]
-db = cmdocument
+dbname = cmdocument
 user = cmdocument
 pass = yourpassword
 
