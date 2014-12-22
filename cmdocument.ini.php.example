@@ -1,3 +1,5 @@
+; prevent webserver reads
+; <?php exit; ?>
 ; CMDocument initialization file
 ;
 
