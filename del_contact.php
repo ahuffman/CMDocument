@@ -1,6 +1,11 @@
 <html>
     <?php
-      $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $config = parse_ini_file("./cmdocument.ini.php",false);
+      $user = $config['user'];
+      $pass = $config['pass'];
+      $dbname = $config['dbname'];
+      $host = $config['hostname'];
+      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
       if (isset($_POST['contact_id'])) {$contact_id = pg_escape_string($_POST['contact_id']);}
       if (isset($_POST['contact_firstname'])) {$contact_firstname = pg_escape_string($_POST['contact_firstname']);}
       if (isset($_POST['contact_lastname'])) {$contact_lastname = pg_escape_string($_POST['contact_lastname']);}
