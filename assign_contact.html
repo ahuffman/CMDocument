@@ -1,25 +1,28 @@
 <html> 
-    <body> 
-        <form action="assign_contact.php" method="post"> 
-	    Select an Object: <select name="object">
-	    <?php
-            $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
-            $objects = pg_query($db, "SELECT * FROM cmd_object"); 
-            while ($objectrow = pg_fetch_assoc($objects)) {
-                echo '  <option value="' . $objectrow['obj_id'] . '">' . $objectrow['obj_name'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";    
-            echo "Assign a Contact: " . '<select name="contact">';
-            $contacts = pg_query($db, "SELECT * FROM cmd_contacts");
-            while ($contactrow = pg_fetch_assoc($contacts)) {
-                echo '  <option value="' . $contactrow['contact_id'] . '">' . $contactrow['contact_lastname'] . ", " . $contactrow['contact_firstname'] . '</option>' . "\r\n            ";
-            }
-            echo '</select><br />' . "\r\n";
-
-            pg_close($db);
-            ?>
-            <input type="submit" name="submit" value="Submit"> 
-            <input type="reset" name="reset" value="Clear"> 
-        </form> 
-    </body> 
+  <body> 
+    <form action="assign_contact.php" method="post"> 
+      Select an Object: <select name="object">
+      <?php
+        $config = parse_ini_file("./cmdocument.ini.php",false);
+        $user = $config['user'];
+        $pass = $config['pass'];
+        $dbname = $config['dbname'];
+        $host = $config['hostname'];
+        $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
+        $objects = pg_query($db, "SELECT * FROM cmd_object"); 
+        while ($objectrow = pg_fetch_assoc($objects)) {
+          echo '  <option value="' . $objectrow['obj_id'] . '">' . $objectrow['obj_name'] . '</option>' . "\r\n            ";
+        }
+        echo '</select><br />' . "\r\n";    
+        echo "Assign a Contact: " . '<select name="contact">';
+        $contacts = pg_query($db, "SELECT * FROM cmd_contacts");
+        while ($contactrow = pg_fetch_assoc($contacts)) {
+          echo '  <option value="' . $contactrow['contact_id'] . '">' . $contactrow['contact_lastname'] . ", " . $contactrow['contact_firstname'] . '</option>' . "\r\n            ";
+        }
+        echo '</select><br />' . "\r\n";
+      ?>
+      <input type="submit" name="submit" value="Submit"> 
+      <input type="reset" name="reset" value="Clear"> 
+    </form> 
+  </body> 
 </html>

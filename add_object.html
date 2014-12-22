@@ -70,7 +70,12 @@ function buildPage() {
     }
     echo '           </select><br />' . "\r\n";
     echo 'Equipment Status: ' . '<select name="status">';
-    $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $config = parse_ini_file("./cmdocument.ini.php",false);
+      $user = $config['user'];
+      $pass = $config['pass'];
+      $dbname = $config['dbname'];
+      $host = $config['hostname'];
+      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');    
     $result_status = pg_query($db, "SELECT * from cmd_status ORDER BY status ASC");
     while ($statusrow = pg_fetch_assoc($result_status)) {
         if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
@@ -103,7 +108,12 @@ function buildPage() {
                  echo 'Referer is Status.';
                  echo $status;
                  //since we have a Refererence value from the add_status.html page we will want to insert that value now
-                 $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $config = parse_ini_file("./cmdocument.ini.php",false);
+      $user = $config['user'];
+      $pass = $config['pass'];
+      $dbname = $config['dbname'];
+      $host = $config['hostname'];
+      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
                  pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
                  //we've inserted the value(s) so we will now build the page
                  buildPage();
@@ -111,7 +121,12 @@ function buildPage() {
                  else 
                      if ( $ref == "os" ){
                          echo 'Referer is OS: ';
-                         $db = pg_connect("host=usfr-itdocument.insideidc.com dbname=cmdocument user=cmdocument password=h0twheels") or die('Could not connect');
+      $config = parse_ini_file("./cmdocument.ini.php",false);
+      $user = $config['user'];
+      $pass = $config['pass'];
+      $dbname = $config['dbname'];
+      $host = $config['hostname'];
+      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
                          pg_query($db, "INSERT INTO cmd_os(os, os_ver) VALUES('$os', '$os_ver')");
                          echo $os . " " . $os_ver;
                          buildPage();
