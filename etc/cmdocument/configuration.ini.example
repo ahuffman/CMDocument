@@ -1,0 +1,14 @@
+; CMDocument initialization file
+;
+
+[host]
+hostname = yourhostname.yourdomain.com
+documentroot = "/var/www/html/cmdocument/"
+url = "http://www.yourhostname.yourdomain.com/"
+
+
+[database]
+db = cmdocument
+user = cmdocument
+pass = yourpassword
+
