@@ -3,13 +3,12 @@
     <?php
       if(isset($_POST['referer'])){$referer = pg_escape_string($_POST['referer']);}
       if ($referer=="register.php") {
-        echo 'Refered.' . '<br />';
         $date = str_replace(' ','',date("D M d, Y G:i"));
-        $salt = hash(sha256,"$date"); //creating random salt based off of the date we're attempting to register
+        $salt = hash(sha256,"$date"); //creating random salt based off of the date we're attempting to register - to be inserted to user table
         if(isset($_POST['user_pass'])) {
           $pass = pg_escape_string($_POST['user_pass']);
-          $hash = hash(sha256,"$date" + "$pass"); //creating hashed password
-          echo $pass . '<br />' . $salt . '<br />' . $hash . '<br />';
+          $hash = hash(sha256,"$date" + "$pass"); //creating hashed password - to be inserted to user table
+          echo 'pass: ' . $pass . '<br />' . 'salt: ' . $salt . '<br />' . 'hash: ' . $hash . '<br />'; //for dev purposes and testing
         }
         else {
           echo 'Password not provided.';
