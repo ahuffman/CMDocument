@@ -7,6 +7,7 @@
           $date = $_POST['user_date'];
           $salt = hash(sha256,"$date"); //creating random salt based off of the date we're attempting to register - to be inserted to user table
         }
+        if(isset($_POST['user_login'])) {$user_login = pg_escape_string($_POST['user_login']);}
         if(isset($_POST['user_firstname'])) {$user_firstname = pg_escape_string($_POST['user_firstname']);}
         if(isset($_POST['user_lastname'])) {$user_lastname = pg_escape_string($_POST['user_lastname']);}
         $firstlogindate = str_replace(' ','',date("D M d, Y G:i")); //don't want a chance of having a reproducable salt from a temporary stored db value
@@ -25,7 +26,7 @@
             echo 'Registration failed due to database error.';
           }
           else {
-            echo 'Registration of new user ' . $user . 'was successful.' . '<br />' . "\r\n";
+            echo 'Registration of new user ' . $user_login . ' was successful.' . '<br />' . "\r\n";
             header('Refresh: 3; URL=login.php');
           }
         }
