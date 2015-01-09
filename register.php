@@ -21,7 +21,7 @@
           $ip = $_SERVER['REMOTE_ADDR'];
           $pass = pg_escape_string($_POST['user_pass']);
           $hash = hash(sha256,"$salt" + "$pass"); //creating salted hashed password - to be inserted to user table
-          $qry_register = pg_query($db, "INSERT INTO cmd_users(user_login, user_pass, user_salt, user_firstname, user_lastname, user_ip, user_session, user_lastlogin, user_loginfail) VALUES('$user', '$hash', '$salt', '$user_firstname', '$user_lastname', '$ip', 'x', '$firstlogindate', '0')");
+          $qry_register = pg_query($db, "INSERT INTO cmd_users(user_login, user_pass, user_salt, user_firstname, user_lastname, user_ip, user_session, user_lastlogin, user_loginfail) VALUES('$user_login', '$hash', '$salt', '$user_firstname', '$user_lastname', '$ip', 'x', '$firstlogindate', '0')");
           if(!$qry_register) {
             echo 'Registration failed due to database error.';
           }
