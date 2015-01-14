@@ -35,7 +35,7 @@ $user_login = '';
         else {
           $userrow = pg_fetch_assoc($qry_user); 
           $saltpass = $userrow['user_salt'] . $user_pass;
-          $hash = hash('sha256',"$saltpass");
+          $hash = hash('sha512',"$saltpass");
           if ($hash == $userrow['user_pass']) {
             //start working on a sesison
             echo 'Login Check Passed';
