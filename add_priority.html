@@ -1,15 +1,19 @@
 <html> 
-    <body> 
-      <?php
-        if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
-        if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
-        if (isset($_POST['referer'])) {
-          $ref = pg_escape_string($_POST['referer']);
+  <body> 
+    <?php
+      include './include/menu.php';
+      if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
+      if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_gen.html') {
+          include './include/settings.html';
         }
-        else {
-          $ref = 'add_priority.php';
-        }
-        echo '<form action="' . $ref . '" method="post">' . 'Priority: <input type="text" name="priority" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_priority.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
-      ?>
-    </body> 
+      }
+      else {
+        $ref = 'add_priority.php';
+      }
+      echo '<form action="' . $ref . '" method="post">' . 'Priority: <input type="text" name="priority" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_priority.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
+    ?>
+  </body> 
 </html>

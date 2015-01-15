@@ -1,40 +1,43 @@
 <html> 
-    <body> 
-      <?php
-        if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
-        if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
-        if (isset($_POST['referer'])) {
-          $ref = pg_escape_string($_POST['referer']);
+  <body> 
+    <?php
+      include './include/menu.php';
+      if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
+      if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_gen.html') {
+          include './include/settings.html';
+        }
+      }
+      else {
+        $ref = 'add_status.php';
+      }
+      if (isset($_POST['objectname'])) {$objectname = pg_escape_string($_POST['objectname']);}
+      if (isset($_POST['serial'])) {$serial = pg_escape_string($_POST['serial']);}
+      if (isset($_POST['installdate'])) {$installdate = pg_escape_string($_POST['installdate']);}
+      if (isset($_POST['decomissiondate'])) {$decomissiondate = pg_escape_string($_POST['decomissiondate']);}
+      if (isset($_POST['ru_size'])) {$ru_size = pg_escape_string($_POST['ru_size']);}
+      if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
+      if (isset($ref)){
+        if($ref == "object") {
+          echo 'Referer: Object';
+          //build form for object reference and hide values for graceful return (i.e. keep my values in place along add path)
+          echo '        <form action="add_object.html" method="post">';
+          if (isset($objectname)){echo '        <input type="hidden" name="objectname" value="' . $objectname . '">' . "\r\n";}
+          if (isset($serial)){echo '        <input type="hidden" name="serial" value="' . $serial . '">' . "\r\n";}
+          if (isset($installdate)){echo '        <input type="hidden" name="installdate" value="' . $installdate . '">' . "\r\n";}
+          if (isset($decomissiondate)){echo '        <input type="hidden" name="decomissiondate" value="' . $decomissiondate . '">' . "\r\n";}
+          if (isset($ru_size)){echo '        <input type="hidden" name="ru_size" value="' . $ru_size . '">' . "\r\n";}
+          if (isset($priority)){echo '        <input type="hidden" name="priority" value="' . $priority . '">' . "\r\n";}
+          if (isset($purpose)){echo '        <input type="hidden" name="purpose" value="' . $purpose . '">' . "\r\n";}
+          echo '        <input type="hidden" name="referer" value="status">' . "\r\n";
         }
         else {
-          $ref = 'add_status.php';
+          echo '        <form action="' . $ref . '" method="post">';
         }
-
-        if (isset($_POST['objectname'])) {$objectname = pg_escape_string($_POST['objectname']);}
-        if (isset($_POST['serial'])) {$serial = pg_escape_string($_POST['serial']);}
-        if (isset($_POST['installdate'])) {$installdate = pg_escape_string($_POST['installdate']);}
-        if (isset($_POST['decomissiondate'])) {$decomissiondate = pg_escape_string($_POST['decomissiondate']);}
-        if (isset($_POST['ru_size'])) {$ru_size = pg_escape_string($_POST['ru_size']);}
-        if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
-        if (isset($ref)){
-            if($ref == "object") {
-              echo 'Referer: Object';
-              //build form for object reference and hide values for graceful return (i.e. keep my values in place along add path)
-              echo '        <form action="add_object.html" method="post">';
-              if (isset($objectname)){echo '        <input type="hidden" name="objectname" value="' . $objectname . '">' . "\r\n";}
-              if (isset($serial)){echo '        <input type="hidden" name="serial" value="' . $serial . '">' . "\r\n";}
-              if (isset($installdate)){echo '        <input type="hidden" name="installdate" value="' . $installdate . '">' . "\r\n";}
-              if (isset($decomissiondate)){echo '        <input type="hidden" name="decomissiondate" value="' . $decomissiondate . '">' . "\r\n";}
-              if (isset($ru_size)){echo '        <input type="hidden" name="ru_size" value="' . $ru_size . '">' . "\r\n";}
-              if (isset($priority)){echo '        <input type="hidden" name="priority" value="' . $priority . '">' . "\r\n";}
-              if (isset($purpose)){echo '        <input type="hidden" name="purpose" value="' . $purpose . '">' . "\r\n";}
-              echo '        <input type="hidden" name="referer" value="status">' . "\r\n";
-            }
-            else {
-               echo '        <form action="' . $ref . '" method="post">';
-            }
-        }
-        echo 'Status: <input type="text" name="status" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_status.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
-      ?>
-    </body> 
+      }
+      echo 'Status: <input type="text" name="status" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_status.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
+    ?>
+  </body> 
 </html>

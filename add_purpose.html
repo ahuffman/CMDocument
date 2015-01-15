@@ -1,16 +1,19 @@
 <html> 
-    <body> 
-      <?php
-        if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
-        if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
-        if (isset($_POST['referer'])) {
-          $ref = pg_escape_string($_POST['referer']);
+  <body> 
+    <?php
+      include './include/menu.php';
+      if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
+      if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_gen.html') {
+          include './include/settings.html';
         }
-        else {
-          $ref = 'add_purpose.php';
-        }
-
-       echo '<form action="' . $ref  . '" method="post">' . 'Purpose/System: <input type="text" name="purpose" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_purpose.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
-      ?>
-    </body> 
+      }
+      else {
+        $ref = 'add_purpose.php';
+      }
+      echo '<form action="' . $ref  . '" method="post">' . 'Purpose/System: <input type="text" name="purpose" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_purpose.html">' . '<input type="submit" name="submit" value="Submit">' . '<input type="reset" name="reset" value="Clear">' . '</form>';
+    ?>
+  </body> 
 </html>
