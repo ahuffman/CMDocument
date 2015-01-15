@@ -1,6 +1,8 @@
 <html>
 <body>
 <?php
+  include './include/menu.php';
+  include './include/settings.html';
   $config = parse_ini_file("./cmdocument.ini.php",false);
   $user = $config['user']; 
   $pass = $config['pass'];
@@ -46,19 +48,6 @@
   $qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
   $qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
 ?>
-<table>
-  <tr>
-    <td><b>Settings</b></td>
-  </tr>
-  <table>
-    <tr>
-      <td><b><i><a href="set_gen.html">General</a></i></b></td>
-      <td><b><a href="set_hw.html">Hardware</a></b></td>
-      <td><b><a href="set_sw.html">Software</a></b></td>
-      <td><b><a href="set_loc.html">Locations</a></b></td>
-      <td><b><a href="set_ent.html">Entities</a></b></td>
-    </tr>
-  </table>
   <table>
     <tr>
       <td>
@@ -127,6 +116,5 @@ echo '            <tr>' . "\r\n" . '              <form id="purpose' . $purprow[
       </td>
     </tr>
   </table>
-</table>
 </body>
 </html>

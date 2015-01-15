@@ -1,6 +1,8 @@
 <html>
 <body>
 <?php
+  include './include/menu.php';
+  include './include/settings.html';
   $config = parse_ini_file("./cmdocument.ini.php",false);
   $user = $config['user'];
   $pass = $config['pass'];
@@ -84,19 +86,6 @@
   $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
   $qry_mod = pg_query($db, "SELECT * from cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
 ?>
-  <table>
-    <tr>
-      <td><b>Settings</b></td>
-    </tr>
-    <table>
-      <tr>
-        <td><b><a href="set_gen.html">General</a></b></td>
-        <td><b><i><a href="set_hw.html">Hardware</a></i></b></td>
-        <td><b><a href="set_sw.html">Software</a></b></td>
-        <td><b><a href="set_loc.html">Locations</a></b></td>
-        <td><b><a href="set_ent.html">Entities</a></b></td>
-      </tr>
-    </table>
     <table>
       <tr>
         <td>
@@ -237,6 +226,5 @@
       </td>
     </tr>
   </table>
-</table>
 </body>
 </html>

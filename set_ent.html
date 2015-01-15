@@ -1,6 +1,8 @@
 <html>
 <body>
 <?php
+  include './include/menu.php';
+  include './include/settings.html';
   $config = parse_ini_file("./cmdocument.ini.php",false);
   $user = $config['user'];
   $pass = $config['pass'];
@@ -44,20 +46,8 @@
 
   $qry_vendor = pg_query($db, "SELECT * FROM cmd_vendors ORDER BY vend ASC");
   $qry_contact = pg_query($db, "SELECT * FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
+  $qry_users = pg_query($db, "SELECT user_id, user_login, user_firstname, user_lastname FROM cmd_users ORDER BY user_lastname ASC, user_firstname ASC, user_login ASC");
 ?>
-<table>
-  <tr>
-    <td><b>Settings</b></td>
-  </tr>
-  <table>
-    <tr>
-      <td><b><a href="set_gen.html">General</a></b></td>
-      <td><b><a href="set_hw.html">Hardware</a></b></td>
-      <td><b><a href="set_sw.html">Software</a></b></td>
-      <td><b><a href="set_loc.html">Locations</a></b></td>
-      <td><b><i><a href="set_ent.html">Entities</a></i></b></td>
-    </tr>
-  </table>
   <table>
     <tr>
       <td>
@@ -110,19 +100,37 @@
         <table>
           <tr>
             <td><b>Users</b></td>
+            <td><b>User Login</b></td>
             <td><b>Edit</b></td>
             <td><b>Delete</b></td>
             <td>
               <form id="add_user" method="post">
                 <input type="hidden" name="referer" value="set_ent.html">
-                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_user').action='add_user.html';">
+                <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_user').action='register.php';">
               </form>
             </td>
           </tr> 
+            <?php
+              echo "\r\n";
+              while ($userrow = pg_fetch_assoc($qry_users)) {
+                echo '            <tr>' . "\r\n" . 
+                     '              <form id="user' . $userrow['user_id'] . '" method="post">' . "\r\n" . 
+                     '                <input type="hidden" name="referer" value="set_ent.html">' . "\r\n" . 
+                     '                <input type="hidden" name="user_id" value="' . $userrow['user_id'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="user_login" value="' . $userrow['user_login'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="user_lastname" value="' . $userrow['user_lastname'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="user_firstname" value="' . $userrow['user_firstname'] . '">' . "\r\n" . 
+                     '                <td>' . $userrow['user_lastname'] . ', ' . $userrow['user_firstname'] . '</td>' . "\r\n" . 
+                     '                <td>' . $userrow['user_login'] . '</td>' . "\r\n" .
+                     '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'user' . $userrow['user_id'] . '\').action =\'edt_user.html\';"'  . '>' . '</td>' . "\r\n" . 
+                     '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'user' . $userrow['user_id'] . '\').action =\'del_user.php\';"' . '>' . '</td>' . "\r\n" . 
+                     '              </form>' . "\r\n"  . 
+                     '            </tr>' . "\r\n";
+              }
+            ?>
         </table>
       </td>
     </tr>
   </table>
-</table>
 </body>
 </html>
