@@ -1,16 +1,14 @@
 <html> 
   <body>
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
+      include './include/menu.php';
       $qry_vend = pg_query($db, "SELECT * from cmd_vendors");
       $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
       if (isset($_POST['referer'])) {
         $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_sw.html') {
+          include './include/settings.html';
+        }
       }
       else {
         $ref = 'add_sw.php';

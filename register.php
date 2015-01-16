@@ -1,17 +1,12 @@
 <html>
   <body>
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $dbuser = $config['user'];
-      $dbpass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $dbuser . ' password=' . $dbpass) or die('Could not connect');
+      include './include/menu.php';
       if(isset($_POST['referer'])){$referer = pg_escape_string($_POST['referer']);}
       if ($referer=="register.php") {
         if(isset($_POST['user_date'])) {
           $date = $_POST['user_date'];
-          $salt = hash(sha512,"$date"); //creating random salt based off of the date we're attempting to register - to be inserted to user table
+          $salt = hash('sha512',"$date"); //creating random salt based off of the date we're attempting to register - to be inserted to user table
         }
         $firstlogindate = str_replace(' ','',date("D M d, Y G:i")); //don't want a chance of having a reproducable salt from a temporary stored db value
         //validate unique username
@@ -71,11 +66,23 @@
           }
           else {
             echo 'Registration of new user ' . $user_login . ' was successful.' . '<br />' . "\r\n";
-            header('Refresh: 3; URL=login.php');
+            //check to see if we had the original referer set (used in conjunction with settings pages.)
+            if (isset($_POST['oreferer'])) {
+              $oreferer = pg_escape_string($_POST['oreferer']);
+              //we have an original referer
+              header("Refresh: 3; URL=$oreferer");
+            }
+            else {
+              //let the new user account login
+              header('Refresh: 3; URL=login.php');
+            }
           }
         }
       }
       else {
+        if ($referer == 'set_ent.html') {
+          include './include/settings.html';
+        }
         $date = str_replace(' ','',date("D M d, Y G:i")); //creates random salt off of the date string to harden password
         echo '<i><b>User Registration</b></i>' . '<br />' .
         '<form action="register.php" id="register" method="post">' . "\r\n" . 
@@ -89,6 +96,7 @@
         '<input type="text" name="user_lastname" value="">' . '<br />' . "\r\n" .
         '<input type="hidden" name="user_date" value="' . $date . '">' . '<br />' . "\r\n" .
         '<input type="hidden" name="referer" value="register.php">' . "\r\n" .
+        '<input type="hidden" name="oreferer" value="' . $referer . '">' . "\r\n" . 
         '<input type="submit" name="submit" value="Register">' . "\r\n" .
         '<input type="reset" name="reset" value="Clear">' . '<br />' . "\r\n";
       }

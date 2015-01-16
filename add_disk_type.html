@@ -1,13 +1,17 @@
 <html> 
   <body> 
     <?php
-        if (isset($_POST['referer'])) {
-          $ref = pg_escape_string($_POST['referer']);
+      include './include/menu.php';
+      if (isset($_POST['referer'])) {
+        $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_hw.html') {
+          include './include/settings.html';
         }
-        else {
-          $ref = 'add_disk_type.php';
-        }
-        echo '        <form action="' . $ref . '" method="post">' . '            Disk Type: <input type="text" name="disk_type" size="40" length="40" value=""><br />' . '            Disk Type Description: <input type="text" name="disk_type_desc" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_disk_type.html">' . '            <input type="submit" name="submit" value="Submit">' . '            <input type="reset" name="reset" value="Clear">' . '        </form>';
+      }
+      else {
+        $ref = 'add_disk_type.php';
+      }
+      echo '        <form action="' . $ref . '" method="post">' . '            Disk Type: <input type="text" name="disk_type" size="40" length="40" value=""><br />' . '            Disk Type Description: <input type="text" name="disk_type_desc" size="40" length="40" value=""><br />' . '<input type="hidden" name="referer" value="add_disk_type.html">' . '            <input type="submit" name="submit" value="Submit">' . '            <input type="reset" name="reset" value="Clear">' . '        </form>';
     ?>
   </body> 
 </html>
