@@ -8,7 +8,7 @@
   $dbhost = $config['hostname'];
   $db = pg_connect('host=' . $dbhost . ' dbname=' . $dbname . ' user=' . $dbuser . ' password=' . $dbpass) or die('Could not connect');
   $msg_display_time = $config['msg_display_time'];
-  $check_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']);
+  $check_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on login.php
   //start user session
   session_start();
   session_write_close();
