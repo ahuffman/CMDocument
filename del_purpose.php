@@ -1,22 +1,19 @@
 <html>
+  <body>
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
-      if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
-      if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
-      if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
-      echo '  <head>' . '<META HTTP-EQUIV=Refresh CONTENT="3;URL=' . $ref . '">' . '</head>' . '<body>';
+      include './include/menu.php';
+      if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);} else {echo 'No value provided: purpose id.'; exit();}
+      if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);} else {echo 'No value provided: purpose.'; exit();}
+      if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);} else {echo 'No value provided: referer.'; exit();}
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_purpose WHERE purpose_id=$purpose_id");
         if (!$delete) {
-        echo 'Delete Failed.';
+          echo 'Delete Failed.';
+          header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-        echo 'Deleted ' . $purpose . ' from the database.' . '<br />';
+          echo 'Deleted ' . $purpose . ' from the database.' . '<br />';
+          header("Refresh: $msg_display_time; URL=$ref");
         }
       }
     ?>

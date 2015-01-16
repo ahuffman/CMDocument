@@ -1,22 +1,19 @@
 <html>
+  <body>
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
-      if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
-      if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);}
-      if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
-      echo '  <head>' . '<META HTTP-EQUIV=Refresh CONTENT="3;URL=' . $ref . '">' . '</head>' . '<body>';
+      include './include/menu.php';
+      if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);} else {echo 'No value provided: vendor id.'; exit();}
+      if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);} else {echo 'No value provided: vendor.'; exit();}
+      if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);} else {echo 'No value provided: referer.'; exit();}
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_vendors WHERE vend_id=$vend_id");
         if (!$delete) {
-        echo 'Delete Failed.';
+          echo 'Delete Failed.';
+          header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-        echo 'Deleted ' . $vend . ' from the database.' . '<br />';
+          echo 'Deleted ' . $vend . ' from the database.' . '<br />';
+          header("Refresh: $msg_display_time; URL=$ref");
         }
       }
     ?>
