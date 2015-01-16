@@ -1,12 +1,7 @@
 <html> 
   <body> 
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
+      include './include/menu.php';
       if (isset($_POST['objectname'])){$objectname = pg_escape_string($_POST['objectname']);}
       if (isset($_POST['serial'])){$serial = pg_escape_string($_POST['serial']);}
       if (isset($_POST['installdate'])){$installdate = pg_escape_string($_POST['installdate']);}
@@ -18,6 +13,9 @@
       if (isset($_POST['status'])){$status = pg_escape_string($_POST['status']);}
       if (isset($_POST['referer'])){
         $ref = pg_escape_string($_POST['referer']);
+        if ($ref == 'set_sw.html') {
+          include './include/settings.html';
+        }
       }
       else {
         $ref = 'add_os.php';

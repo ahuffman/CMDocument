@@ -1,15 +1,15 @@
 <html> 
   <body> 
     <?php 
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
-      $vend = pg_escape_string($_POST['vend']); 
-      pg_query($db, "INSERT INTO cmd_vendors(vend) VALUES('$vend')"); 
-      echo "The Vendor was added successfully with values: <br />" . "Vendor Name: " . $vend . "<br />"; 
+      include './include/menu.php';
+      if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);} else {echo 'No value provided: vendor.'; exit();}
+      $qry_vend = pg_query($db, "INSERT INTO cmd_vendors(vend) VALUES('$vend')"); 
+      if ($qry_vend) {
+        echo "The Vendor was added successfully with values: <br />" . "Vendor Name: " . $vend . "<br />"; 
+      }
+      else {
+        echo 'The Vendor was not added successfully.' . '<br />' . "\r\n";
+      }
     ?> 
   </body> 
 </html> 

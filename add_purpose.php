@@ -1,15 +1,15 @@
 <html> 
   <body> 
     <?php 
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
-      $purpose = pg_escape_string($_POST['purpose']); 
-      pg_query($db, "INSERT INTO cmd_purpose(purpose) VALUES('$purpose')"); 
-      echo "The Purpose was added successfully with values: <br />" . "Purpose: " . $purpose . "<br />";
+      include './include/menu.php';
+      if (isset($_POST['purpose'])) {$purpose = pg_escape_string($_POST['purpose']);}
+      $qry_purpose = pg_query($db, "INSERT INTO cmd_purpose(purpose) VALUES('$purpose')");
+      if ($qry_purpose) {
+        echo "The Purpose was added successfully with values: <br />" . "Purpose: " . $purpose . "<br />";
+      }
+      else {
+        echo 'The Purpose was not added successfully.' . '<br />' . "\r\n";
+      }
     ?> 
   </body> 
 </html> 

@@ -16,3 +16,4 @@ pass = yourpassword
 [application]
 admin_email = "foo@bar.com"
 max_login_attempts = 3
+msg_display_time = 1
