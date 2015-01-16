@@ -13,7 +13,7 @@
   session_write_close();
   if (!isset($_SESSION['user_login'])) {
     echo 'You must login first.';
-    header('Refresh: 3; URL=login.php');
+    header("Refresh: $msg_display_time; URL=login.php");
     exit();
   }
               //debug

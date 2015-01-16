@@ -31,7 +31,7 @@
         if (pg_num_rows($qry_user) <= 0) {
           //user entered a username not registered in the db
           echo 'Bad username or password.' . '<br />' . "\r\n";
-          header('Refresh: 3; URL=login.php');
+          header("Refresh: $msg_display_time; URL=login.php");
           exit();
         }
         else {
@@ -39,7 +39,7 @@
           if ($userrow['user_loginfail'] >= $config['max_login_attempts']) {
             //max logins reached and account is locked
             echo 'Account locked. Please contact <a href="mailto:' . $config['admin_email'] . '">' . $config['admin_email'] . '</a>' . '.' . '<br />' . "\r\n";
-            header('Refresh: 3; URL=login.php');
+            header("Refresh: $msg_display_time; URL=login.php");
             exit();
           }
           else {
@@ -77,7 +77,7 @@
               //debug
               //  foreach ($_SESSION as $key=>$val)
               //  echo $key. ": ".$val. "<br>";
-              header('Refresh: 3; URL=set_gen.html');
+              header("Refresh: $msg_display_time; URL=set_gen.html");
             }
             else {
               //bad password
@@ -90,7 +90,7 @@
               //display problem to the end user
               $remaining = $config['max_login_attempts'] - $failcount;
               echo 'You have ' . $remaining . ' bad login attempts remaining.';
-              header('Refresh: 3; URL=login.php');
+              header("Refresh: $msg_display_time; URL=login.php");
               exit();
             }
           }

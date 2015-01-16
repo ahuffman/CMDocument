@@ -1,4 +1,5 @@
 <?php
+  include './include/menu.php';
   //clear the session data
   $_SESSION = array();
   //destroy the session cookie
@@ -10,7 +11,7 @@
   session_destroy();
   if (!isset($_SESSION['user_login'])) {
     echo 'User logged out successfully';
-    header('Refresh: 3; URL=login.php');
+    header("Refresh: $msg_display_time; URL=login.php");
     exit();
   }
 ?>

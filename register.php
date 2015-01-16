@@ -17,14 +17,14 @@
             if($user_login==$users['user_login']) {
               echo 'Username already exists.  Please provide a unique username.' . '<br />' . "\r\n";
               echo 'User Registration Failed.' . '<br />' . "\r\n";
-              header('Refresh: 3; URL=register.php');
+              header("Refresh: $msg_display_time; URL=register.php");
               exit();
             }
             //validate non-null username
             else if($user_login=="") {
               echo 'No username provided.' . '<br />' . "\r\n";
               echo 'User Registration Failed.' . '<br />' . "\r\n";
-              header('Refresh: 3; URL=register.php');
+              header("Refresh: $msg_display_time; URL=register.php");
               exit();
             }
           }
@@ -36,7 +36,7 @@
           if ($pass=="") {
             echo 'No password provided.' . '<br />' . "\r\n";
             echo 'User Registration Failed.' . '<br />' . "\r\n";
-            header('Refresh: 3; URL=register.php');
+            header("Refresh: $msg_display_time; URL=register.php");
             exit();
           }
         if(isset($_POST['user_firstname'])) {
@@ -45,7 +45,7 @@
           if($user_firstname=="") {
             echo 'No user firstname provided.' . '<br />' . "\r\n";
             echo 'User Registration Failed.' . '<br />' . "\r\n";
-            header('Refresh: 3; URL=register.php');
+            header("Refresh: $msg_display_time; URL=register.php");
             exit();
           }
         }
@@ -54,7 +54,7 @@
           if($user_lastname=="") {
             echo 'No user lastname provided.' . '<br />' . "\r\n";
             echo 'User Registration Failed.' . '<br />' . "\r\n";
-            header('Refresh: 3; URL=register.php');
+            header("Refresh: $msg_display_time; URL=register.php");
             exit();
           }
         }
@@ -70,11 +70,11 @@
             if (isset($_POST['oreferer'])) {
               $oreferer = pg_escape_string($_POST['oreferer']);
               //we have an original referer
-              header("Refresh: 3; URL=$oreferer");
+              header("Refresh: $msg_display_time; URL=$oreferer");
             }
             else {
               //let the new user account login
-              header('Refresh: 3; URL=login.php');
+              header("Refresh: $msg_display_time; URL=login.php");
             }
           }
         }
