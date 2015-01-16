@@ -37,6 +37,9 @@
     echo '      <a href="' . $url . '/logout.php">Logout: ' . $_SESSION['user_login'] . '</a>' . "\r\n";
   }
   echo '    </td>' . "\r\n" .
+       '    <td>' . "\r\n" .
+       '      <b><a href="set_gen.html">Settings</a></b>' . 
+       '    </td>' . "\r\n" .
        '  </tr>' . "\r\n" .
        '</table>' . "\r\n";
 ?>
