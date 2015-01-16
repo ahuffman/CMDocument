@@ -1,4 +1,5 @@
 <?php
+  //set global CMDocument variables
   $config = parse_ini_file("./cmdocument.ini.php",false);
   $url = $config['url'];
   $dbuser = $config['user'];
@@ -6,7 +7,8 @@
   $dbname = $config['dbname'];
   $dbhost = $config['hostname'];
   $db = pg_connect('host=' . $dbhost . ' dbname=' . $dbname . ' user=' . $dbuser . ' password=' . $dbpass) or die('Could not connect');
-
+  $msg_display_time = $config['msg_display_time'];
+  //start user session
   session_start();
   session_write_close();
   if (!isset($_SESSION['user_login'])) {
@@ -14,7 +16,6 @@
     header('Refresh: 3; URL=login.php');
     exit();
   }
-
               //debug
 //                foreach ($_SESSION as $key=>$val)
 //                echo $key. ": ".$val. "<br>";
