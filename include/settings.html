@@ -1,3 +1,10 @@
+<?php
+  $gen = fnmatch('*set_gen.html', $_SERVER['SCRIPT_NAME']);
+  $hw =  fnmatch('*set_hw.html', $_SERVER['SCRIPT_NAME']);
+  $sw =  fnmatch('*set_sw.html', $_SERVER['SCRIPT_NAME']);
+  $loc =  fnmatch('*set_loc.html', $_SERVER['SCRIPT_NAME']);
+  $ent =  fnmatch('*set_ent.html', $_SERVER['SCRIPT_NAME']);
+?>
 <table>
   <tr>
     <td><b>Settings</b></td>
@@ -5,10 +12,37 @@
 </table>
 <table>
   <tr>
-    <td><b><a href="set_gen.html">General</a></b></td>
-    <td><b><a href="set_hw.html">Hardware</a></b></td>
-    <td><b><a href="set_sw.html">Software</a></b></td>
-    <td><b><a href="set_loc.html">Locations</a></b></td>
-    <td><b><a href="set_ent.html">Entities</a></b></td>
+    <?php 
+      if ($gen) {
+        echo '<td><b><i><a href="set_gen.html">General</a></i></b></td>';
+      }
+      else {
+        echo '<td><b><a href="set_gen.html">General</a></b></td>';
+      }
+      if ($hw) {
+        echo '<td><b><i><a href="set_hw.html">Hardware</a></i></b></td>';
+      }
+      else {
+        echo '<td><b><a href="set_hw.html">Hardware</a></b></td>';
+      }
+      if ($sw) {
+        echo '<td><b><i><a href="set_sw.html">Software</a></i></b></td>';
+      }
+      else {
+        echo '<td><b><a href="set_sw.html">Software</a></b></td>';
+      }
+      if ($loc) {
+        echo '<td><b><i><a href="set_loc.html">Locations</a></i></b></td>';
+      }
+      else {
+        echo '<td><b><a href="set_loc.html">Locations</a></b></td>';
+      }
+      if ($ent) {
+        echo '<td><b><i><a href="set_ent.html">Entities</a></i></b></td>';
+      }
+      else {
+        echo '<td><b><a href="set_ent.html">Entities</a></b></td>';
+      }
+    ?>
   </tr>
 </table>
