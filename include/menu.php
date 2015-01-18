@@ -34,11 +34,12 @@
        '    <td>' . "\r\n";
   if (!$check_page) {
     //not the login page so show user the logout link
-    echo '      <a href="' . $url . '/logout.php">Logout: ' . $_SESSION['user_login'] . '</a>' . "\r\n";
-  }
-  echo '    </td>' . "\r\n" .
-       '    <td>' . "\r\n" .
-       '      <b><a href="set_gen.html">Settings</a></b>' . 
+    echo '      <a href="' . $url . '/logout.php">Logout: ' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+         '    </td>' . "\r\n" .
+         '    <td>' . "\r\n" .
+         '      <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
+         '    </td>' . "\r\n";
+  } 
        '    </td>' . "\r\n" .
        '  </tr>' . "\r\n" .
        '</table>' . "\r\n";
