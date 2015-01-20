@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
       if (isset($_POST['arch'])) {$arch = pg_escape_string($_POST['arch']);}
       if (isset($_POST['referer'])) {

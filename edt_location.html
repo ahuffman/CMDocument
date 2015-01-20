@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}
       if (isset($_POST['location_name'])) {$location_name = pg_escape_string($_POST['location_name']);}
       if (isset($_POST['location_address'])) {$location_address = pg_escape_string($_POST['location_address']);}

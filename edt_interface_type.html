@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['int_type_id'])) {$int_type_id = pg_escape_string($_POST['int_type_id']);}
       if (isset($_POST['int_type'])) {$int_type = pg_escape_string($_POST['int_type']);}
       if (isset($_POST['int_type_desc'])) {$int_type_desc = pg_escape_string($_POST['int_type_desc']);}

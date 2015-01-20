@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['obj_type_id'])) {$obj_type_id = pg_escape_string($_POST['obj_type_id']);}
       if (isset($_POST['obj_type'])) {$obj_type = pg_escape_string($_POST['obj_type']);}
       if (isset($_POST['obj_type_desc'])) {$obj_type_desc = pg_escape_string($_POST['obj_type_desc']);}

@@ -1,12 +1,8 @@
 <html> 
   <body>
     <?php
-      $config = parse_ini_file("./cmdocument.ini.php",false);
-      $user = $config['user'];
-      $pass = $config['pass'];
-      $dbname = $config['dbname'];
-      $host = $config['hostname'];
-      $db = pg_connect('host=' . $host . ' dbname=' . $dbname . ' user=' . $user . ' password=' . $pass) or die('Could not connect');
+      include './include/menu.php';
+      include './include/settings.html';
       $qry_loc= pg_query($db, "SELECT * FROM cmd_locations");
       if (isset($_POST['cab_id'])) {$cab_id = pg_escape_string($_POST['cab_id']);}
       if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}

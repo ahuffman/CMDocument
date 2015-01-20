@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['int_proto_id'])) {$int_proto_id = pg_escape_string($_POST['int_proto_id']);}
       if (isset($_POST['int_proto'])) {$int_proto = pg_escape_string($_POST['int_proto']);}
       if (isset($_POST['referer'])) {

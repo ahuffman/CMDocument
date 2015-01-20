@@ -1,6 +1,8 @@
 <html> 
   <body>
     <?php
+      include './include/menu.php';
+      include './include/settings.html';
       if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
       if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);}
       if (isset($_POST['referer'])) {
