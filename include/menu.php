@@ -21,6 +21,10 @@
       exit();
     }
   }
+  //header
+  echo '<head>' . "\r\n" .
+       '  <link rel="stylesheet" type="text/css" href="' . $url . '/css/cmdocument.css">' . "\r\n" .
+       '</head>' . "\r\n";
               //debug
                // foreach ($_SESSION as $key=>$val)
                // echo $key. ": ".$val. "<br>";
