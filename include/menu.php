@@ -8,11 +8,12 @@
   $dbhost = $config['hostname'];
   $db = pg_connect('host=' . $dbhost . ' dbname=' . $dbname . ' user=' . $dbuser . ' password=' . $dbpass) or die('Could not connect');
   $msg_display_time = $config['msg_display_time'];
-  $check_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on login.php
+  $check_login_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on login.php
+  $check_logout_page = fnmatch('*logout.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on logout.php
   //start user session
   session_start();
   session_write_close();
-  if (!$check_page) { 
+  if (!$check_login_page) { 
     //we're not on login page change to login.php if no session - prevent permanent loop
     if (!isset($_SESSION['user_login'])) {
       echo 'You must login first.';
@@ -21,8 +22,8 @@
     }
   }
               //debug
-//                foreach ($_SESSION as $key=>$val)
-//                echo $key. ": ".$val. "<br>";
+               // foreach ($_SESSION as $key=>$val)
+               // echo $key. ": ".$val. "<br>";
   //create menu table
   echo '<table>' . "\r\n" .
        '  <tr>' . "\r\n" .
@@ -31,16 +32,21 @@
        '    </td>' . "\r\n" .
        '  </tr>' . "\r\n" .
        '  <tr>' . "\r\n" .
+       //indentation to avoid lining up with the Site title.
+       '    <td></td>' . "\r\n" .
        '    <td>' . "\r\n";
-  if (!$check_page) {
+  if (!$check_login_page) {
     //not the login page so show user the logout link
-    echo '      <a href="' . $url . '/logout.php">Logout: ' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+    echo '      <a href="' . $url . '/logout.php">Logout' . '</a>' . "\r\n" .
+         '    </td>' . "\r\n" .
+         '    <td>' . "\r\n" .
+         '      <a href="' . $url . '/account.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
          '    </td>' . "\r\n" .
          '    <td>' . "\r\n" .
          '      <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
          '    </td>' . "\r\n";
-  } 
-       '    </td>' . "\r\n" .
+  }
+  echo '    </td>' . "\r\n" .
        '  </tr>' . "\r\n" .
        '</table>' . "\r\n";
 ?>
