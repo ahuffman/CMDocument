@@ -25,28 +25,41 @@
                // foreach ($_SESSION as $key=>$val)
                // echo $key. ": ".$val. "<br>";
   //create menu table
-  echo '<table>' . "\r\n" .
-       '  <tr>' . "\r\n" .
-       '    <td>' . "\r\n" .
-       '      <b>CMDocument</b>' . "\r\n" .
-       '    </td>' . "\r\n" .
-       '  </tr>' . "\r\n" .
-       '  <tr>' . "\r\n" .
-       //indentation to avoid lining up with the Site title.
-       '    <td></td>' . "\r\n" .
-       '    <td>' . "\r\n";
+  echo '<div id="menublock">' . "\r\n" .
+       '  <table id="topmenu">' . "\r\n" .
+       '    <tr>' . "\r\n" .
+       '      <td>' . "\r\n" .
+       '        <b>CMDocument</b>' . "\r\n" .
+       '      </td>' . "\r\n" .
+       '    </tr>' . "\r\n" .
+       '    <tr>' . "\r\n" .
+       '      <td>' . "\r\n"; 
   if (!$check_login_page) {
-    //not the login page so show user the logout link
-    echo '      <a href="' . $url . '/logout.php">Logout' . '</a>' . "\r\n" .
-         '    </td>' . "\r\n" .
-         '    <td>' . "\r\n" .
-         '      <a href="' . $url . '/account.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
-         '    </td>' . "\r\n" .
-         '    <td>' . "\r\n" .
-         '      <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
-         '    </td>' . "\r\n";
+    //not the login page (i.e. every other page) so show user the logout link
+       echo 
+         '      <table id="main_menu" style="display: inline-table;">' . "\r\n" .
+         '        <tr>' . "\r\n" .
+         '          <td>' . "\r\n" .
+         '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
+         '          </td>' . "\r\n" .
+         '        </tr>' . "\r\n" .
+         '      </table>' . "\r\n" .
+         '      <table id="user_menu" style="display: inline-table;">' . "\r\n" .
+         '        <tr>' . "\r\n" .
+         '          <td>' . "\r\n" .
+         '            <a href="' . $url . '/account.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+         '          </td>' . "\r\n" .
+         '          <td>' . "\r\n" .
+         '            <a href="' . $url . '/logout.php">Logout' . '</a>' . "\r\n" .
+         '          </td>' . "\r\n"; 
   }
-  echo '    </td>' . "\r\n" .
-       '  </tr>' . "\r\n" .
-       '</table>' . "\r\n";
+  //otherwise just build table with app title
+  echo   '        </tr>' . "\r\n" .
+         '      </table>' . "\r\n" .
+         '      </td>' . "\r\n" .
+         '    </tr>' . "\r\n" .
+         '  </table>' . "\r\n" .
+         '</div>' . "\r\n" .
+         '<br /><br />' . "\r\n";
+
 ?>
