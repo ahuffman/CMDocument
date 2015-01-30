@@ -4,6 +4,7 @@
       include './include/menu.php';
       $user_pass = '';
       $user_login = '';
+      if (isset($_SESSION['user_login'])) {header("Refresh: 0; URL=set_gen.html");}
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
       //check for where the user came from
       if (!isset($_POST['referer'])) {
