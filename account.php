@@ -27,7 +27,7 @@
                '    <td>' . $account['user_ip'] . '</td>' . "\r\n" .
                '  </tr>' . "\r\n" . 
                '  <tr>' . "\r\n" .
-               '    <td>' . 'Last Login' . '</td>' . "\r\n" . 
+               '    <td>' . 'Last Login:' . '</td>' . "\r\n" . 
                '    <td>' . $account['user_lastlogin'] . '</td>' . "\r\n" .
                '  </tr>' . "\r\n" .
                '  <tr>' . "\r\n" .
