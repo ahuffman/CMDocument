@@ -41,14 +41,14 @@
   if (!$check_login_page) {
     //not the login page (i.e. every other page) so show user the logout link
        echo 
-         '      <table id="main_menu" style="display: inline-table;">' . "\r\n" .
+         '      <table class="main_menu">' . "\r\n" .
          '        <tr>' . "\r\n" .
          '          <td>' . "\r\n" .
          '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
          '          </td>' . "\r\n" .
          '        </tr>' . "\r\n" .
          '      </table>' . "\r\n" .
-         '      <table id="user_menu" style="display: inline-table;">' . "\r\n" .
+         '      <table class="user_menu">' . "\r\n" .
          '        <tr>' . "\r\n" .
          '          <td>' . "\r\n" .
          '            <a href="' . $url . '/account.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .

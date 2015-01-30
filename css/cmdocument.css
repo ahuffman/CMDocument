@@ -1,0 +1,13 @@
+#topmenu {
+    background-color: lightblue;
+    width: 100%;
+}
+table.main_menu {
+    float: left;
+    display: inline-table;
+    width: 45%;
+}
+table.user_menu {
+    float: right;
+    display: inline-table;
+}
