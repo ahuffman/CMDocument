@@ -58,20 +58,20 @@
   $qry_int_proto = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_proto");
 
 ?>
-  <table>
+  <table class="set_main" id="set_sw">
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_os">
           <tr>
-            <td><b>Operating Systems</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Operating Systems</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_os" method="post">
                 <input type="hidden" name="referer" value="set_sw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_os').action='add_os.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
@@ -84,17 +84,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_software">
           <tr>
-            <td><b>Software</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Software</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_sw" method="post">
                 <input type="hidden" name="referer" value="set_sw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_sw').action='add_sw.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
@@ -107,17 +107,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_raid_type">
           <tr>
-            <td><b>RAID Types</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>RAID Types</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_disk_raid_type" method="post">
                 <input type="hidden" name="referer" value="set_sw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_disk_raid_type').action='add_raid_type.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
@@ -130,17 +130,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_int_proto">
           <tr>
-            <td><b>Interface Protocols</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Interface Protocols</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_int_proto" method="post">
                 <input type="hidden" name="referer" value="set_sw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_int_proto').action='add_interface_protocol.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
@@ -151,7 +151,6 @@
         </table>
       </td>
     </tr>
-
   </table>
 </body>
 </html>

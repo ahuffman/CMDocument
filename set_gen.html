@@ -42,20 +42,20 @@
   $qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
   $qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
 ?>
-  <table>
+  <table class="set_main" id="set_gen">
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_priority">
           <tr>
-            <td><b>Priority Ratings</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Priority Ratings</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_priority" method="post">
                 <input type="hidden" name="referer" value="set_gen.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_priority').action='add_priority.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
              echo "\r\n";
@@ -68,17 +68,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_purpose">
           <tr>
-            <td><b>Purpose/System</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Purpose/System</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_purpose" method="post">
                 <input type="hidden" name="referer" value="set_gen.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_purpose').action = 'add_purpose.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
             while ($purprow = pg_fetch_assoc($qry_purp)) {
@@ -92,12 +92,12 @@ echo '            <tr>' . "\r\n" . '              <form id="purpose' . $purprow[
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_status">
           <tr>
-            <td><b>Statuses</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td><form id="add_status" method="post"><input type="hidden" name="referer" value="set_gen.html"><input type="image" src="img/add.png" value="" onclick="document.getElementById('add_status').action = 'add_status.html';"></form></td>
+            <th>Statuses</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th><form id="add_status" method="post"><input type="hidden" name="referer" value="set_gen.html"><input type="image" src="img/add.png" value="" onclick="document.getElementById('add_status').action = 'add_status.html';"></form></th>
           </tr>
           <?php
             while ($statrow = pg_fetch_assoc($qry_stat)) {
@@ -105,7 +105,6 @@ echo '            <tr>' . "\r\n" . '              <form id="purpose' . $purprow[
               echo '          <tr>' . "\r\n" . '            <form id="status' . $statrow['status_id'] . '" method="post">' . "\r\n" . '              <input type="hidden" name="referer" value="set_gen.html">' . "\r\n" . '              <input type="hidden" name="status_id" value="' . $statrow['status_id'] . '">' . "\r\n" . '              <input type="hidden" name="status" value="' . $statrow['status'] . '">' . "\r\n" . '              <td>' . $statrow['status'] . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'edt_status.html\';"' . '>'  . '</td>' . "\r\n" . '              <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'status' . $statrow['status_id'] . '\').action =\'del_status.php\';"' . '>'  . '</td>' . "\r\n" .  '            </form>' . "\r\n" . '          </tr>';
             }
           ?>
-
         </table>
       </td>
     </tr>

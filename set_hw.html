@@ -80,20 +80,20 @@
   $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
   $qry_mod = pg_query($db, "SELECT * from cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
 ?>
-    <table>
+    <table class="set_main" id="set_hw">
       <tr>
         <td>
-          <table>
+          <table class="set_sec" id="set_disk_type">
             <tr>
-              <td><b>Disk Types</b></td>
-              <td><b>Edit</b></td>
-              <td><b>Delete</b></td>
-              <td>
+              <th>Disk Types</th>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>
                 <form id="add_disk_type" method="post">
                   <input type="hidden" name="referer" value="set_hw.html">
                   <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_disk_type').action='add_disk_type.html';">
                 </form>
-              </td>
+              </th>
             </tr>
             <?php
               echo "\r\n";
@@ -106,17 +106,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_cpu_type">
           <tr>
-            <td><b>CPU Types</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>CPU Types</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_cpu_type" method="post">
                 <input type="hidden" name="referer" value="set_hw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_cpu_type').action='add_cpu_type.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
               echo "\r\n";
@@ -129,17 +129,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_interface_type">
           <tr>
-            <td><b>Interface Types</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Interface Types</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_interface_type" method="post">
                 <input type="hidden" name="referer" value="set_hw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_interface_type').action='add_interface_type.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
               echo "\r\n";
@@ -152,17 +152,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_object_type">
           <tr>
-            <td><b>Object Types</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Object Types</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_object_type" method="post">
                 <input type="hidden" name="referer" value="set_hw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_object_type').action='add_object_type.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
               echo "\r\n";
@@ -175,17 +175,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_obj_model">
           <tr>
-            <td><b>Object Models</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Object Models</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_model" method="post">
                 <input type="hidden" name="referer" value="set_hw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_model').action='add_model.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
               echo "\r\n";
@@ -198,17 +198,17 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="arch">
           <tr>
-            <td><b>Architecture</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Architecture</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_architecture" method="post">
                 <input type="hidden" name="referer" value="set_hw.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_architecture').action='add_architecture.html';">
               </form>
-            </td>
+            </th>
           </tr>
           <?php
               echo "\r\n";

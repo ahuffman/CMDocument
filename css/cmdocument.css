@@ -11,3 +11,55 @@ table.user_menu {
     float: right;
     display: inline-table;
 }
+table.set_main {
+  float: left;
+  width: 30%;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-top: 1%;
+}
+table.set_main tr > td {
+    padding: 10px;
+}
+table.set_sec {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    border: 2px solid grey;
+    border-collapse: separate;
+    box-shadow: 5px 5px 8px #888888;
+    border-radius: 5px;
+    border-spacing: 0px;
+    padding-bottom: 4px;
+}
+table.set_sec input[type="image"] {
+    width: 16px;
+    height: 16px;
+}
+table.set_sec th {
+    padding-top: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+    line-height: 20px;
+    background-color: 330000;
+    color: B8B8B8;
+}
+table.set_sec tr > td {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+table.set_sec th > form {
+    display: block;
+    padding: 0px;
+    margin: 0px;
+}
+#set_loc {
+    width: 60%;
+}
+#set_sw, #set_hw {
+    width: 40%;
+}

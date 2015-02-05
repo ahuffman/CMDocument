@@ -42,20 +42,20 @@
   $qry_contact = pg_query($db, "SELECT * FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
   $qry_users = pg_query($db, "SELECT user_id, user_login, user_firstname, user_lastname FROM cmd_users ORDER BY user_lastname ASC, user_firstname ASC, user_login ASC");
 ?>
-  <table>
+  <table class="set_main" id="set_ent">
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_vendor">
           <tr>
-            <td><b>Vendors</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Vendors</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_vendor" method="post">
                 <input type="hidden" name="referer" value="set_ent.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_vendor').action='add_vendor.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
@@ -68,22 +68,40 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_contact">
           <tr>
-            <td><b>Contacts</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>Contacts</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_contact" method="post">
                 <input type="hidden" name="referer" value="set_ent.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_contact').action='add_contact.html';">
               </form>
-            </td>
+            </th>
           </tr>
             <?php
               echo "\r\n";
               while ($contactrow = pg_fetch_assoc($qry_contact)) {
-                echo '            <tr>' . "\r\n" . '              <form id="contact' . $contactrow['contact_id'] . '" method="post">' . "\r\n" . '                <input type="hidden" name="referer" value="set_ent.html">' . "\r\n" . '                <input type="hidden" name="contact_id" value="' . $contactrow['contact_id'] . '">' . "\r\n" . '                <input type="hidden" name="contact_firstname" value="' . $contactrow['contact_firstname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_lastname" value="' . $contactrow['contact_lastname'] . '">' . "\r\n" . '                <input type="hidden" name="contact_company" value="' . $contactrow['contact_company'] . '">' . "\r\n" . '                <input type="hidden" name="contact_phone" value="' . $contactrow['contact_phone'] . '">' . "\r\n" . '                <input type="hidden" name="contact_website" value="' . $contactrow['contact_website'] . '">' . "\r\n" . '                <input type="hidden" name="contact_user" value="' . $contactrow['contact_user'] . '">' . "\r\n" . '                <input type="hidden" name="contact_pass" value="' . $contactrow['contact_pass'] . '">' . "\r\n" . '                <input type="hidden" name="contact_email" value="' . $contactrow['contact_email'] . '">' . "\r\n" . '                <input type="hidden" name="contact_address" value="' . $contactrow['contact_address'] . '">' . "\r\n" . '                <input type="hidden" name="contact_notes" value="' . $contactrow['contact_notes'] . '">' . "\r\n" . '                <td>' . $contactrow['contact_company'] . ' - ' . $contactrow['contact_lastname'] . ', ' . $contactrow['contact_firstname'] . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'edt_contact.html\';"'  . '>' . '</td>' . "\r\n" . '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'del_contact.php\';"' . '>' . '</td>' . "\r\n" . '              </form>' . "\r\n"  . '            </tr>' . "\r\n";
+                echo '            <tr>' . "\r\n" . 
+                     '              <form id="contact' . $contactrow['contact_id'] . '" method="post">' . "\r\n" . 
+                     '                <input type="hidden" name="referer" value="set_ent.html">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_id" value="' . $contactrow['contact_id'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_firstname" value="' . $contactrow['contact_firstname'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_lastname" value="' . $contactrow['contact_lastname'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_company" value="' . $contactrow['contact_company'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_phone" value="' . $contactrow['contact_phone'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_website" value="' . $contactrow['contact_website'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_user" value="' . $contactrow['contact_user'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_pass" value="' . $contactrow['contact_pass'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_email" value="' . $contactrow['contact_email'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_address" value="' . $contactrow['contact_address'] . '">' . "\r\n" . 
+                     '                <input type="hidden" name="contact_notes" value="' . $contactrow['contact_notes'] . '">' . "\r\n" . 
+                     '                <td>' . $contactrow['contact_company'] . ' - ' . $contactrow['contact_lastname'] . ', ' . $contactrow['contact_firstname'] . '</td>' . "\r\n" . 
+                     '                <td>' . '<input type="image" src="img/edit.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'edt_contact.html\';"'  . '>' . '</td>' . "\r\n" . 
+                     '                <td>' . '<input type="image" src="img/delete.png" value="" onclick="document.getElementById(\'contact' . $contactrow['contact_id'] . '\').action =\'del_contact.php\';"' . '>' . '</td>' . "\r\n" . 
+                     '              </form>' . "\r\n"  . 
+                     '            </tr>' . "\r\n";
               }
             ?>
         </table>
@@ -91,18 +109,18 @@
     </tr>
     <tr>
       <td>
-        <table>
+        <table class="set_sec" id="set_user">
           <tr>
-            <td><b>CMDocument Users</b></td>
-            <td><b>User Login</b></td>
-            <td><b>Edit</b></td>
-            <td><b>Delete</b></td>
-            <td>
+            <th>CMDocument User</th>
+            <th>Login</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
               <form id="add_user" method="post">
                 <input type="hidden" name="referer" value="set_ent.html">
                 <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_user').action='register.php';">
               </form>
-            </td>
+            </th>
           </tr> 
             <?php
               echo "\r\n";

@@ -32,20 +32,20 @@
       $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
       $qry_cab = pg_query($db, "SELECT * from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
     ?>
-    <table>
+    <table class="set_main" id="set_loc">
       <tr>
         <td>
-          <table>
+          <table class="set_sec" id="set_location">
             <tr>
-              <td><b>Locations</b></td>
-              <td><b>Edit</b></td>
-              <td><b>Delete</b></td>
-              <td>
+              <th>Locations</th>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>
                 <form id="add_location" method="post">
                   <input type="hidden" name="referer" value="set_loc.html">
                   <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_location').action='add_location.html';">
                 </form>
-              </td>
+              </th>
             </tr>
             <?php
               echo "\r\n";
@@ -58,17 +58,17 @@
       </tr>
       <tr>
         <td>
-          <table>
+          <table class="set_sec" id="set_cabinet">
             <tr>
-              <td><b>Cabinets</b></td>
-              <td><b>Edit</b></td>
-              <td><b>Delete</b></td>
-              <td>
+              <th>Cabinets</th>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>
                 <form id="add_cabinet" method="post">
                   <input type="hidden" name="referer" value="set_loc.html">
                   <input type="image" src="img/add.png" value="" onclick="document.getElementById('add_cabinet').action='add_cabinet.html';">
                 </form>
-              </td>
+              </th>
             </tr>
             <?php
               echo "\r\n";
