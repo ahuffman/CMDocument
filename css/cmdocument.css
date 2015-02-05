@@ -63,3 +63,18 @@ table.set_sec th > form {
 #set_sw, #set_hw {
     width: 40%;
 }
+#login {
+  overflow: hidden;
+  display: block;
+  border: 4px solid grey;
+  height: 150px;
+  width: 500px;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: auto;
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}

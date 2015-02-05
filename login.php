@@ -8,16 +8,17 @@
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
       //check for where the user came from
       if (!isset($_POST['referer'])) {
-        //not a post or not a valid post so we'll display the login form but we'll have to add something in here to check for the session as well later
-        echo '  <form action="login.php" id="login" method="POST">' . "\r\n" .
-        '    Username:' . "\r\n" .
-        '    <input type="text" name="user_login">' . '<br />' . "\r\n" .
-        '    Password:' . "\r\n" .
-        '    <input type="password" name="user_pass">' . '<br />' . "\r\n" .
-        '    <input type="hidden" name="referer" value="login.php">' . "\r\n" .
-        '    <input type="submit" name="submit" value="Login">' . "\r\n" .
-        '    <input type="reset" name="reset" value="Clear">' . "\r\n" .
-        '  </form>' . "\r\n";
+        echo ' <div class="login_container">' . "\r\n" .
+        '    <form action="login.php" id="login" method="POST">' . "\r\n" .
+        '      Username:' . "\r\n" .
+        '      <input type="text" name="user_login">' . '<br />' . "\r\n" .
+        '      Password:' . "\r\n" .
+        '      <input type="password" name="user_pass">' . '<br />' . "\r\n" .
+        '      <input type="hidden" name="referer" value="login.php">' . "\r\n" .
+        '      <input type="submit" name="submit" value="Login">' . "\r\n" .
+        '      <input type="reset" name="reset" value="Clear">' . "\r\n" .
+        '    </form>' . "\r\n" . 
+        '  </div>';
       }
       else if ($ref=="login.php") {
         //proper login form submit
