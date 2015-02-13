@@ -10,9 +10,13 @@
       if (!isset($_POST['referer'])) {
         echo ' <div class="login_container">' . "\r\n" .
         '    <form action="login.php" id="login" method="POST">' . "\r\n" .
-        '      Username:' . "\r\n" .
+        '      <label>' . "\r\n" .
+        '        Username:' . "\r\n" .
+        '      </label>' . "\r\n" .
         '      <input type="text" name="user_login">' . '<br />' . "\r\n" .
-        '      Password:' . "\r\n" .
+        '      <label>' . "\r\n" .
+        '        Password:' . "\r\n" .
+        '      </label>' . "\r\n" .
         '      <input type="password" name="user_pass">' . '<br />' . "\r\n" .
         '      <input type="hidden" name="referer" value="login.php">' . "\r\n" .
         '      <input type="submit" name="submit" value="Login">' . "\r\n" .
