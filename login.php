@@ -20,7 +20,6 @@
         '      <input type="password" name="user_pass">' . '<br />' . "\r\n" .
         '      <input type="hidden" name="referer" value="login.php">' . "\r\n" .
         '      <input type="submit" name="submit" value="Login">' . "\r\n" .
-        '      <input type="reset" name="reset" value="Clear">' . "\r\n" .
         '    </form>' . "\r\n" . 
         '  </div>';
       }
