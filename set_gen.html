@@ -42,6 +42,7 @@
   $qry_stat = pg_query($db, "SELECT * FROM cmd_status ORDER BY status ASC");
   $qry_purp = pg_query($db, "SELECT * FROM cmd_purpose ORDER BY purpose ASC");
 ?>
+<div class="main">
   <table class="set_main" id="set_gen">
     <tr>
       <td>
@@ -109,5 +110,6 @@ echo '            <tr>' . "\r\n" . '              <form id="purpose' . $purprow[
       </td>
     </tr>
   </table>
+</div>
 </body>
 </html>

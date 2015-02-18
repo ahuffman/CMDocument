@@ -10,6 +10,7 @@
   $msg_display_time = $config['msg_display_time'];
   $check_login_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on login.php
   $check_logout_page = fnmatch('*logout.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on logout.php
+  $check_settings_page = fnmatch('*set_*.*', $_SERVER['SCRIPT_NAME']); //looking to see if we're on a settings page to assign a class
   //start user session
   session_start();
   session_write_close();
@@ -42,9 +43,19 @@
     //not the login page (i.e. every other page) so show user the logout link
        echo 
          '      <table class="main_menu">' . "\r\n" .
-         '        <tr>' . "\r\n" .
+         '        <tr>' . "\r\n"; 
+         if (!$check_settings_page) {
+           //not a settings page so don't mark as class active
+           echo '          <td>' . "\r\n" .
+                '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n";
+         }
+         else {
+           echo '          <td class="topmenu_active">' . "\r\n" .
+                '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n";
+         }
+         echo
+         '          </td>' . "\r\n" .
          '          <td>' . "\r\n" .
-         '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n" .
          '          </td>' . "\r\n" .
          '        </tr>' . "\r\n" .
          '      </table>' . "\r\n" .

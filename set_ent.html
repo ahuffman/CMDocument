@@ -42,6 +42,7 @@
   $qry_contact = pg_query($db, "SELECT * FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
   $qry_users = pg_query($db, "SELECT user_id, user_login, user_firstname, user_lastname FROM cmd_users ORDER BY user_lastname ASC, user_firstname ASC, user_login ASC");
 ?>
+<div class="main">
   <table class="set_main" id="set_ent">
     <tr>
       <td>
@@ -144,5 +145,6 @@
       </td>
     </tr>
   </table>
+</div>
 </body>
 </html>

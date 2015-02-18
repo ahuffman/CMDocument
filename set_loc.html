@@ -32,6 +32,7 @@
       $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
       $qry_cab = pg_query($db, "SELECT * from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
     ?>
+  <div class="main">
     <table class="set_main" id="set_loc">
       <tr>
         <td>
@@ -80,5 +81,6 @@
         </td>
       </tr>
     </table>
+    </div>
   </body>
 </html>
