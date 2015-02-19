@@ -1,12 +1,12 @@
 body {
   background-color: white;
   width: 100%;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
 .title {
   font-weight: bold;
-  font-size: 2vh;
+  font-size: 1.1vw;
 }
 .main {
   background-color: lightgray;
@@ -30,7 +30,7 @@ body {
     padding-right: 1vw;
 }
 td.main_menu_active {
-  border-bottom: .2vh solid khaki;
+  border-bottom: .15vw solid khaki;
 }
 td.main_menu_active a {
   color: linen;
@@ -49,15 +49,39 @@ table.main_menu td {
   text-align: center;
 }
 table.main_menu {
-    font-size: 1.5vh;
+    font-size: .85vw;
     margin-left: 1.25vw;
     float: left;
     display: inline-table;
 }
 table.user_menu {
+    font-size: .85vw;
     float: right;
     display: inline-table;
 }
+table.user_menu td {
+  border-right: .1vw solid lightgray;
+  padding: 0 .5vw .3vw .5vw;
+  padding-right: .5vw;
+  text-align: center;
+}
+table.user_menu td:last-child {
+  border-right: 0;
+}
+.user_menu a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.user_menu a:hover {
+  color: linen;
+}
+
+table.user_menu td:hover {
+  border-bottom: .2vw solid khaki;
+  padding: 0 .5vw .1vw .5vw;
+}
+
 td.set_active {
   font-weight: bold;
   font-style: italic;
@@ -77,11 +101,11 @@ td.set_active {
 table#set_menu {
   margin-left: 3vw;
   border-spacing: 0vw;
-  font-size: 1.15vh;
+  font-size: .65vw;
 }
 table#set_menu td {
   width: 2.25vw;
-  padding: .2vw .2vw .3vw .2vw;
+  padding: .3vw .3vw .4vw .3vw;
   text-align: center;
 }
 table.set_main {
@@ -91,8 +115,8 @@ table.set_main {
   padding-right: 1%;
   margin-top: 1%;
 }
-table.set_main tr > td {
-    padding: .5vw;
+table.set_main td {
+    padding: .7vw;
 }
 table.set_sec {
     width: 100%;
@@ -100,10 +124,10 @@ table.set_sec {
     margin-right: auto;
     overflow: hidden;
     border: .15vw solid lightgray;
-    box-shadow: 5px 5px 18px #888888;
-    border-radius: 5px;
-    border-spacing: 0px;
-    padding-bottom: 4px;
+    box-shadow: .5vw .5vw .8vw #888888;
+    border-radius: .5vw;
+    border-spacing: 0;
+    padding-bottom: .4vw;
     background-color: white;
 }
 table.set_sec input[type="image"] {
@@ -111,24 +135,24 @@ table.set_sec input[type="image"] {
     height: 16px;
 }
 table.set_sec th {
-    padding-top: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-top: .2vw;
+    padding-left: .5vw;
+    padding-right: .5vw;
     text-align: left;
-    line-height: 20px;
+    line-height: 1.2vw;
     background-color: 330000;
     color: B8B8B8;
 }
-table.set_sec tr > td {
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 1px;
-    padding-bottom: 1px;
+table.set_sec td {
+    padding-left: .8vw;
+    padding-right: .8vw;
+    padding-top: .1vw;
+    padding-bottom: .1vw;
 }
 table.set_sec th > form {
     display: block;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 #set_loc {
     width: 60%;
@@ -150,7 +174,7 @@ table.set_sec th > form {
   padding-left: 1%;
   padding-right: 1%;
   background-color: 330000;
-  box-shadow: 15px 15px 38px #888888;
+  box-shadow: .15vw .15vw 2vw #888888;
 }
 
 #login label {
