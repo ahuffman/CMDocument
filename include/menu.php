@@ -33,8 +33,8 @@
   echo '<div id="menublock">' . "\r\n" .
        '  <table id="topmenu">' . "\r\n" .
        '    <tr>' . "\r\n" .
-       '      <td>' . "\r\n" .
-       '        <b>CMDocument</b>' . "\r\n" .
+       '      <td class="title">' . "\r\n" .
+       '        CMDocument' . "\r\n" .
        '      </td>' . "\r\n" .
        '    </tr>' . "\r\n" .
        '    <tr>' . "\r\n" .
@@ -47,11 +47,11 @@
          if (!$check_settings_page) {
            //not a settings page so don't mark as class active
            echo '          <td>' . "\r\n" .
-                '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n";
+                '            <a href="set_gen.html">Settings</a>' . "\r\n";
          }
          else {
            echo '          <td class="topmenu_active">' . "\r\n" .
-                '            <b><a href="set_gen.html">Settings</a></b>' . "\r\n";
+                '            <a href="set_gen.html">Settings</a>' . "\r\n";
          }
          echo
          '          </td>' . "\r\n" .
