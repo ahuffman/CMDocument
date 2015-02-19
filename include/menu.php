@@ -14,18 +14,18 @@
   //start user session
   session_start();
   session_write_close();
-  if (!$check_login_page) { 
-    //we're not on login page change to login.php if no session - prevent permanent loop
-    if (!isset($_SESSION['user_login'])) {
-      echo 'You must login first.';
-      header("Refresh: $msg_display_time; URL=login.php");
-      exit();
-    }
-  }
   //header
   echo '<head>' . "\r\n" .
        '  <link rel="stylesheet" type="text/css" href="' . $url . '/css/cmdocument.css">' . "\r\n" .
        '</head>' . "\r\n";
+  if (!$check_login_page) { 
+    //we're not on login page change to login.php if no session - prevent permanent loop
+    if (!isset($_SESSION['user_login'])) {
+      echo '<div class="message">' . "\r\n" . 'You must login first.' . "\r\n" . '</div>' . "\r\n";
+      header("Refresh: $msg_display_time; URL=login.php");
+      exit();
+    }
+  }
               //debug
                // foreach ($_SESSION as $key=>$val)
                // echo $key. ": ".$val. "<br>";
@@ -50,7 +50,7 @@
                 '            <a href="set_gen.html">Settings</a>' . "\r\n";
          }
          else {
-           echo '          <td class="topmenu_active">' . "\r\n" .
+           echo '          <td class="main_menu_active">' . "\r\n" .
                 '            <a href="set_gen.html">Settings</a>' . "\r\n";
          }
          echo
