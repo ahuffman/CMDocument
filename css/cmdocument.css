@@ -6,7 +6,7 @@ body {
 }
 .title {
   font-weight: bold;
-  font-size: 1vw;
+  font-size: 2vh;
 }
 .main {
   background-color: lightgray;
@@ -29,21 +29,30 @@ body {
     padding-top: .5vw;
     padding-right: 1vw;
 }
-td.topmenu_active {
+td.main_menu_active {
   border-bottom: .2vh solid khaki;
-  width:1vw; /*need to set to prevent auto expansion of td width.  will auto expand to text string length.*/
 }
-td.topmenu_active a {
+td.main_menu_active a {
   color: linen;
   font-style: italic;
   text-decoration: none;
+}
+table.main_menu td {
+  border-right: .1vw solid lightgray;
+}
+table.main_menu td:last-child {
+  border-right: 0;
+}
+table.main_menu td {
+  padding-left: .5vw;
+  padding-right: .5vw;
+  text-align: center;
 }
 table.main_menu {
     font-size: 1.5vh;
     margin-left: 1.25vw;
     float: left;
     display: inline-table;
-    width: 45%;
 }
 table.user_menu {
     float: right;
