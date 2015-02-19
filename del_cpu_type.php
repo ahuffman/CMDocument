@@ -10,11 +10,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_cpu_type WHERE cpu_type_id=$cpu_type_id");
         if (!$delete) {
-          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
+          echo '<div class="message">' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo '<div class="message>' . "\r\n" . 'Deleted ' . $vend . ' ' . $cpu_type_model . ' - ' . $cpu_type_cores . ' Core(s) from the database.' . "\r\n" . '</div>' . "\r\n";
+          echo '<div class="message">' . "\r\n" . 'Deleted ' . $vend . ' ' . $cpu_type_model . ' - ' . $cpu_type_cores . ' Core(s) from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

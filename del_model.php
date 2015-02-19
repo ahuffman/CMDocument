@@ -9,11 +9,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_model WHERE model_id=$model_id");
         if (!$delete) {
-          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
+          echo '<div class="message">' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo '<div class="message>' . "\r\n" . 'Deleted ' . $vend . ' ' . $model . ' from the database.' . "\r\n" . '</div>' . "\r\n";
+          echo '<div class="message">' . "\r\n" . 'Deleted ' . $vend . ' ' . $model . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }
