@@ -8,20 +8,21 @@
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
       //check for where the user came from
       if (!isset($_POST['referer'])) {
-        echo ' <div class="login_container">' . "\r\n" .
+        echo 
+        ' <div class="login_container">' . "\r\n" .
         '    <form action="login.php" id="login" method="POST">' . "\r\n" .
         '      <label>' . "\r\n" .
         '        Username:' . "\r\n" .
         '      </label>' . "\r\n" .
-        '      <input type="text" name="user_login">' . '<br />' . "\r\n" .
+        '      <input type="text" name="user_login">' . "\r\n" .
         '      <label>' . "\r\n" .
         '        Password:' . "\r\n" .
         '      </label>' . "\r\n" .
-        '      <input type="password" name="user_pass">' . '<br />' . "\r\n" .
+        '      <input type="password" name="user_pass">' . "\r\n" .
         '      <input type="hidden" name="referer" value="login.php">' . "\r\n" .
         '      <input type="submit" name="submit" value="Login">' . "\r\n" .
         '    </form>' . "\r\n" . 
-        '  </div>';
+        '  </div>' . "\r\n";
       }
       else if ($ref=="login.php") {
         //proper login form submit
@@ -30,7 +31,7 @@
         $qry_user = pg_query($db, "SELECT user_pass,user_salt,user_loginfail FROM cmd_users WHERE user_login='$user_login'");
         if (pg_num_rows($qry_user) <= 0) {
           //user entered a username not registered in the db
-          echo 'Bad username or password.' . '<br />' . "\r\n";
+          echo '<div class="message">' . "\r\n" . 'Bad username or password.' . '<br />' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=login.php");
           exit();
         }
@@ -38,7 +39,7 @@
           $userrow = pg_fetch_assoc($qry_user);
           if ($userrow['user_loginfail'] >= $config['max_login_attempts']) {
             //max logins reached and account is locked
-            echo 'Account locked. Please contact <a href="mailto:' . $config['admin_email'] . '">' . $config['admin_email'] . '</a>' . '.' . '<br />' . "\r\n";
+            echo '<div class="message">' . "\r\n" . 'Account locked. Please contact <a href="mailto:' . $config['admin_email'] . '">' . $config['admin_email'] . '</a>' . '.' . '<br />' . "\r\n" . '</div>' . "\r\n";
             header("Refresh: $msg_display_time; URL=login.php");
             exit();
           }
@@ -63,9 +64,9 @@
               //update the cmd_users table with session info
               $qry_login = pg_query($db,"UPDATE cmd_users SET user_session='$token', user_ip='$login_ip', user_lastlogin='$date', user_loginfail='$loginfail' WHERE user_login='$user_login'");
               //display welcome message
-              echo 'Welcome ' . $userrow['user_firstname'] . '!' . '<br />' . '<br />' . "\r\n" .
+              echo '<div class="message">' . "\r\n" . 'Welcome ' . $userrow['user_firstname'] . '!' . '<br />' . '<br />' . "\r\n" .
               $userrow['user_login'] . ' last logged in from ' . $userrow['user_ip'] . ' on ' . $userrow['user_lastlogin'] . '<br />' . "\r\n" .
-              'Currently logged in from ' . $login_ip . ' at ' . $date . '<br />' . "\r\n";
+              'Currently logged in from ' . $login_ip . ' at ' . $date . '<br />' . "\r\n" . '</div>' . "\r\n";
               //start a session and set variables
               session_start();
               $_SESSION['user_login'] = $user_login;

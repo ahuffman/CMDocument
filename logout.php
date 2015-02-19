@@ -10,7 +10,7 @@
   //destroy the session
   session_destroy();
   if (!isset($_SESSION['user_login'])) {
-    echo 'User logged out successfully';
+    echo '<div class="message">' . "\r\n" . 'User logged out successfully' . "\r\n" . '</div>' . "\r\n";
     header("Refresh: $msg_display_time; URL=login.php");
     exit();
   }
