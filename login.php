@@ -66,7 +66,7 @@
               //display welcome message
               echo '<div class="message">' . "\r\n" . 'Welcome ' . $userrow['user_firstname'] . '!' . '<br />' . '<br />' . "\r\n" .
               $userrow['user_login'] . ' last logged in from ' . $userrow['user_ip'] . ' on ' . $userrow['user_lastlogin'] . '<br />' . "\r\n" .
-              'Currently logged in from ' . $login_ip . ' at ' . $date . '<br />' . "\r\n" . '</div>' . "\r\n";
+              'Currently logged in from ' . $login_ip . ' on ' . $date . '<br />' . "\r\n" . '</div>' . "\r\n";
               //start a session and set variables
               session_start();
               $_SESSION['user_login'] = $user_login;
