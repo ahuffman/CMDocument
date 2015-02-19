@@ -11,11 +11,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_software WHERE sw_id=$sw_id");
         if (!$delete) {
-          echo 'Delete Failed.';
+          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $vend . ' ' . $software . ' ' . $sw_ver . ' ' . $arch . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $vend . ' ' . $software . ' ' . $sw_ver . ' ' . $arch . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

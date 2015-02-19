@@ -10,11 +10,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_users WHERE user_id='$user_id'");
         if (!$delete) {
-          echo 'Delete Failed.';
+          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $user_login . ' - ' . $user_firstname . ' ' . $user_lastname . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $user_login . ' - ' . $user_firstname . ' ' . $user_lastname . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

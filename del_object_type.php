@@ -8,11 +8,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_object_type WHERE obj_type_id=$obj_type_id");
         if (!$delete) {
-          echo 'Delete Failed.';
+          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $obj_type . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $obj_type . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

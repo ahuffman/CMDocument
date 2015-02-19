@@ -8,11 +8,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_interface_protocol WHERE int_proto_id=$int_proto_id");
         if (!$delete) {
-          echo 'Delete Failed.';
+          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $int_proto . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $int_proto . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

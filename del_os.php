@@ -10,11 +10,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_os WHERE os_id=$os_id");
         if (!$delete) {
-          echo 'Delete Failed.';
+          echo '<div class="message>' . "\r\n" . 'Delete Failed.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $os . ' ' . $os_ver . ' ' . $arch . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $os . ' ' . $os_ver . ' ' . $arch . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }

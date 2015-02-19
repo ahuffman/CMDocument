@@ -9,11 +9,11 @@
       if (isset($ref)) {
         $delete = pg_query($db, "DELETE FROM cmd_locations WHERE location_id=$location_id");
         if (!$delete) {
-          echo 'Delete Failed:' . '<br />' . "\r\n";
+          echo '<div class="message>' . "\r\n" . 'Delete Failed:' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
         else {
-          echo 'Deleted ' . $location_name . ' - ' . $location_address . ' from the database.' . '<br />';
+          echo '<div class="message>' . "\r\n" . 'Deleted ' . $location_name . ' - ' . $location_address . ' from the database.' . "\r\n" . '</div>' . "\r\n";
           header("Refresh: $msg_display_time; URL=$ref");
         }
       }
