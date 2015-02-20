@@ -34,7 +34,7 @@ table.main_menu a:hover {
 }
 table.main_menu td:hover {
   border-bottom: 2px solid khaki;
-  padding: 0 5px 3px 5px;
+  padding: 0 5px 1px 5px;
 }
 td.main_menu_active {
   border-bottom: 2px solid khaki;
@@ -48,16 +48,13 @@ table.main_menu td:last-child {
   border-right: 0;
 }
 table.main_menu td {
-  padding-left: .5vw;
-  padding-right: .5vw;
   text-align: center;
   border-right: 1px solid lightgray;
-  padding: 0 5px 3px 5px;
-
+  padding: 0 5px 1px 5px;
 }
 table.main_menu {
   font-size: 1em;
-  margin-left: 1.25vw;
+  margin-left: 1.5em;
   float: left;
   display: inline-table;
 }
