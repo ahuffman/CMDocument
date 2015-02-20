@@ -6,40 +6,36 @@
   $ent =  fnmatch('*set_ent.html', $_SERVER['SCRIPT_NAME']);
 ?>
 <div id="set_menu_block">
-  <table id="set_menu">
-    <tr>
       <?php 
         if ($gen) {
-          echo '<td class="set_active"><a href="set_gen.html">General</a></td>';
+          echo '<div class="set_active set_menu-tab"><a href="set_gen.html">General</a></div>';
         }
         else {
-          echo '<td><a href="set_gen.html">General</a></td>';
+          echo '<div class="set_menu-tab"><a href="set_gen.html">General</a></div>';
         }
         if ($hw) {
-          echo '<td class="set_active"><a href="set_hw.html">Hardware</a></td>';
+          echo '<div class="set_active set_menu-tab"><a href="set_hw.html">Hardware</a></div>';
         }
         else {
-          echo '<td><a href="set_hw.html">Hardware</a></td>';
+          echo '<div class="set_menu-tab"><a href="set_hw.html">Hardware</a></div>';
         }
         if ($sw) {
-          echo '<td class="set_active"><a href="set_sw.html">Software</a></td>';
+          echo '<div class="set_active set_menu-tab"><a href="set_sw.html">Software</a></div>';
         }
         else {
-          echo '<td><a href="set_sw.html">Software</a></td>';
+          echo '<div class="set_menu-tab"><a href="set_sw.html">Software</a></div>';
         }
         if ($loc) {
-          echo '<td class="set_active"><a href="set_loc.html">Locations</a></td>';
+          echo '<div class="set_active set_menu-tab"><a href="set_loc.html">Locations</a></div>';
         }
         else {
-          echo '<td><a href="set_loc.html">Locations</a></td>';
+          echo '<div class="set_menu-tab"><a href="set_loc.html">Locations</a></div>';
         }
         if ($ent) {
-          echo '<td class="set_active"><a href="set_ent.html">Entities</a></td>';
+          echo '<div class="set_active set_menu-tab"><a href="set_ent.html">Entities</a></div>';
         }
         else {
-          echo '<td><a href="set_ent.html">Entities</a></td>';
+          echo '<div class="set_menu-tab"><a href="set_ent.html">Entities</a></div>';
         }
       ?>
-    </tr>
-  </table>
 </div>
