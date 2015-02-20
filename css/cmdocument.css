@@ -4,41 +4,45 @@ body {
   padding: 0;
   margin: 0;
 }
-.title {
-  font-weight: bold;
-  font-size: 1.1vw;
-}
-.main {
-  background-color: lightgray;
-  width: 100%;
-  height: 100%;
-  padding: 0vw;
-  margin: 0vw;
-}
 #menublock {
+  /*Area encompassing title, main_menu, and user_menu*/
   width: 100%;
   background-color: white;
 }
 #topmenu {
-    border-radius: 0vw 0vw 1vw .0vw;
-    background-color: slategray;
-    width: 99.8%;
-    color: whitesmoke;
-    text-shadow: -.3vw -.3vw 0 330000, .3vw -.3vw 0 330000, -.3vw .3vw 0 330000, .3vw .3vw 0 330000;
-    padding-left: 1vw;
-    padding-top: .5vw;
-    padding-right: 1vw;
+  /*Table - Area encompassing title, main_menu, and user_menu*/
+  border-radius: 0vw 0vw 1vw .0vw;
+  background-color: slategray;
+  width: 99.5%;
+  color: whitesmoke;
+  padding-left: .8em;
+  padding-top: .2em;
+  padding-right: .4em;
+  box-shadow: 3px 1px 13px steelblue;
 }
-td.main_menu_active {
-  border-bottom: .15vw solid khaki;
+.title {
+  /*Area displaying application's title*/
+  font-weight: bold;
+  font-size: 1.3em;
 }
-td.main_menu_active a {
-  color: linen;
-  font-style: italic;
+.main_menu a {
+  color: whitesmoke;
   text-decoration: none;
 }
-table.main_menu td {
-  border-right: .1vw solid lightgray;
+table.main_menu a:hover {
+  color: linen;
+}
+table.main_menu td:hover {
+  border-bottom: 2px solid khaki;
+  padding: 0 5px 3px 5px;
+}
+td.main_menu_active {
+  border-bottom: 2px solid khaki;
+}
+td.main_menu_active a {
+  color: whitesmoke;
+  font-style: italic;
+  text-decoration: none;
 }
 table.main_menu td:last-child {
   border-right: 0;
@@ -47,22 +51,25 @@ table.main_menu td {
   padding-left: .5vw;
   padding-right: .5vw;
   text-align: center;
+  border-right: 1px solid lightgray;
+  padding: 0 5px 3px 5px;
+
 }
 table.main_menu {
-    font-size: .85vw;
-    margin-left: 1.25vw;
-    float: left;
-    display: inline-table;
+  font-size: 1em;
+  margin-left: 1.25vw;
+  float: left;
+  display: inline-table;
 }
 table.user_menu {
-    font-size: .85vw;
-    float: right;
-    display: inline-table;
+  font-size: 1em;
+  float: right;
+  display: inline-table;
 }
 table.user_menu td {
   border-right: .1vw solid lightgray;
-  padding: 0 .5vw .3vw .5vw;
-  padding-right: .5vw;
+  padding: 0 5px 3px 5px;
+  padding-right: 5px;
   text-align: center;
 }
 table.user_menu td:last-child {
@@ -72,41 +79,58 @@ table.user_menu td:last-child {
   color: whitesmoke;
   text-decoration: none;
 }
-
 .user_menu a:hover {
   color: linen;
 }
 
 table.user_menu td:hover {
-  border-bottom: .2vw solid khaki;
-  padding: 0 .5vw .1vw .5vw;
+  border-bottom: 2px solid khaki;
+  padding: 0 5px 1px 5px;
 }
-
-td.set_active {
+.set_active.set_menu-tab {
   font-weight: bold;
   font-style: italic;
   background-color: lightgray;
-  border-radius: .2vw .2vw 0vw 0vw;
+  border-top: 1px solid 330000;
+  border-right: 1px solid 330000;
+  border-left: 1px solid 330000;
+  padding-bottom: .12em;
 }
 #set_menu_block {
+  display:block;
+  clear: both;
+  float: left;
   width: 100%;
-  margin-top: .15vw;
-  padding-top: .2vw;
-  overflow: hidden;
-  border-top: .2vw solid 330000;
-  margin-bottom: 0vw;
-  padding-bottom: 0vw;
+  overflow: visible;
+  height: 1.9em;
+  border-top: 2px solid 330000;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   background-color: white;
 }
-table#set_menu {
-  margin-left: 3vw;
-  border-spacing: 0vw;
-  font-size: .65vw;
-}
-table#set_menu td {
-  width: 2.25vw;
-  padding: .3vw .3vw .4vw .3vw;
+.set_menu-tab {
+  display: inline;
+  float: left;
+  overflow: hidden;
+  background-color: white;
+  font-size: .8em;
+  width: 4.5em;
+  height: 1.2em;
   text-align: center;
+  padding: .32em .6em 0 .4em;
+  margin: .74em .2em 0 .2em;
+  border-radius: 5px 40px 0 0;
+  border-top: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+}
+.set_menu-tab a {
+  color: 330000;
+  text-decoration: none;
+}
+.set_menu-tab:first-child {
+  margin-left: 3vw;
 }
 table.set_main {
   float: left;
@@ -119,46 +143,43 @@ table.set_main td {
     padding: .7vw;
 }
 table.set_sec {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    border: .15vw solid lightgray;
-    box-shadow: .5vw .5vw .8vw #888888;
-    border-radius: .5vw;
-    border-spacing: 0;
-    padding-bottom: .4vw;
-    background-color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border: .15vw solid lightgray;
+  box-shadow: .5vw .5vw .8vw #888888;
+  border-radius: .5vw;
+  border-spacing: 0;
+  padding-bottom: .4vw;
+  background-color: white;
+  white-space: nowrap;
 }
 table.set_sec input[type="image"] {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 table.set_sec th {
-    padding-top: .2vw;
-    padding-left: .5vw;
-    padding-right: .5vw;
-    text-align: left;
-    line-height: 1.2vw;
-    background-color: 330000;
-    color: B8B8B8;
+  padding-top: .2vw;
+  padding-left: 1vw;
+  padding-right: .5vw;
+  text-align: left;
+  line-height: 1.2vw;
+  background-color: 330000;
+  color: B8B8B8;
+  font-size: 1em;
 }
 table.set_sec td {
-    padding-left: .8vw;
-    padding-right: .8vw;
-    padding-top: .1vw;
-    padding-bottom: .1vw;
+  padding-left: 1.4vw;
+  padding-right: .8vw;
+  padding-top: .1vw;
+  padding-bottom: .1vw;
+  font-size: 1em;
 }
 table.set_sec th > form {
-    display: block;
-    padding: 0;
-    margin: 0;
-}
-#set_loc {
-    width: 60%;
-}
-#set_sw, #set_hw {
-    width: 40%;
+  display: block;
+  padding: 0;
+  margin: 0;
 }
 #login {
   overflow: hidden;
@@ -183,7 +204,7 @@ table.set_sec th > form {
   clear: left;
   color: linen;
   font-weight: bold;
-  font-size: 1vw; 
+  font-size: 1.3em; 
   margin-bottom: 3%;
 }
 
@@ -196,7 +217,7 @@ table.set_sec th > form {
   height: 20%;
   width: 90%;
   clear: right;
-  font-size: .75vw;
+  font-size: 1.2em;
   box-shadow: .2vw .1vw 1vw maroon;
   background-color: lightgoldenrodyellow;
   padding-left: .75vw;
@@ -222,7 +243,8 @@ table.set_sec th > form {
   border: .2vw solid gray;
   border-radius: .5vw;
   overflow: hidden;
-  font-size: 1vw;
+  font-size: .85em;
+  font-weight: bold;
   box-shadow: .2vw .1vw 1vw maroon;
 }
 
@@ -241,3 +263,16 @@ table.set_sec th > form {
   text-align: center;
   padding: 1vw;
 }
+
+.main {
+  /*Remainder of page below menus */
+  overflow: visible;
+  clear: both;
+  background-color: lightgray;
+  width: 100%;
+  height: 100%;
+  padding: 0vw;
+  border-top: .1vw solid 330000;
+  margin-top: -2%;
+}
+
