@@ -129,16 +129,6 @@ table.user_menu td:hover {
 .set_menu-tab:first-child {
   margin-left: 3vw;
 }
-table.set_main {
-  float: left;
-  width: 30%;
-  padding-left: 1%;
-  padding-right: 1%;
-  margin-top: 1%;
-}
-table.set_main td {
-    padding: .7vw;
-}
 .set_table:first-child {
   margin-top: 3em;
 }
