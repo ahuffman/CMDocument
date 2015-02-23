@@ -28,51 +28,52 @@
   if (isset($ref)) {
     if ($ref=="edt_disk_type.html") {
       pg_query($db, "UPDATE cmd_disk_type SET disk_type='$disk_type', disk_type_desc='$disk_type_desc' WHERE disk_type_id=$disk_type_id");
-      echo 'Edited Disk Type.' . '<br />';
+      showMessage('set_message', 'Edited Disk Type.');
     }
     else if ($ref=="edt_cpu_type.html") {
       pg_query($db, "UPDATE cmd_cpu_type SET vend_id='$vend_id',cpu_type_model='$cpu_type_model',cpu_type_description='$cpu_type_description',cpu_type_cores='$cpu_type_cores' WHERE cpu_type_id=$cpu_type_id");
-      echo 'Edited CPU Type.' . '<br />';
+      showMessage('set_message', 'Edited CPU Type.');
     }
     else if ($ref=="edt_interface_type.html") {
       pg_query($db, "UPDATE cmd_interface_type SET int_type='$int_type', int_type_desc='$int_type_desc' WHERE int_type_id=$int_type_id");
-      echo 'Edited Interface Type.' . '<br />';
+      showMessage('set_message', 'Edited Interface Type.');
     }
     else if ($ref=="edt_object_type.html") {
       pg_query($db, "UPDATE cmd_object_type SET obj_type='$obj_type', obj_type_desc='$obj_type_desc' WHERE obj_type_id=$obj_type_id");
-      echo 'Edited Object Type.' . '<br />';
+      showMessage('set_message', 'Edited Object Type.');
     }
     else if ($ref=="edt_model.html") {
       pg_query($db, "UPDATE cmd_model SET vend_id='$vend_id',model='$model',obj_type_id='$obj_type_id' WHERE model_id=$model_id");
-      echo 'Edited Object Model.' . '<br />';
+      showMessage('set_message', 'Edited Object Model.');
     }
     else if ($ref=="edt_architecture.html") {
       pg_query($db, "UPDATE cmd_architecture SET arch='$arch' WHERE arch_id=$arch_id");
-      echo 'Edited Architecture.' . '<br />';
+      showMessage('set_message', 'Edited Architecture.');
     }
     else if ($ref=="add_disk_type.html") {
       pg_query($db, "INSERT INTO cmd_disk_type(disk_type, disk_type_desc) VALUES('$disk_type', '$disk_type_desc')");
-      echo 'The Disk Type was added successfully.' . '<br />';
+      showMessage('set_message', 'The Disk Type was added successfully.');
     }
     else if ($ref=="add_cpu_type.html") {
       pg_query($db, "INSERT INTO cmd_cpu_type(vend_id, cpu_type_model, cpu_type_description, cpu_type_cores) VALUES('$vend_id', '$cpu_type_model', '$cpu_type_description', '$cpu_type_cores')");
-      echo 'The CPU Type was added successfully.' . '<br />';
+      showMessage('set_message', 'The CPU Type was added successfully.');
     }
     else if ($ref=="add_interface_type.html") {
       pg_query($db, "INSERT INTO cmd_interface_type(int_type, int_type_desc) VALUES('$int_type', '$int_type_desc')");
-      echo 'The Interface Type was added successfully.' . '<br />';
+      showMessage('set_message', 'The Interface Type was added successfully.');
     }
     else if ($ref=="add_object_type.html") {
       pg_query($db, "INSERT INTO cmd_object_type(obj_type, obj_type_desc) VALUES('$obj_type', '$obj_type_desc')");
-      echo 'The Object Type was added successfully.' . '<br />';
+      showMessage('set_message', 'The Object Type was added successfully.');
     }
     else if ($ref=="add_model.html") {
       pg_query($db, "INSERT INTO cmd_model(model, vend_id, obj_type_id) VALUES('$model', '$vend_id', '$obj_type_id')");
-      echo 'The Object Model was added successfully with value: ' . $model . '<br />';
+      showMessage('set_message', 'The Object Model was added successfully.');
     }
     else if ($ref=="add_architecture.html") {
       pg_query($db, "INSERT INTO cmd_architecture(arch) VALUES('$arch')");
       echo 'The Architecture was added successfully.' . '<br />';
+       showMessage('set_message', 'The Architecture was added successfully.');
     }
   }
   $qry_arch = pg_query($db, "SELECT * from cmd_architecture");
