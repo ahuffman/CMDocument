@@ -3,6 +3,7 @@
 <?php
   include './include/menu.php';
   include './include/settings.html';
+  include './include/common.php';
   if (isset($_POST['os_id'])) {$os_id = pg_escape_string($_POST['os_id']);}
   if (isset($_POST['os'])) {$os = pg_escape_string($_POST['os']);}
   if (isset($_POST['os_ver'])) {$os_ver = pg_escape_string($_POST['os_ver']);}
@@ -21,35 +22,35 @@
   if (isset($ref)) {
     if ($ref=="edt_os.html") {
       pg_query($db, "UPDATE cmd_os SET os='$os', os_ver='$os_ver', arch_id='$arch_id' WHERE os_id=$os_id");
-      echo 'Edited Operating System.' . '<br />';
+      showMessage('set_message','Edited Operating System.');
     }
     else if ($ref=="edt_sw.html") {
       pg_query($db, "UPDATE cmd_software SET vend_id='$vend_id',arch_id='$arch_id',software='$software',sw_ver='$sw_ver' WHERE sw_id=$sw_id");
-      echo 'Edited Software.' . '<br />';
+       showMessage('set_message','Edited Software.');
     }
     else if ($ref=="edt_raid_type.html") {
       pg_query($db, "UPDATE cmd_disk_raid_type SET disk_raid_type='$disk_raid_type' WHERE disk_raid_type_id=$disk_raid_type_id");
-      echo 'Edited RAID Type.' . '<br />';
+      showMessage('set_message','Edited RAID Type.');
     }
     else if ($ref=="edt_interface_protocol.html") {
       pg_query($db, "UPDATE cmd_interface_protocol SET int_proto='$int_proto' WHERE int_proto_id=$int_proto_id");
-      echo 'Edited Interface Protocol.' . '<br />';
+      showMessage('set_message','Edited Interface Protocol.');
     }
     else if ($ref=="add_os.html") {
       pg_query($db, "INSERT INTO cmd_os(os,os_ver,arch_id) VALUES('$os', '$os_ver', '$arch_id')");
-      echo 'Added Operating System.' . '<br />';
+      showMessage('set_message','Added Operating System.');
     }
     else if ($ref=="add_sw.html") {
       pg_query($db, "INSERT INTO cmd_software(software,arch_id,sw_ver,vend_id) VALUES('$software', '$arch_id', '$sw_ver', '$vend_id')");
-      echo 'Added Software.' . '<br />';
+      showMessage('set_message','Added Software.');
     }
     else if ($ref=="add_raid_type.html") {
       pg_query($db, "INSERT INTO cmd_disk_raid_type(disk_raid_type) VALUES('$disk_raid_type')");
-      echo 'Added RAID Type.' . '<br />';
+      showMessage('set_message','Added RAID Type.');
     }
     else if ($ref=="add_interface_protocol.html") {
       pg_query($db, "INSERT INTO cmd_interface_protocol(int_proto) VALUES('$int_proto')");
-      echo 'Added Interface Protocol.' . '<br />';
+      showMessage('set_message','Added Interface Protocol.'); 
     }
   }
   $qry_os = pg_query($db, "SELECT cmd_os.os_id,cmd_os.os,cmd_os.os_ver,cmd_os.arch_id,cmd_architecture.arch FROM cmd_os JOIN cmd_architecture ON cmd_os.arch_id = cmd_architecture.arch_id ORDER BY cmd_os.os ASC, cmd_os.os_ver ASC,cmd_architecture.arch ASC");

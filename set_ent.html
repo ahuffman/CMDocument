@@ -3,6 +3,7 @@
 <?php
   include './include/menu.php';
   include './include/settings.html';
+  include './include/common.php';
   if (isset($_POST['vend_id'])) {$vend_id = pg_escape_string($_POST['vend_id']);}
   if (isset($_POST['vend'])) {$vend = pg_escape_string($_POST['vend']);}
   if (isset($_POST['contact_id'])) {$contact_id = pg_escape_string($_POST['contact_id']);}
@@ -17,35 +18,31 @@
   if (isset($_POST['contact_address'])) {$contact_address = pg_escape_string($_POST['contact_address']);}
   if (isset($_POST['contact_notes'])) {$contact_notes = pg_escape_string($_POST['contact_notes']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+  echo '<div class="main">' . "\r\n";
 //edit-add handler
   if (isset($ref)) {
     if ($ref=="edt_vendor.html") {
       pg_query($db, "UPDATE cmd_vendors SET vend='$vend' WHERE vend_id=$vend_id");
-      echo 'Edited Vendor.' . '<br />';
+      showMessage('set_message','Edited Vendor.');
     }
     else if ($ref=="edt_contact.html") {
       pg_query($db, "UPDATE cmd_contacts SET contact_firstname='$contact_firstname',contact_lastname='$contact_lastname',contact_company='$contact_company',contact_phone='$contact_phone',contact_website='$contact_website',contact_user='$contact_user',contact_pass='$contact_pass',contact_email='$contact_email',contact_address='$contact_address',contact_notes='$contact_notes' WHERE contact_id=$contact_id");
-      echo 'Edited Contact.' . '<br />';
+      showMessage('set_message','Edited Contact.');
     }
     else if ($ref=="add_vendor.html") {
       pg_query($db, "INSERT INTO cmd_vendors(vend) VALUES('$vend')");
-      echo 'Added Vendor.' . '<br />';
+      showMessage('set_message','Added Vendor.');
     }
     else if ($ref=="add_contact.html") {
       pg_query($db, "INSERT INTO cmd_contacts(contact_firstname, contact_lastname, contact_company, contact_phone, contact_website, contact_user, contact_pass, contact_email, contact_address, contact_notes) VALUES('$contact_firstname', '$contact_lastname', '$contact_company', '$contact_phone', '$contact_website', '$contact_user', '$contact_pass', '$contact_email', '$contact_address', '$contact_notes')");
-      echo 'Added Contact.' . '<br />';
+      showMessage('set_message','Added Contact.');
     }
   }
-
-
   $qry_vendor = pg_query($db, "SELECT * FROM cmd_vendors ORDER BY vend ASC");
   $qry_contact = pg_query($db, "SELECT * FROM cmd_contacts ORDER BY contact_company ASC,contact_lastname ASC");
   $qry_users = pg_query($db, "SELECT user_id, user_login, user_firstname, user_lastname FROM cmd_users ORDER BY user_lastname ASC, user_firstname ASC, user_login ASC");
 ?>
-<div class="main">
-  <table class="set_main" id="set_ent">
-    <tr>
-      <td>
+  <div class="set_table">
         <table class="set_sec" id="set_vendor">
           <tr>
             <th>Vendors</th>
@@ -65,10 +62,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_contact">
           <tr>
             <th>Contacts</th>
@@ -106,10 +101,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_user">
           <tr>
             <th>CMDocument User</th>
@@ -142,9 +135,7 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-  </table>
+  </div>
 </div>
 </body>
 </html>

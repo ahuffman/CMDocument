@@ -3,6 +3,7 @@
     <?php
       include './include/menu.php';
       include './include/settings.html';
+      include './include/common.php';
       if (isset($_POST['location_id'])) {$location_id = pg_escape_string($_POST['location_id']);}
       if (isset($_POST['location_name'])) {$location_name = pg_escape_string($_POST['location_name']);}
       if (isset($_POST['location_address'])) {$location_address = pg_escape_string($_POST['location_address']);}
@@ -15,19 +16,19 @@
       if (isset($ref)) {
         if ($ref=="edt_location.html") {
           pg_query($db, "UPDATE cmd_locations SET location_name='$location_name', location_address='$location_address' WHERE location_id=$location_id");
-          echo 'Edited Location.' . '<br />';
+          showMessage('set_message','Edited Location.');
         }
         else if ($ref=="edt_cabinet.html") {
           pg_query($db, "UPDATE cmd_cabinets SET location_id='$location_id',cab_name='$cab_name',cab_units_tot='$cab_units_tot',cab_image_path='$cab_image_path' WHERE cab_id=$cab_id");
-          echo 'Edited Cabinet.' . '<br />';
+          showMessage('set_message','Edited Cabinet.');
         }
         else if ($ref=="add_location.html") {
           pg_query($db, "INSERT INTO cmd_locations(location_name, location_address) VALUES('$location_name', '$location_address')");
-          echo 'Added Location.' . '<br />';
+          showMessage('set_message','Added Location.');
         }
         else if ($ref=="add_cabinet.html") {
           pg_query($db, "INSERT INTO cmd_cabinets(location_id, cab_name, cab_units_tot) VALUES('$location_id', '$cab_name', '$cab_units_tot')");
-          echo 'Added Cabinet.' . '<br />';
+          showMessage('set_message','Added Cabinet.');
         }
       }
       $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
