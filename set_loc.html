@@ -10,6 +10,7 @@
       if (isset($_POST['cab_name'])) {$cab_name = pg_escape_string($_POST['cab_name']);}
       if (isset($_POST['cab_units_tot'])) {$cab_units_tot = pg_escape_string($_POST['cab_units_tot']);}
       if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+      echo '<div class="main">' . "\r\n";
       //edit-add handler
       if (isset($ref)) {
         if ($ref=="edt_location.html") {
@@ -32,10 +33,7 @@
       $qry_loc = pg_query($db, "SELECT * from cmd_locations ORDER BY location_name ASC");
       $qry_cab = pg_query($db, "SELECT * from cmd_cabinets JOIN cmd_locations ON cmd_cabinets.location_id = cmd_locations.location_id ORDER BY cmd_locations.location_name");
     ?>
-  <div class="main">
-    <table class="set_main" id="set_loc">
-      <tr>
-        <td>
+      <div class="set_table">
           <table class="set_sec" id="set_location">
             <tr>
               <th>Locations</th>
@@ -55,10 +53,8 @@
               }
             ?>
           </table>
-        </td>
-      </tr>
-      <tr>
-        <td>
+      </div>
+      <div class="set_table">
           <table class="set_sec" id="set_cabinet">
             <tr>
               <th>Cabinets</th>
@@ -78,9 +74,7 @@
               }
             ?>
           </table>
-        </td>
-      </tr>
-    </table>
+      </div>
     </div>
   </body>
 </html>

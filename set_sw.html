@@ -16,7 +16,7 @@
   if (isset($_POST['int_proto_id'])) {$int_proto_id = pg_escape_string($_POST['int_proto_id']);}
   if (isset($_POST['int_proto'])) {$int_proto = pg_escape_string($_POST['int_proto']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
-
+  echo '<div class="main">' . "\r\n";
 //edit-add handler
   if (isset($ref)) {
     if ($ref=="edt_os.html") {
@@ -58,10 +58,7 @@
   $qry_int_proto = pg_query($db, "SELECT * FROM cmd_interface_protocol ORDER BY int_proto");
 
 ?>
-<div class="main">
-  <table class="set_main" id="set_sw">
-    <tr>
-      <td>
+  <div class="set_table">
         <table class="set_sec" id="set_os">
           <tr>
             <th>Operating Systems</th>
@@ -81,10 +78,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_software">
           <tr>
             <th>Software</th>
@@ -104,10 +99,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_raid_type">
           <tr>
             <th>RAID Types</th>
@@ -127,10 +120,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_int_proto">
           <tr>
             <th>Interface Protocols</th>
@@ -150,9 +141,7 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-  </table>
+  </div>
 </div>
 </body>
 </html>

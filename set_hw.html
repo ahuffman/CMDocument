@@ -3,6 +3,7 @@
 <?php
   include './include/menu.php';
   include './include/settings.html';
+  include './include/common.php';
   if (isset($_POST['arch_id'])) {$arch_id = pg_escape_string($_POST['arch_id']);}
   if (isset($_POST['arch'])) {$arch = pg_escape_string($_POST['arch']);}
   if (isset($_POST['disk_type_id'])) {$disk_type_id = pg_escape_string($_POST['disk_type_id']);}
@@ -22,6 +23,7 @@
   if (isset($_POST['model_id'])) {$model_id = pg_escape_string($_POST['model_id']);}
   if (isset($_POST['model'])) {$model = pg_escape_string($_POST['model']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
+  echo '<div class="main">' . "\r\n";
 //edit-add handler
   if (isset($ref)) {
     if ($ref=="edt_disk_type.html") {
@@ -80,11 +82,8 @@
   $qry_obj_type = pg_query($db, "SELECT * from cmd_object_type");
   $qry_mod = pg_query($db, "SELECT * from cmd_model JOIN cmd_vendors ON cmd_model.vend_id = cmd_vendors.vend_id ORDER BY cmd_vendors.vend ASC, cmd_model.model ASC");
 ?>
-<div class="main">
-    <table class="set_main" id="set_hw">
-      <tr>
-        <td>
-          <table class="set_sec" id="set_disk_type">
+  <div class="set_table">
+        <table class="set_sec" id="set_disk_type">
             <tr>
               <th>Disk Types</th>
               <th>Edit</th>
@@ -103,10 +102,8 @@
               }
             ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_cpu_type">
           <tr>
             <th>CPU Types</th>
@@ -126,10 +123,8 @@
               }
           ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_interface_type">
           <tr>
             <th>Interface Types</th>
@@ -149,10 +144,8 @@
               }
           ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_object_type">
           <tr>
             <th>Object Types</th>
@@ -172,10 +165,8 @@
               }
           ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="set_obj_model">
           <tr>
             <th>Object Models</th>
@@ -195,10 +186,8 @@
               }
           ?>
         </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
+  </div>
+  <div class="set_table">
         <table class="set_sec" id="arch">
           <tr>
             <th>Architecture</th>
@@ -218,9 +207,7 @@
               }
           ?>
         </table>
-      </td>
-    </tr>
-  </table>
+  </div>
 </div>
 </body>
 </html>
