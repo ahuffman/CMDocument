@@ -1,9 +1,9 @@
 <html>
 <body>
-<div class="main">
 <?php
   include './include/menu.php';
   include './include/settings.html';
+  include './include/common.php';
   if (isset($_POST['priority_id'])) {$priority_id = pg_escape_string($_POST['priority_id']);}
   if (isset($_POST['priority'])) {$priority = pg_escape_string($_POST['priority']);}
   if (isset($_POST['purpose_id'])) {$purpose_id = pg_escape_string($_POST['purpose_id']);}
@@ -11,33 +11,32 @@
   if (isset($_POST['status_id'])) {$status_id = pg_escape_string($_POST['status_id']);}
   if (isset($_POST['status'])) {$status = pg_escape_string($_POST['status']);}
   if (isset($_POST['referer'])) {$ref = pg_escape_string($_POST['referer']);}
-
+  echo '<div class="main">' . "\r\n";
 //edit-add handler
   if (isset($ref)) {
     if ($ref=="edt_priority.html") {
       pg_query($db, "UPDATE cmd_priority SET priority='$priority' WHERE priority_id=$priority_id");
-      echo '<div class="set_message">' . "\r\n" . 'Edited Priority value: ' . $priority . '<br />' . "\r\n" . '</div>' . "\r\n";
+      showMessage('set_message','Edited Priority value: ' . $priority);
     }
     else if ($ref=="edt_purpose.html") {
       pg_query($db, "UPDATE cmd_purpose SET purpose='$purpose' WHERE purpose_id=$purpose_id");
-      echo '<div class="set_message">' . "\r\n" . 'Edited Purpose value: ' . $purpose . '<br />' . "\r\n" . '</div>' . "\r\n";
+      showMessage('set_message','Edited Purpose value: ' . $purpose);
     }
     else if ($ref=="edt_status.html") {
       pg_query($db, "UPDATE cmd_status SET status='$status' WHERE status_id=$status_id");
-      echo '<div class="set_message">' . "\r\n" . 'Edited Status value: ' . $status . '<br />' . "\r\n" . '</div>' . "\r\n";
+      showMessage('set_message','Edited Status value: ' . $status);
     }
     else if ($ref=="add_priority.html") {
       pg_query($db, "INSERT INTO cmd_priority(priority) VALUES('$priority')");
-      echo '<div class="set_message">' . "\r\n" . 'The Priority was added successfully with value: ' . $priority . '<br />' . "\r\n" . '</div>' . "\r\n";
+      showMessage('set_message','The Priority was added successfully with value: ' . $priority);
     }
     else if ($ref=="add_purpose.html") {
       pg_query($db, "INSERT INTO cmd_purpose(purpose) VALUES('$purpose')");
-      echo '<div class="set_message">' . "\r\n" . 'The Purpose was added successfully with value: ' . $purpose . '<br />' . "\r\n" . '</div>' . "\r\n";
+      showMessage('set_message','The Purpose was added successfully with value: ' . $purpose);
     }
     else if ($ref=="add_status.html") {
       pg_query($db, "INSERT INTO cmd_status(status) VALUES('$status')");
-      echo '<div class="set_message">' . "\r\n" . 'The Status was added successfully with value: ' . $status . '<br />' . "\r\n" . '</div>' . "\r\n";
-    
+      showMessage('set_message','The Status was added successfully with value: ' . $status);
     }
   }
   $qry_pri = pg_query($db, "SELECT * FROM cmd_priority ORDER BY priority ASC");
