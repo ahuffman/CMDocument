@@ -16,7 +16,7 @@
   session_write_close();
   //header
   echo '<head>' . "\r\n" .
-       '  <link rel="stylesheet" type="text/css" href="' . $url . '/css/cmdocument.css">' . "\r\n" .
+       '  <link rel="stylesheet" type="text/css" href="' . $url . '/css/cmdocument.css" media="all">' . "\r\n" .
        '</head>' . "\r\n";
   if (!$check_login_page) { 
     //we're not on login page change to login.php if no session - prevent permanent loop
