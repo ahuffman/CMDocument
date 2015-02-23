@@ -139,10 +139,18 @@ table.set_main {
 table.set_main td {
     padding: .7vw;
 }
-table.set_sec {
+.set_table:first-child {
+  margin-top: 3em;
+}
+.set_table {
+  display: block;
+  float: left;
+  clear: left;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 2em;
+  margin-left: 6em;
+}
+table.set_sec {
   overflow: hidden;
   border: .15vw solid lightgray;
   box-shadow: .5vw .5vw .8vw #888888;
@@ -250,6 +258,7 @@ table.set_sec th > form {
 }
 
 .message {
+  clear: left;
   background-color: lightgray;
   border-radius: .5vw;
   margin-top: 10vw;
@@ -260,6 +269,20 @@ table.set_sec th > form {
   text-align: center;
   padding: 1vw;
 }
+
+.set_message {
+  clear: left;
+  background-color: white;
+  border-radius: .5vw;
+  margin-top: 10vw;
+  margin-left: auto;
+  margin-right: auto;
+  width: 35vw;
+  border: .3vw solid gray;
+  text-align: center;
+  padding: 1vw;
+}
+
 
 .main {
   /*Remainder of page below menus */
