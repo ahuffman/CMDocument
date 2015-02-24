@@ -7,6 +7,7 @@ body {
 #menublock {
   /*Area encompassing title, main_menu, and user_menu*/
   width: 100%;
+  height: 59px;
   background-color: white;
 }
 #topmenu {
@@ -275,7 +276,7 @@ table.set_sec th > form {
 /********************************************/
 
 .main {
-  /*Remainder of page below menus */
+  /*Remainder of page below settings tab menus */
   overflow: visible;
   clear: both;
   background-color: lightgray;
@@ -286,3 +287,23 @@ table.set_sec th > form {
   margin-top: -2%;
 }
 
+
+/****************account page *****************/
+.account_main {
+  width: 60%;
+  height: 60%;
+  margin-top: 5em;
+  padding-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: lightgray;
+  border-radius: 5px;
+  border: 4px solid #330000;
+}
+table#account {
+   margin-top: 10em;
+   width: 40%;
+   margin-left: auto;
+   margin-right: auto;
+}
+/**********************************************/
