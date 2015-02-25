@@ -30,16 +30,6 @@ body {
   color: whitesmoke;
   text-decoration: none;
 }
-table.main_menu a:hover {
-  color: linen;
-}
-table.main_menu td:hover {
-  border-bottom: 2px solid khaki;
-  padding: 0 5px 1px 5px;
-}
-td.main_menu_active {
-  border-bottom: 2px solid khaki;
-}
 td.main_menu_active a {
   color: whitesmoke;
   font-style: italic;
@@ -51,6 +41,7 @@ table.main_menu td:last-child {
 table.main_menu td {
   text-align: center;
   border-right: 1px solid lightgray;
+  border-bottom: 2px solid transparent;
   padding: 0 5px 1px 5px;
 }
 table.main_menu {
@@ -63,15 +54,17 @@ table.user_menu {
   font-size: 1em;
   float: right;
   display: inline-table;
+  margin-right: 1.5em;
 }
 table.user_menu td {
-  border-right: .1vw solid lightgray;
-  padding: 0 5px 3px 5px;
-  padding-right: 5px;
+  border-right: 1px solid lightgray;
   text-align: center;
+  border-bottom: 2px solid transparent;
+  padding: 0 5px 1px 5px;
 }
 table.user_menu td:last-child {
   border-right: 0;
+  padding-right: 0;
 }
 .user_menu a {
   color: whitesmoke;
@@ -80,10 +73,13 @@ table.user_menu td:last-child {
 .user_menu a:hover {
   color: linen;
 }
-
-table.user_menu td:hover {
+table.user_menu td.main_menu_active:hover, table.main_menu td.main_menu_active:hover, table.main_menu td:hover, table.user_menu td:hover {
+  /*overriding active border as well as other menu cells borders*/
+  border-bottom: 2px solid lightskyblue;
+}
+table.user_menu td.main_menu_active, table.main_menu td.main_menu_active {
+  /*overriding transparent border for non-active menu items*/
   border-bottom: 2px solid khaki;
-  padding: 0 5px 1px 5px;
 }
 .set_active.set_menu-tab {
   font-weight: bold;
@@ -102,7 +98,7 @@ table.user_menu td:hover {
   overflow: visible;
   height: 31px;
   border-top: 1px solid 330000;
-  margin-top: 10px;
+  margin-top: 12px;
   margin-bottom: 0;
   padding-bottom: 0;
   background-color: white;

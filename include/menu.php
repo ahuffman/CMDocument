@@ -11,6 +11,7 @@
   $check_login_page = fnmatch('*login.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on login.php
   $check_logout_page = fnmatch('*logout.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on logout.php
   $check_settings_page = fnmatch('*set_*.*', $_SERVER['SCRIPT_NAME']); //looking to see if we're on a settings page to assign a class
+  $check_account_page = fnmatch('*act_*.php', $_SERVER['SCRIPT_NAME']); //looking to see if we're on a user account page
   //start user session
   session_start();
   session_write_close();
@@ -60,9 +61,18 @@
          '        </tr>' . "\r\n" .
          '      </table>' . "\r\n" .
          '      <table class="user_menu">' . "\r\n" .
-         '        <tr>' . "\r\n" .
-         '          <td>' . "\r\n" .
-         '            <a href="' . $url . '/account.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+         '        <tr>' . "\r\n"; 
+         if ($check_account_page) {
+           echo '          <td class="main_menu_active">' . "\r\n" .
+                '            <a href="' . $url . '/act_main.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+                '          </td>' . "\r\n";
+         }
+         else {
+           echo '          <td>' . "\r\n" .
+                '            <a href="' . $url . '/act_main.php">' . $_SESSION['user_login'] . '</a>' . "\r\n" .
+                '          </td>' . "\r\n";
+         }
+         echo
          '          </td>' . "\r\n" .
          '          <td>' . "\r\n" .
          '            <a href="' . $url . '/logout.php">Logout' . '</a>' . "\r\n" .

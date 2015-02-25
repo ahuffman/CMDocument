@@ -32,8 +32,8 @@
                '    <td>' . $account['user_lastlogin'] . '</td>' . "\r\n" .
                '  </tr>' . "\r\n" .
                '  <tr>' . "\r\n" .
-               '    <td>' . '<a href="edt_account.php">' .  'Edit Account' . '</a>' . '</td>' . "\r\n" .
-               '    <td>' . '<a href="edt_pw.php">' . 'Change Password' . '</a>' . '</td>' . "\r\n" .
+               '    <td>' . '<a href="act_edit.php">' .  'Edit Account' . '</a>' . '</td>' . "\r\n" .
+               '    <td>' . '<a href="act_pw.php">' . 'Change Password' . '</a>' . '</td>' . "\r\n" .
                '  </tr>' . "\r\n" .
                '</table>' . "\r\n" .
                '</div>' . "\r\n";
