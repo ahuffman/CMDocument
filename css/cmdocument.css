@@ -92,7 +92,7 @@ table.user_menu td:hover {
   border-top: 2px solid gray;
   border-right: 2px solid gray;
   border-left: 2px solid gray;
-  padding-bottom: .12em;
+  padding-bottom: 2px;
 }
 #set_menu_block {
   display:block;
@@ -100,7 +100,7 @@ table.user_menu td:hover {
   float: left;
   width: 100%;
   overflow: visible;
-  height: 1.9em;
+  height: 31px;
   border-top: 1px solid 330000;
   margin-top: 10px;
   margin-bottom: 0;
@@ -284,7 +284,7 @@ table.set_sec th > form {
   height: 100%;
   padding: 0vw;
   border-top: 2px solid gray;
-  margin-top: -2%;
+  margin-top: 0;
 }
 
 
