@@ -179,15 +179,15 @@ table.set_sec td {
 }
 table.set_sec th > form {
   display: block;
-  padding: 0;
+  padding: 2px;
   margin: 0;
 }
 #login {
   overflow: hidden;
   display: block;
   border: .2vw solid lightgray;
-  height: 25%;
-  width: 14%;
+  height: 250px;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
   border-radius: .85vw;
@@ -205,13 +205,12 @@ table.set_sec th > form {
   clear: left;
   color: linen;
   font-weight: bold;
-  font-size: 1.3em; 
+  font-size: 18px; 
   margin-bottom: 3%;
 }
 
 #login input:not([type=submit]) {
   display: block;
-  float: right;
   border: .2vw solid gray;
   border-radius: .5vw;
   margin-bottom: 6%;
@@ -222,6 +221,8 @@ table.set_sec th > form {
   box-shadow: .2vw .1vw 1vw maroon;
   background-color: lightgoldenrodyellow;
   padding-left: .75vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #login input:focus:not([type=submit]) {
@@ -238,15 +239,16 @@ table.set_sec th > form {
 #login input[type=submit] {
   display: block;
   clear: both;
-  float: right;
   height: 18%;
-  width: 90%;
+  width: 50%;
   border: .2vw solid gray;
   border-radius: .5vw;
   overflow: hidden;
   font-size: .85em;
   font-weight: bold;
   box-shadow: .2vw .1vw 1vw maroon;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 #login input[type=submit]:focus {
