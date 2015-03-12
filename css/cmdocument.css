@@ -210,13 +210,13 @@ table.set_sec th > form {
 }
 
 #login input:not([type=submit]) {
+  clear: both;
   display: block;
   border: .2vw solid gray;
   border-radius: .5vw;
   margin-bottom: 6%;
   height: 20%;
-  width: 90%;
-  clear: right;
+  width: 75%;
   font-size: 1.2em;
   box-shadow: .2vw .1vw 1vw maroon;
   background-color: lightgoldenrodyellow;
